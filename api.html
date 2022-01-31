@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8" />
+
+<div id="body">
+
+</div>
+
+<script type="module">
+import {parse} from './parse.js'
+import {toXml} from './toXml.js'
+import {toElems} from './toElems.js'
+import {jsonToJevko} from './jsonToJevko.js'
+
+document.getElementById("body").append(...toElems(parse(`
+label[URL] 
+input[id=[url]type=[text]value=[https://hacker-news.firebaseio.com/v0/user/jl.json?print=pretty]]
+
+button[id=[submit]submit]
+
+pre[id=[jevkoResult]]
+`)))
+
+const url = document.getElementById("url").value
+
+const fetchUrl = async () => fetch(url).then(async (res) => {
+  const json = await res.json()
+  console.log(json)
+  return json
+})
+
+document.body.onload = () => {
+  const submitButton = document.getElementById("submit")
+
+  submitButton.onclick = () => {
+    fetchUrl().then(json => {
+      document.getElementById("jevkoResult").textContent = jsonToJevko(json)
+    })
+  }
+
+}
+</script>
