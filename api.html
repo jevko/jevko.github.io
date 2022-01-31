@@ -21,9 +21,7 @@ button[id=[submit]submit]
 pre[id=[jevkoResult]]
 `)))
 
-const url = document.getElementById("url").value
-
-const fetchUrl = async () => fetch(url).then(async (res) => {
+const fetchUrl = async () => fetch(document.getElementById("url").value).then(async (res) => {
   const json = await res.json()
   console.log(json)
   return json
