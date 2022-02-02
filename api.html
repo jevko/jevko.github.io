@@ -13,12 +13,21 @@ import {toElems} from './toElems.js'
 import {jsonToJevko} from './jsonToJevko.js'
 
 document.getElementById("body").append(...toElems(parse(`
-label[URL] 
-input[id=[url]type=[text]value=[https://hacker-news.firebaseio.com/v0/user/jl.json?print=pretty]]
+label [URL] 
+input [
+  id=[url]
+  type=[text]
+  style=[width: 30rem]
+  value=[https://hacker-news.firebaseio.com/v0/user/jl.json?print=pretty]
+]
+br []
 
-button[id=[submit]submit]
+button [
+  id=[submit]
+  [submit]
+]
 
-pre[id=[jevkoResult]]
+pre [id=[jevkoResult]]
 `)))
 
 const fetchUrl = async () => fetch(document.getElementById("url").value).then(async (res) => {
