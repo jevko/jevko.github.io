@@ -1,3 +1,16 @@
+<style>
+  #jevkoEditor, #jsonEditor {
+    width: 50%;
+    margin: auto;
+  }
+  #jsonEditor::before {
+    content: 'JSON';
+  }
+  #jevkoEditor::before {
+    content: 'Jevko';
+  }
+</style>
+
 # Jevko
 
 <h1>minimal syntax</h1>
@@ -6,4 +19,4 @@
 
 It can be used as a basic building block for simple and portable formats, languages, and notations in a variety of domains, such as data interchange, configuration, or text markup.
 
-<script src="editor.bundle.js"></script>
+[editorTest](editorTest.md)
