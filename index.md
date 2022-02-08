@@ -1,16 +1,3 @@
-<style>
-  #jevkoEditor, #jsonEditor {
-    width: 50%;
-    margin: auto;
-  }
-  #jsonEditor::before {
-    content: 'JSON';
-  }
-  #jevkoEditor::before {
-    content: 'Jevko';
-  }
-</style>
-
 # Jevko
 
 <h1>minimal syntax</h1>

@@ -1,12 +1,19 @@
+<style>
+  #jevkoEditor, #jsonEditor {
+    width: 50%;
+    margin: auto;
+  }
+  #jsonEditor::before {
+    content: 'JSON';
+  }
+  #jevkoEditor::before {
+    content: 'Jevko';
+  }
+</style>
+
 <div id="jevkoEditor"></div>
 <div id="jsonEditor"></div>
+<button id="click">convert</button>
 
 <script src="editor.bundle.js"></script>
-<script>
-  const jevkoEditor = editorBundle.makeJevkoEditor()
-  const jsonEditor = editorBundle.makeJsonEditor()
-  // setTimeout(() => {
-  //   document.body.append(document.createTextNode('hm'))
-  //   document.body.append(document.createTextNode(jevkoEditor.state.doc.sliceString(0)))
-  // }, 3000)
-</script>
+<script type="module" src="editorTest.js"></script>
