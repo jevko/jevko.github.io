@@ -22457,20 +22457,20 @@ var editorBundle = (function (exports) {
         return new LanguageSupport(jsonLanguage);
     }
 
-    const makeJevkoEditor = () => {
+    const makeJevkoEditor = (parent) => {
         return new EditorView({
             state: EditorState.create({
                 extensions: [basicSetup, oneDark, jevko()]
             }),
-            parent: document.getElementById("jevkoEditor") || document.body
+            parent,
         });
     };
-    const makeJsonEditor = () => {
+    const makeJsonEditor = (parent) => {
         return new EditorView({
             state: EditorState.create({
                 extensions: [basicSetup, oneDark, json()]
             }),
-            parent: document.getElementById("jsonEditor") || document.body
+            parent,
         });
     };
 

@@ -1,22 +1,29 @@
-export const toElems = (ast) => {
+export const toElemsById = (ast) => {
+  const byId = Object.create(null)
+  const elems = toElems(ast, byId)
+  return [elems, byId]
+}
+
+export const toElems = (ast, byId = Object.create(null)) => {
   const {subjevkos, suffix} = ast
   
   let ret = []
   for (const {prefix, jevko} of subjevkos) {
     const [pre, tag, post] = trim(prefix)
     if (pre.length > 0) ret.push(document.createTextNode(pre))
-    if (tag === '') ret.push(...toElems(jevko))
+    if (tag === '') ret.push(...toElems(jevko, byId))
     else if (tag.endsWith('=')) ret.push([tag.slice(0, -1), jevko])
     else {
       const elem = document.createElement(tag)
 
-      const elems = toElems(jevko)
+      const elems = toElems(jevko, byId)
 
       for (const e of elems) {
         if (Array.isArray(e)) {
           const [tag, jevko] = e
           if (jevko.subjevkos.length > 0) throw Error('attrib must be suffix-only')
           elem.setAttribute(tag, jevko.suffix)
+          if (tag === 'id') byId[jevko.suffix] = elem
         } else {
           elem.append(e)
         }
