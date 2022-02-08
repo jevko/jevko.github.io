@@ -1,3 +1,4 @@
+import {makeJevkoEditor, makeJsonEditor} from './editor.bundle.js'
 import {jsonToSchema} from 'https://cdn.jsdelivr.net/gh/jevko/schemainfer.js@0.1.0/mod.js'
 import {jevkoToPrettyString, jv} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoutils.js@0.1.4/mod.js'
 import {jsonToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jsonjevko.js@0.1.0/mod.js'
@@ -5,16 +6,10 @@ import {parseJevko} from 'https://cdn.jsdelivr.net/gh/jevko/parsejevko.js@0.1.3/
 import {toElemsById} from './toElems.js'
 
 document.body.onload = () => {
-  const jevkoEditorElement = document.createElement('div')
-  const jsonEditorElement = document.createElement('div')
-
-  const editorStyle = `width: 50%;
+  const containerStyle = `width: 50%;
   margin: auto;`
 
-  jevkoEditorElement.append(document.createTextNode('Jevko'))
-  jevkoEditorElement.style = editorStyle
-  jsonEditorElement.append(document.createTextNode('JSON'))
-  jsonEditorElement.style = editorStyle
+  const editorStyle = `flex: 1; min-width: 30%`
 
   const [elems, elemsById] = toElemsById(parseJevko(jv`
   style [
@@ -23,7 +18,7 @@ document.body.onload = () => {
     }
   ]
   div [
-    style=[${editorStyle}]
+    style=[${containerStyle}]
     label [URL] 
     input [
       id=[url]
@@ -37,11 +32,9 @@ document.body.onload = () => {
       id=[submit]
       [submit]
     ]
-    
-    pre [id=[jevkoResult] style=[max-height: 30rem; overflow: auto]]
   ]
   div [
-    style=[${editorStyle}]
+    style=[${containerStyle}]
     button [
       id=[convert]
       [convert]
@@ -50,34 +43,34 @@ document.body.onload = () => {
   div [
     style=[display: flex; width: 100%; overflow: auto]
     div [|]
-    div [id=[jsonEditor] style=[flex: 1; min-width: 30%] [JSON]]
+    div [id=[jsonEditor] style=[${editorStyle}] [JSON]]
     div [|]
-    div [style=[flex: 1; min-width: 30%][Schema]
+    div [style=[${editorStyle}][Schema]
       pre [id=[jsonSchema]]
     ]
     div [|]
-    div [id=[jevkoEditor] style=[flex: 1; min-width: 30%] [Jevko]]
+    div [id=[jevkoEditor] style=[${editorStyle}] [Jevko]]
     div [|]
   ]
   `))
 
-  const fetchUrl = async () => fetch(document.getElementById("url").value).then(async (res) => {
-    const json = await res.json()
-    console.log(json)
-    return json
+  const fetchUrl = async () => fetch(elemsById.url.value).then(async (res) => {
+    const jsonStr = await res.text()
+    return jsonStr
   })
   
   
   elemsById.submit.onclick = () => {
-    fetchUrl().then(json => {
-      elemsById.jevkoResult.textContent = jevkoToPrettyString(jsonToJevko(json))
+    fetchUrl().then(jsonStr => {
+      // maybe prettify jsonStr by JSON.parse + JSON.stringify?
+      jsonEditor.dispatch({changes: {from: 0, to: jsonEditor.state.doc.length, insert: jsonStr}})
     })
   }
 
   document.body.append(...elems)
   
-  const jevkoEditor = editorBundle.makeJevkoEditor(elemsById.jevkoEditor)
-  const jsonEditor = editorBundle.makeJsonEditor(elemsById.jsonEditor)
+  const jevkoEditor = makeJevkoEditor(elemsById.jevkoEditor)
+  const jsonEditor = makeJsonEditor(elemsById.jsonEditor)
   jsonEditor.dispatch({changes: {from: 0, insert: '{"a": 1}'}})
   elemsById.convert.onclick = () => {
     const jsonStr = jsonEditor.state.doc.sliceString(0)
