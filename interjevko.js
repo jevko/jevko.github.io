@@ -1,9 +1,15 @@
 import {makeJevkoEditor, makeJsonEditor} from './editor.bundle.js'
 import {jsonToSchema} from 'https://cdn.jsdelivr.net/gh/jevko/schemainfer.js@0.1.0/mod.js'
-import {jevkoToPrettyString, jv} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoutils.js@0.1.4/mod.js'
+import {jevkoToPrettyString, jv, jevkoToPrettyJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoutils.js@0.1.6/mod.js'
 import {jsonToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jsonjevko.js@0.1.0/mod.js'
 import {parseJevko} from 'https://cdn.jsdelivr.net/gh/jevko/parsejevko.js@0.1.3/mod.js'
-import {toElemsById} from './toElems.js'
+import {schemaToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoschema.js@0.1.1/mod.js'
+
+import {highlightSchemaJevko, highlightSchemaJevko2} from 'https://cdn.jsdelivr.net/gh/jevko/highlightjevko.js@v0.1.3/mod.js'
+
+import {toElemsById, toElems} from './toElems.js'
+
+import {jevkoToHtml} from './jevkoToHtml.js'
 
 document.body.onload = () => {
   const containerStyle = `width: 50%;
@@ -15,6 +21,18 @@ document.body.onload = () => {
   style [
     .cm-editor {
       height: 30rem;
+    }
+    .float64 {
+      color: green;
+    }
+    .key {
+      color: blue;
+      text-decoration: underline;
+      text-decoration-color: #006;
+      text-decoration-thickness: 3px;
+    }
+    .string {
+      color: brown;
     }
   ]
   div [
@@ -39,17 +57,29 @@ document.body.onload = () => {
       id=[convert]
       [convert]
     ]
+    button [
+      id=[toggleSchema]
+      [toggle schema]
+    ]
   ]
   div [
     style=[display: flex; width: 100%; overflow: auto]
     div [|]
     div [id=[jsonEditor] style=[${editorStyle}] [JSON]]
     div [|]
-    div [style=[${editorStyle}][Schema]
+    div [
+      id=[schemaContainer] 
+      style=[${editorStyle}] 
+      [Schema]
       pre [id=[jsonSchema]]
     ]
     div [|]
-    div [id=[jevkoEditor] style=[${editorStyle}] [Jevko]]
+    div [ 
+      style=[${editorStyle}] 
+      [Jevko]
+      pre [id=[jevko]]
+      div [id=[jevkoEditor] style=[display: none]]
+    ]
     div [|]
   ]
   `))
@@ -57,6 +87,30 @@ document.body.onload = () => {
   const fetchUrl = async () => fetch(elemsById.url.value).then(async (res) => {
     const jsonStr = await res.text()
     return jsonStr
+  })
+
+  elemsById.toggleSchema.onclick = () => {
+    const {style} =  elemsById.schemaContainer
+    if (style.display === 'none') style.display = ''
+    else style.display = 'none'
+  }
+
+  elemsById.jevko.onclick = () => {
+    elemsById.jevko.style.display = 'none'
+    elemsById.jevkoEditor.style.display = 'block'
+    // elemsById.jevkoEditor.focus()
+    jevkoEditor.focus()
+
+    jevkoEditor.dispatch({changes: {from: 0, to: jevkoEditor.state.doc.length, insert: elemsById.jevko.textContent}})
+  }
+  
+  const jevkoEditor = makeJevkoEditor(elemsById.jevkoEditor)
+  const jsonEditor = makeJsonEditor(elemsById.jsonEditor)
+
+  elemsById.jevkoEditor.addEventListener('focusout', () => {
+    // console.log('fout')
+    elemsById.jevko.style.display = 'block'
+    elemsById.jevkoEditor.style.display = 'none'
   })
   
   
@@ -68,20 +122,27 @@ document.body.onload = () => {
   }
 
   document.body.append(...elems)
-  
-  const jevkoEditor = makeJevkoEditor(elemsById.jevkoEditor)
-  const jsonEditor = makeJsonEditor(elemsById.jsonEditor)
   jsonEditor.dispatch({changes: {from: 0, insert: '{"a": 1}'}})
   elemsById.convert.onclick = () => {
     const jsonStr = jsonEditor.state.doc.sliceString(0)
     // document.body.append(document.createTextNode(jsonStr))
     const json = JSON.parse(jsonStr)
     const jevko = jsonToJevko(json)
+    // could also make jsonToSchemaJevko
     const schema = jsonToSchema(json)
     const jevkoStr = jevkoToPrettyString(jevko)
-    const text = JSON.stringify(schema, null, 2)
+    // const text = JSON.stringify(schema, null, 2)
 
-    elemsById.jsonSchema.textContent = text
+    const sjevko = highlightSchemaJevko2(jevkoToPrettyJevko(schemaToJevko(schema)))
+    // const str = highlightSchemaJevko(parseJevko(jevkoToPrettyString(schemaToJevko(schema))))
+    // const sjevko = parseJevko(str)
+    console.log(sjevko)
+    // elemsById.jsonSchema.textContent = jevkoToPrettyString(schemaToJevko(schema))
+    elemsById.jsonSchema.replaceChildren(...toElems(sjevko))
+
+    // elemsById.jevko.textContent = jevkoStr
+
+    elemsById.jevko.innerHTML = jevkoToHtml(jevkoToPrettyJevko(jevko), schema)
   
     jevkoEditor.dispatch({changes: {from: 0, insert: jevkoStr}})
   }
