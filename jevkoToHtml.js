@@ -38,8 +38,8 @@ const toBoolean = (jevko, schema) => {
 const toNull = (jevko, schema) => {
   const {subjevkos, suffix} = jevko
   if (subjevkos.length > 0) throw Error('nonempty subjevkos in string')
-  if (suffix === 'null') return `<span class="null">null</span>`
-  throw Error('not a null')
+  if (suffix === 'null' || suffix === '') return `<span class="null">null</span>`
+  throw Error(`not a null (${suffix})`)
 }
 
 const toArray = (jevko, schema) => {
