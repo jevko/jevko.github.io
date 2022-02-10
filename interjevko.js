@@ -1,6 +1,6 @@
 import {makeJevkoEditor, makeJsonEditor} from './editor.bundle.js'
-import {jsonToSchema} from 'https://cdn.jsdelivr.net/gh/jevko/schemainfer.js@0.1.0/mod.js'
-import {jevkoToPrettyString, jv, jevkoToPrettyJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoutils.js@0.1.6/mod.js'
+import {jsonToSchema, interJevkoToSchema} from 'https://cdn.jsdelivr.net/gh/jevko/schemainfer.js@0.1.2/mod.js'
+import {jevkoToPrettyString, jv, jevkoToPrettyJevko, argsToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoutils.js@0.1.6/mod.js'
 import {jsonToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jsonjevko.js@0.1.0/mod.js'
 import {parseJevko} from 'https://cdn.jsdelivr.net/gh/jevko/parsejevko.js@0.1.3/mod.js'
 import {schemaToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoschema.js@0.1.1/mod.js'
@@ -11,13 +11,16 @@ import {toElemsById, toElems} from './toElems.js'
 
 import {jevkoToHtml} from './jevkoToHtml.js'
 
+import {examples} from './examples.js'
+
 document.body.onload = () => {
   const containerStyle = `width: 50%;
   margin: auto;`
 
   const editorStyle = `flex: 1; min-width: 30%`
 
-  const [elems, elemsById] = toElemsById(parseJevko(jv`
+  // todo: default url should be random from a pool
+  const [elems, elemsById] = toElemsById(parseJevko(`
   style [
     .cm-editor {
       height: 30rem;
@@ -37,6 +40,31 @@ document.body.onload = () => {
     .boolean {
       color: #d19a66;
     }
+    .tuple {
+      color: #31bf7f;
+    }
+    .object {
+      color: #317fbf;
+    }
+    .null {
+      color: #abb2bf;
+    }
+    .empty.object, .empty.tuple {
+      position: relative;
+    }
+    .empty.object::before, .empty.tuple::before {
+      position: absolute;
+      content: ' ';
+      text-decoration: underline 3px;
+      left: -0.3rem;
+      width: 100%;
+    }
+    /*.empty.object::before {
+      content: ':';
+    }
+    .empty.tuple::before {
+      content: '.';
+    }*/
     #jsonSchema, #jevko {
       color: #abb2bf;
       background-color: #282c34;
@@ -46,6 +74,11 @@ document.body.onload = () => {
   ]
   div [
     style=[${containerStyle}]
+
+    select[id=[examples]\n${Object.entries(examples).map(([k, v]) => {
+      return jv`option[value=[${v}][${k}]]`
+    }).join('\n')}]
+
     label [URL] 
     input [
       id=[url]
@@ -125,11 +158,21 @@ document.body.onload = () => {
   
   elemsById.submit.onclick = () => {
     fetchUrl().then(jsonStr => {
-      // maybe prettify jsonStr by JSON.parse + JSON.stringify?
+      // maybe JSON.parse + JSON.stringify can be replaced by a fast jsonhilo-based pretty printer?
       jsonEditor.dispatch({changes: {from: 0, to: jsonEditor.state.doc.length, insert: JSON.stringify(JSON.parse(jsonStr), null, 2)}})
     })
   }
 
+  elemsById.examples.onchange = (e) => {
+    const jevkoStr = e.target.value
+    const jevko = parseJevko(jevkoStr)
+    const schema = interJevkoToSchema(jevko)
+    console.log(schema)
+    const sjevko = highlightSchemaJevko2(jevkoToPrettyJevko(schemaToJevko(schema)))
+    elemsById.jsonSchema.replaceChildren(...toElems(sjevko))
+    elemsById.jevko.innerHTML = jevkoToHtml(jevko, schema)
+  }
+  
   document.body.append(...elems)
   jsonEditor.dispatch({changes: {from: 0, insert: `{
   "a": 1, 

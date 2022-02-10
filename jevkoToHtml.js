@@ -22,8 +22,8 @@ const toFloat64 = (jevko, schema) => {
   if (subjevkos.length > 0) throw Error('nonempty subjevkos in string')
   const trimmed = suffix.trim()
   if (trimmed === 'NaN') return `<span class="float64">NaN</span>`
-  const num = Number.parseFloat(trimmed)
-  if (Number.isNaN(num)) throw Error(`Not a number (${trimmed})`)
+  const num = Number(trimmed)
+  if (Number.isNaN(num) || trimmed === '') throw Error(`Not a number (${trimmed})`)
   return `<span class="float64">${num}</span>`
 }
 
@@ -66,7 +66,7 @@ const toTuple = (jevko, schema) => {
     if (prefix.trim() !== '') throw Error('nonempty prefix')
     ret += `${prefix}[<span class="item">${jevkoToHtml(jevko, itemSchemas[i])}</span>]`
   }
-  return `<span class="tuple">${ret}${suffix}</span>`
+  return `<span class="${ret === ''? 'empty ': ''}tuple">${ret}${suffix}</span>`
 }
 
 const toObject = (jevko, schema) => {
@@ -88,7 +88,7 @@ const toObject = (jevko, schema) => {
     if (isSealed && keys.includes(key) === false) throw Error(`unknown key (${key}) ${post}`)
     ret += `<span class="item">${pre}<span class="key">${key}</span>${post}[<span class="value">${jevkoToHtml(jevko, props[key])}</span>]</span>`
   }
-  return `<span class="object">${ret}${suffix}</span>`
+  return `<span class="${ret === ''? 'empty ': ''}object">${ret}${suffix}</span>`
 }
 const toFirstMatch = (jevko, schema) => {
   const {alternatives} = schema
