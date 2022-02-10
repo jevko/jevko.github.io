@@ -23,16 +23,25 @@ document.body.onload = () => {
       height: 30rem;
     }
     .float64 {
-      color: green;
+      color: #e5c07b;
     }
     .key {
-      color: blue;
+      color: #61afef;
       text-decoration: underline;
-      text-decoration-color: #006;
+      text-decoration-color: #317fbf;
       text-decoration-thickness: 3px;
     }
     .string {
-      color: brown;
+      color: #98c379;
+    }
+    .boolean {
+      color: #d19a66;
+    }
+    #jsonSchema, #jevko {
+      color: #abb2bf;
+      background-color: #282c34;
+      margin-top: 0;
+      padding-top: 2px;
     }
   ]
   div [
@@ -117,12 +126,22 @@ document.body.onload = () => {
   elemsById.submit.onclick = () => {
     fetchUrl().then(jsonStr => {
       // maybe prettify jsonStr by JSON.parse + JSON.stringify?
-      jsonEditor.dispatch({changes: {from: 0, to: jsonEditor.state.doc.length, insert: jsonStr}})
+      jsonEditor.dispatch({changes: {from: 0, to: jsonEditor.state.doc.length, insert: JSON.stringify(JSON.parse(jsonStr), null, 2)}})
     })
   }
 
   document.body.append(...elems)
-  jsonEditor.dispatch({changes: {from: 0, insert: '{"a": 1}'}})
+  jsonEditor.dispatch({changes: {from: 0, insert: `{
+  "a": 1, 
+  "b": "3", 
+  "c": true, 
+  "d": null, 
+  "e": [5, 4], 
+  "f": {
+    "a": [], 
+    "b": {}
+  }
+}`}})
   elemsById.convert.onclick = () => {
     const jsonStr = jsonEditor.state.doc.sliceString(0)
     // document.body.append(document.createTextNode(jsonStr))
