@@ -82,11 +82,6 @@ document.body.onload = () => {
     }
   ]
   div [
-    style=[${containerStyle}]
-
-    
-  ]
-  div [
     style=[display: flex; width: 100%; overflow: auto; padding-right: 1rem; box-sizing: border-box]
     div [
       id=[jsonEditorSettings] 
@@ -113,6 +108,7 @@ document.body.onload = () => {
       id=[schemaContainerSettings] 
       style=[${editorStyle}; text-align: center]
       [Schema]
+      br[]
       button [
         id=[toggleSchema]
         [toggle]
@@ -120,10 +116,10 @@ document.body.onload = () => {
     ]
     div [ 
       style=[${editorStyle}; text-align: right] 
-      [Jevko]
       select[id=[examples]\n${Object.entries(examples).map(([k, v]) => {
         return jv`option[value=[${v}][${k}]]`
       }).join('\n')}]
+      [InterJevko]
     ]
   ]
   div [
@@ -187,6 +183,8 @@ document.body.onload = () => {
     fetchUrl().then(jsonStr => {
       // maybe JSON.parse + JSON.stringify can be replaced by a fast jsonhilo-based pretty printer?
       jsonEditor.dispatch({changes: {from: 0, to: jsonEditor.state.doc.length, insert: JSON.stringify(JSON.parse(jsonStr), null, 2)}})
+      // jsonEditor.update()
+      convertJson()
     })
   }
 
@@ -230,7 +228,8 @@ document.body.onload = () => {
     "b": {}
   }
 }`}})
-  elemsById.convert.onclick = () => {
+
+  const convertJson = () => {
     const jsonStr = jsonEditor.state.doc.sliceString(0)
     // document.body.append(document.createTextNode(jsonStr))
     const json = JSON.parse(jsonStr)
@@ -253,6 +252,7 @@ document.body.onload = () => {
   
     jevkoEditor.dispatch({changes: {from: 0, insert: jevkoStr}})
   }
+  elemsById.convert.onclick = convertJson
 }
 
 const replaceEditorContents = (editor, str) => {
