@@ -1,7 +1,7 @@
 import {makeJevkoEditor, makeJsonEditor} from './editor.bundle.js'
-import {jsonToSchema, interJevkoToSchema} from 'https://cdn.jsdelivr.net/gh/jevko/schemainfer.js@0.1.2/mod.js'
+import {jsonToSchema, interJevkoToSchema} from 'https://cdn.jsdelivr.net/gh/jevko/schemainfer.js@0.1.5/mod.js'
 import {jevkoToPrettyString, jv, jevkoToPrettyJevko, argsToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoutils.js@0.1.6/mod.js'
-import {jsonToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jsonjevko.js@0.1.0/mod.js'
+import {jsonToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jsonjevko.js@0.1.1/mod.js'
 import {parseJevko} from 'https://cdn.jsdelivr.net/gh/jevko/parsejevko.js@0.1.3/mod.js'
 import {schemaToJevko} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoschema.js@0.1.1/mod.js'
 
@@ -11,13 +11,15 @@ import {toElemsById, toElems} from './toElems.js'
 
 import {jevkoToHtml} from './jevkoToHtml.js'
 
-import {examples} from './examples.js'
+import {examples, schemaPatches} from './examples.js'
+
+import {jevkoBySchemaToValue} from './jevkoBySchemaToValue.js'
 
 document.body.onload = () => {
   const containerStyle = `width: 50%;
   margin: auto;`
 
-  const editorStyle = `flex: 1; min-width: 30%`
+  const editorStyle = `flex: 1; min-width: 30%; margin-left: 1rem;`
 
   // todo: default url should be random from a pool
   const [elems, elemsById] = toElemsById(parseJevko(`
@@ -31,7 +33,7 @@ document.body.onload = () => {
     .key {
       color: #61afef;
       text-decoration: underline;
-      text-decoration-color: #317fbf;
+      text-decoration-color: #014f8f;
       text-decoration-thickness: 3px;
     }
     .string {
@@ -70,59 +72,76 @@ document.body.onload = () => {
       background-color: #282c34;
       margin-top: 0;
       padding-top: 2px;
+
+      height: 30rem;
+      overflow: auto;
+      box-sizing: border-box;
+    }
+    .error {
+      color: red;
     }
   ]
   div [
     style=[${containerStyle}]
 
-    select[id=[examples]\n${Object.entries(examples).map(([k, v]) => {
-      return jv`option[value=[${v}][${k}]]`
-    }).join('\n')}]
-
-    label [URL] 
-    input [
-      id=[url]
-      type=[text]
-      style=[width: 30rem]
-      value=[https://hacker-news.firebaseio.com/v0/user/jl.json?print=pretty]
-    ]
-    br []
     
-    button [
-      id=[submit]
-      [submit]
+  ]
+  div [
+    style=[display: flex; width: 100%; overflow: auto; padding-right: 1rem; box-sizing: border-box]
+    div [
+      id=[jsonEditorSettings] 
+      style=[${editorStyle}] 
+      [JSON]
+      button [
+        id=[convert]
+        [convert]
+      ]
+      br []
+      button [
+        id=[submit]
+        [get from]
+      ]
+      input [
+        id=[url]
+        type=[text]
+        style=[width: 30rem]
+        value=[https://hacker-news.firebaseio.com/v0/user/jl.json?print=pretty]
+      ]
+      br []
+    ]
+    div [
+      id=[schemaContainerSettings] 
+      style=[${editorStyle}; text-align: center]
+      [Schema]
+      button [
+        id=[toggleSchema]
+        [toggle]
+      ]
+    ]
+    div [ 
+      style=[${editorStyle}; text-align: right] 
+      [Jevko]
+      select[id=[examples]\n${Object.entries(examples).map(([k, v]) => {
+        return jv`option[value=[${v}][${k}]]`
+      }).join('\n')}]
     ]
   ]
   div [
-    style=[${containerStyle}]
-    button [
-      id=[convert]
-      [convert]
+    style=[display: flex; width: 100%; overflow: auto; padding-right: 1rem; box-sizing: border-box]
+    div [
+      style=[${editorStyle}] 
+      id=[jsonEditor] 
     ]
-    button [
-      id=[toggleSchema]
-      [toggle schema]
-    ]
-  ]
-  div [
-    style=[display: flex; width: 100%; overflow: auto]
-    div [|]
-    div [id=[jsonEditor] style=[${editorStyle}] [JSON]]
-    div [|]
     div [
       id=[schemaContainer] 
-      style=[${editorStyle}] 
-      [Schema]
+      style=[${editorStyle}]
       pre [id=[jsonSchema]]
     ]
-    div [|]
     div [ 
       style=[${editorStyle}] 
-      [Jevko]
       pre [id=[jevko]]
       div [id=[jevkoEditor] style=[display: none]]
     ]
-    div [|]
   ]
   `))
 
@@ -134,7 +153,10 @@ document.body.onload = () => {
   elemsById.toggleSchema.onclick = () => {
     const {style} =  elemsById.schemaContainer
     if (style.display === 'none') style.display = ''
-    else style.display = 'none'
+    else {
+      // style.position = 'absolute'
+      style.display = 'none'
+    }
   }
 
   elemsById.jevko.onclick = () => {
@@ -153,6 +175,11 @@ document.body.onload = () => {
     // console.log('fout')
     elemsById.jevko.style.display = 'block'
     elemsById.jevkoEditor.style.display = 'none'
+
+    console.log(jevkoEditor.state.doc.toString())
+    applyExample(jevkoEditor.state.doc.toString())
+
+    // todo: apply edits
   })
   
   
@@ -163,14 +190,32 @@ document.body.onload = () => {
     })
   }
 
-  elemsById.examples.onchange = (e) => {
-    const jevkoStr = e.target.value
+  const applyExample = (jevkoStr) => {
     const jevko = parseJevko(jevkoStr)
-    const schema = interJevkoToSchema(jevko)
-    console.log(schema)
-    const sjevko = highlightSchemaJevko2(jevkoToPrettyJevko(schemaToJevko(schema)))
-    elemsById.jsonSchema.replaceChildren(...toElems(sjevko))
-    elemsById.jevko.innerHTML = jevkoToHtml(jevko, schema)
+    try {
+      const schema = interJevkoToSchema(jevko)
+      // Object.assign(schema.props, patch)
+      console.log(schema)
+      const sjevko = highlightSchemaJevko2(jevkoToPrettyJevko(schemaToJevko(schema)))
+      elemsById.jsonSchema.replaceChildren(...toElems(sjevko))
+      elemsById.jevko.innerHTML = jevkoToHtml(jevko, schema)
+
+      const val = jevkoBySchemaToValue(jevko, schema)
+      replaceEditorContents(jsonEditor, JSON.stringify(val, null, 2))
+      // console.log()
+    } catch (e) {
+      elemsById.jsonSchema.replaceChildren(...toElems(parseJevko(`span[class=[error][Error: ${e.message}]]`)))
+      throw e
+    }
+  }
+
+  elemsById.examples.onchange = (e) => {
+    // const key = '' + e.target.selectedOptions[0].label
+    // const patch = schemaPatches[key] ?? {}
+    // console.log(`[${key}]`, schemaPatches, patch)
+
+    const jevkoStr = e.target.value
+    applyExample(jevkoStr)
   }
   
   document.body.append(...elems)
@@ -208,4 +253,8 @@ document.body.onload = () => {
   
     jevkoEditor.dispatch({changes: {from: 0, insert: jevkoStr}})
   }
+}
+
+const replaceEditorContents = (editor, str) => {
+  editor.dispatch({changes: {from: 0, to: editor.state.doc.length, insert: str}})
 }

@@ -1,9 +1,7 @@
-import {escape} from 'https://cdn.jsdelivr.net/gh/jevko/jevkoutils.js@0.1.6/mod.js'
-
-export const jevkoToHtml = (jevko, schema) => {
+export const jevkoBySchemaToValue = (jevko, schema) => {
   const {type} = schema
   if (type === 'string') return toString(jevko, schema)
-  if (type === 'float64' || type === 'number') return toFloat64(jevko, schema)
+  if (type === 'float64') return toNumber(jevko, schema)
   if (type === 'boolean') return toBoolean(jevko, schema)
   if (type === 'null') return toNull(jevko, schema)
   if (type === 'array') return toArray(jevko, schema)
@@ -16,118 +14,98 @@ export const jevkoToHtml = (jevko, schema) => {
 const toString = (jevko, schema) => {
   const {subjevkos, suffix} = jevko
   if (subjevkos.length > 0) throw Error('nonempty subjevkos in string')
-  return `<span class="string">${escape(suffix)}</span>`
+  return suffix
 }
 
-const toFloat64 = (jevko, schema) => {
+const toNumber = (jevko, schema) => {
   const {subjevkos, suffix} = jevko
   if (subjevkos.length > 0) throw Error('nonempty subjevkos in string')
   const trimmed = suffix.trim()
-  if (trimmed === 'NaN') return `<span class="float64">NaN</span>`
+  if (trimmed === 'NaN') return NaN
   const num = Number(trimmed)
-  if (Number.isNaN(num) || trimmed === '') throw Error(`Not a number (${trimmed})`)
-  return `<span class="float64">${num}</span>`
+  if (Number.isNaN(num) || trimmed === '') throw Error('nan')
+  return num
 }
 
 const toBoolean = (jevko, schema) => {
   const {subjevkos, suffix} = jevko
   if (subjevkos.length > 0) throw Error('nonempty subjevkos in string')
-  if (suffix === 'true') return `<span class="boolean">true</span>`
-  if (suffix === 'false') return `<span class="boolean">false</span>`
+  if (suffix === 'true') return true
+  if (suffix === 'false') return false
   throw Error('not a boolean')
 }
 
 const toNull = (jevko, schema) => {
   const {subjevkos, suffix} = jevko
   if (subjevkos.length > 0) throw Error('nonempty subjevkos in string')
-  if (suffix === 'null' || suffix === '') return `<span class="null">${suffix}</span>`
-  throw Error(`not a null (${suffix})`)
+  if (suffix === 'null' || suffix === '') return null
+  throw Error('not a null')
 }
 
 const toArray = (jevko, schema) => {
   const {subjevkos, suffix} = jevko
   if (suffix.trim() !== '') throw Error('suffix !== ""')
-  let ret = ''
+  const ret = []
   const {itemSchema} = schema
   for (const {prefix, jevko} of subjevkos) {
     if (prefix.trim() !== '') throw Error('nonempty prefix')
-    ret += `${prefix}[<span class="item">${jevkoToHtml(jevko, itemSchema)}</span>]`
+    ret.push(jevkoBySchemaToValue(jevko, itemSchema))
   }
-  return `<span class="array">${ret}${suffix}</span>`
+  return ret
 }
 
 const toTuple = (jevko, schema) => {
   const {subjevkos, suffix} = jevko
   if (suffix.trim() !== '') throw Error('suffix !== ""')
-  let ret = ''
+  const ret = []
   const {itemSchemas, isSealed} = schema
   if (itemSchemas.length > subjevkos.length) throw Error('bad tuple')
   if (isSealed && itemSchemas.length !== subjevkos.length) throw Error('also bad tuple')
   for (let i = 0; i < itemSchemas.length; ++i) {
     const {prefix, jevko} = subjevkos[i]
     if (prefix.trim() !== '') throw Error('nonempty prefix')
-    ret += `${prefix}[<span class="item">${jevkoToHtml(jevko, itemSchemas[i])}</span>]`
+    ret.push(jevkoBySchemaToValue(jevko, itemSchemas[i]))
   }
-  return `<span class="${ret === ''? 'empty ': ''}tuple">${ret}${suffix}</span>`
+  return ret
 }
 
 const toObject = (jevko, schema) => {
   const {subjevkos, suffix} = jevko
   if (suffix.trim() !== '') throw Error('suffix !== ""')
   const keyJevkos = Object.create(null)
-  let ret = ''
+  const ret = Object.create(null)
+  // if (subjevkos.length === 0) {
+  //   // todo: if schema allows
+  //   return ret
+  // }
   const {optional = [], isSealed = true, props} = schema
   const keys = Object.keys(props)
   for (const {prefix, jevko} of subjevkos) {
-    const [pre, key, post] = trim3(prefix)
-    if (key.startsWith('-')) {
-      ret += `<span class="ignored">${escape(prefix)}[${jevkoToString(jevko)}]</span>`
-      continue
-    }
-    // todo: key starts with | -- use trim()
+    const key = prefix.trim()
     if (key === '') throw Error('empty key')
     if (key in keyJevkos) throw Error('duplicate key')
-    if (isSealed && keys.includes(key) === false) throw Error(`unknown key (${key}) ${post}`)
-    ret += `<span class="item">${pre}<span class="key">${escape(key)}</span>${post}[<span class="value">${jevkoToHtml(jevko, props[key])}</span>]</span>`
+    if (isSealed && keys.includes(key) === false) throw Error('unknown key')
+    keyJevkos[key] = jevko
   }
-  return `<span class="${ret === ''? 'empty ': ''}object">${ret}${suffix}</span>`
+  for (const key of keys) {
+    if (key in keyJevkos === false) {
+      if (optional.includes(key) === false) throw Error('key required')
+      continue
+    }
+    ret[key] = jevkoBySchemaToValue(keyJevkos[key], props[key])
+  }
+  return ret
 }
 const toFirstMatch = (jevko, schema) => {
   const {alternatives} = schema
 
   for (const alt of alternatives) {
     try {
-      const x = jevkoToHtml(jevko, alt)
+      const x = jevkoBySchemaToValue(jevko, alt)
       return x
     } catch (e) {
       continue
     }
   }
   throw Error('union: invalid jevko')
-}
-
-const trim3 = (prefix) => {
-  let i = 0, j = 0
-  for (; i < prefix.length; ++i) {
-    if (isWhitespace(prefix[i]) === false) break
-  }
-  for (j = prefix.length - 1; j > i; --j) {
-    if (isWhitespace(prefix[j]) === false) break
-  }
-  ++j
-  return [prefix.slice(0, i), prefix.slice(i, j), prefix.slice(j)]
-}
-
-const isWhitespace = (c) => {
-  return ' \n\r\t'.includes(c)
-}
-
-const jevkoToString = (jevko) => {
-  const {subjevkos, suffix} = jevko
-
-  let ret = ''
-  for (const {prefix, jevko} of subjevkos) {
-    ret += `${prefix}[${jevkoToString(jevko)}]`
-  }
-  return ret + suffix
 }
