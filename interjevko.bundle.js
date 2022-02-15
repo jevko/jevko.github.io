@@ -20811,9 +20811,32 @@ const sigilToType = {
     't': 'boolean',
     'f': 'boolean'
 };
+function shuffleArray(array) {
+    for(let i22 = array.length - 1; i22 > 0; i22--){
+        const j = Math.floor(Math.random() * (i22 + 1));
+        [array[i22], array[j]] = [
+            array[j],
+            array[i22]
+        ];
+    }
+    return array;
+}
 document.body.onload = ()=>{
     const containerStyle = `display: flex; width: 100%; overflow: auto; padding-right: 1rem; box-sizing: border-box`;
     const editorStyle = `flex: 1; min-width: 30%; margin-left: 1rem;`;
+    const apiUrls = shuffleArray([
+        "https://hacker-news.firebaseio.com/v0/user/jl.json?print=pretty",
+        "https://api.github.com/users/octocat",
+        "https://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=json&tzshift=0",
+        "https://archive.org/metadata/TheAdventuresOfTomSawyer_201303",
+        "https://www.boredapi.com/api/activity",
+        "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita",
+        "https://api.coindesk.com/v1/bpi/currentprice.json",
+        "https://api.coingecko.com/api/v3/exchange_rates",
+        "https://datausa.io/api/data?drilldowns=Nation&measures=Population",
+        "https://freegeoip.app/json/",
+        "http://httpbin.org/get", 
+    ]);
     const [elems, elemsById] = toElemsById(parseJevko(`
   style [
     .cm-editor {
@@ -20901,11 +20924,14 @@ document.body.onload = ()=>{
         id=[submit]
         [get from]
       ]
+      select[id=[apis]\n${apiUrls.map((v)=>{
+        return jv`option[value=[${v}][${v}]]`;
+    }).join('\n')}]
       input [
         id=[url]
         type=[text]
         style=[width: 30rem]
-        value=[https://hacker-news.firebaseio.com/v0/user/jl.json?print=pretty]
+        value=[${apiUrls[Math.random() * apiUrls.length | 0]}]
       ]
       br []
     ]
