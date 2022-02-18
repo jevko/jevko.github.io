@@ -21070,6 +21070,7 @@ document.body.onload = ()=>{
       height: 30rem;
       overflow: auto;
       box-sizing: border-box;
+      line-height: 1.4;
     }
     .error {
       color: red;
@@ -21159,8 +21160,10 @@ document.body.onload = ()=>{
         }
     };
     elemsById.jevko.onclick = ()=>{
+        const { scrollLeft , scrollTop  } = elemsById.jevko;
         elemsById.jevko.style.display = 'none';
         elemsById.jevkoEditor.style.display = 'block';
+        jevkoEditor.scrollDOM.scroll(scrollLeft, scrollTop);
         jevkoEditor.focus();
         jevkoEditor.dispatch({
             changes: {
@@ -21171,8 +21174,10 @@ document.body.onload = ()=>{
         });
     };
     elemsById.json.onclick = ()=>{
+        const { scrollLeft , scrollTop  } = elemsById.json;
         elemsById.json.style.display = 'none';
         elemsById.jsonEditor.style.display = 'block';
+        jsonEditor.scrollDOM.scroll(scrollLeft, scrollTop);
         jsonEditor.focus();
         jsonEditor.dispatch({
             changes: {
@@ -21185,14 +21190,18 @@ document.body.onload = ()=>{
     const jevkoEditor = makeJevkoEditor(elemsById.jevkoEditor);
     const jsonEditor = makeJsonEditor(elemsById.jsonEditor);
     elemsById.jevkoEditor.addEventListener('focusout', ()=>{
+        const { scrollLeft , scrollTop  } = jevkoEditor.scrollDOM;
         elemsById.jevko.style.display = 'block';
         elemsById.jevkoEditor.style.display = 'none';
+        elemsById.jevko.scroll(scrollLeft, scrollTop);
         console.log(jevkoEditor.state.doc.toString());
         applyExample(jevkoEditor.state.doc.toString());
     });
     elemsById.jsonEditor.addEventListener('focusout', ()=>{
+        const { scrollLeft , scrollTop  } = jsonEditor.scrollDOM;
         elemsById.json.style.display = 'block';
         elemsById.jsonEditor.style.display = 'none';
+        elemsById.json.scroll(scrollLeft, scrollTop);
         console.log(jsonEditor.state.doc.toString());
         convertJson();
         elemsById.json.replaceChildren(...toElems(jsonStrToHtmlSpans(jsonEditor.state.doc.toString(), {
