@@ -19754,13 +19754,13 @@ const argsToJevko1 = (...args)=>{
 };
 const escapePrefix11 = (prefix)=>prefix === '' ? '' : prefix + ' '
 ;
-const recur11 = (jevko36, indent, prevIndent)=>{
+const recur12 = (jevko36, indent, prevIndent)=>{
     const { subjevkos , suffix  } = jevko36;
     let ret = [];
     if (subjevkos.length > 0) {
         ret.push('\n');
         for (const { prefix , jevko: jevko37  } of subjevkos){
-            ret.push(indent, escapePrefix11(prefix), recur11(jevko37, indent + '  ', indent), '\n');
+            ret.push(indent, escapePrefix11(prefix), recur12(jevko37, indent + '  ', indent), '\n');
         }
         ret.push(prevIndent);
     }
@@ -20256,7 +20256,9 @@ const toTuple5 = (jevko65)=>{
     const { subjevkos , suffix  } = jevko65;
     let ret = [];
     for (const { prefix , jevko: jevko1  } of subjevkos){
-        ret.push(prefix, [
+        ret.push([
+            prefix
+        ], [
             "["
         ], ...recur6(jevko1), [
             "]"
@@ -20280,7 +20282,9 @@ const toFirstMatch5 = (jevko66)=>{
     const { subjevkos , suffix  } = jevko66;
     let ret = [];
     for (const { prefix , jevko: jevko2  } of subjevkos){
-        ret.push(prefix, [
+        ret.push([
+            prefix
+        ], [
             "["
         ], ...recur6(jevko2), [
             "]"
@@ -20305,7 +20309,9 @@ const toObject5 = (jevko67)=>{
     let ret = [];
     for (const { prefix , jevko: jevko3  } of subjevkos){
         const [pre, mid, post] = trim32(prefix);
-        ret.push(pre, "span", [
+        ret.push([
+            pre
+        ], "span", [
             "class=",
             [
                 "key"
@@ -20313,7 +20319,9 @@ const toObject5 = (jevko67)=>{
             [
                 mid
             ]
-        ], post, [
+        ], [
+            post
+        ], [
             "["
         ], ...recur6(jevko3), [
             "]"
@@ -20718,60 +20726,183 @@ const toArrayOrTuple = (verified)=>{
     }
     return `<span class="${ret === '' ? 'empty ' : ''}${type}">${ret}${suffix}</span>`;
 };
-const toElemsById = (ast)=>{
-    const byId = Object.create(null);
-    const elems = toElems(ast, byId);
-    return [
-        elems,
-        byId
-    ];
-};
-const toElems = (ast, byId = Object.create(null))=>{
-    const { subjevkos , suffix  } = ast;
-    let ret = [];
-    for (const { prefix , jevko: jevko91  } of subjevkos){
-        const [pre, tag, post] = trim(prefix);
-        if (pre.length > 0) ret.push(document.createTextNode(pre));
-        if (tag === '') ret.push(...toElems(jevko91, byId));
-        else if (tag.endsWith('=')) ret.push([
-            tag.slice(0, -1),
-            jevko91
-        ]);
-        else {
-            const elem = document.createElement(tag);
-            const elems = toElems(jevko91, byId);
-            for (const e of elems){
-                if (Array.isArray(e)) {
-                    const [tag, jevko92] = e;
-                    if (jevko92.subjevkos.length > 0) throw Error('attrib must be suffix-only');
-                    elem.setAttribute(tag, jevko92.suffix);
-                    if (tag === 'id') byId[jevko92.suffix] = elem;
-                } else {
-                    elem.append(e);
-                }
-            }
-            ret.push(elem);
-        }
+const escape4 = (str)=>{
+    let ret = '';
+    for (const c of str){
+        if (c === '[' || c === ']' || c === '`') ret += '`';
+        ret += c;
     }
-    ret.push(document.createTextNode(suffix));
     return ret;
 };
-const trim = (prefix)=>{
-    let i20 = 0, j = 0;
-    for(; i20 < prefix.length; ++i20){
-        if (isWhitespace4(prefix[i20]) === false) break;
+const escapePrefix5 = (prefix)=>prefix === '' ? '' : escape4(prefix) + ' '
+;
+const recur9 = (jevko91, indent, prevIndent)=>{
+    const { subjevkos , suffix  } = jevko91;
+    let ret = '';
+    if (subjevkos.length > 0) {
+        ret += '\n';
+        for (const { prefix , jevko: jevko92  } of subjevkos){
+            ret += `${indent}${escapePrefix5(prefix)}[${recur9(jevko92, indent + '  ', indent)}]\n`;
+        }
+        ret += prevIndent;
     }
-    for(j = i20; j < prefix.length; ++j){
-        if (isWhitespace4(prefix[j])) break;
+    return ret + escape4(suffix);
+};
+const argsToJevko3 = (...args)=>{
+    const subjevkos = [];
+    let subjevko = {
+        prefix: ''
+    };
+    for(let i20 = 0; i20 < args.length; ++i20){
+        const arg = args[i20];
+        if (Array.isArray(arg)) {
+            subjevko.jevko = argsToJevko3(...arg);
+            subjevkos.push(subjevko);
+            subjevko = {
+                prefix: ''
+            };
+        } else if (typeof arg === 'string') {
+            subjevko.prefix += arg;
+        } else throw Error(`Argument #${i20} has unrecognized type (${typeof arg})! Only strings and arrays are allowed. The argument's value is: ${arg}`);
     }
+    return {
+        subjevkos,
+        suffix: subjevko.prefix
+    };
+};
+const escapePrefix6 = (prefix)=>prefix === '' ? '' : prefix + ' '
+;
+const recur10 = (jevko93, indent, prevIndent)=>{
+    const { subjevkos , suffix  } = jevko93;
+    let ret = [];
+    if (subjevkos.length > 0) {
+        ret.push('\n');
+        for (const { prefix , jevko: jevko94  } of subjevkos){
+            ret.push(indent, escapePrefix6(prefix), recur10(jevko94, indent + '  ', indent), '\n');
+        }
+        ret.push(prevIndent);
+    }
+    ret.push(suffix);
+    return ret;
+};
+const trim33 = (prefix)=>{
+    let i21 = 0, j = 0;
+    for(; i21 < prefix.length; ++i21){
+        if (isWhitespace4(prefix[i21]) === false) break;
+    }
+    for(j = prefix.length - 1; j > i21; --j){
+        if (isWhitespace4(prefix[j]) === false) break;
+    }
+    ++j;
     return [
-        prefix.slice(0, i20),
-        prefix.slice(i20, j),
+        prefix.slice(0, i21),
+        prefix.slice(i21, j),
         prefix.slice(j)
     ];
 };
 const isWhitespace4 = (c)=>{
     return ' \n\r\t'.includes(c);
+};
+const jevkoToString4 = (jevko95)=>{
+    const { subjevkos , suffix  } = jevko95;
+    let ret = '';
+    for (const { prefix , jevko: jevko1  } of subjevkos){
+        ret += `${escape4(prefix)}[${jevkoToString4(jevko1)}]`;
+    }
+    return ret + escape4(suffix);
+};
+const djevkoToDomNodesById = (jevko96)=>{
+    const byId = Object.create(null);
+    const elems = djevkoToDomNodes(jevko96, byId);
+    return [
+        elems,
+        byId
+    ];
+};
+const djevkoToDomNodes = (jevko97, byId = Object.create(null))=>{
+    const ret = recur11(jevko97, byId);
+    for (const node of ret){
+        if (Array.isArray(node)) throw Error(`Unexpected top-level attribute (${node[0]})`);
+    }
+    return ret;
+};
+const recur11 = (jevko98, byId = Object.create(null))=>{
+    const { subjevkos , suffix  } = jevko98;
+    if (subjevkos.length === 0) return [
+        document.createTextNode(suffix)
+    ];
+    if (suffix.trim() !== '') throw Error(`Unexpected nonblank suffix (${suffix})`);
+    const ret = [];
+    for (const { prefix , jevko: jevko1  } of subjevkos){
+        const [pre, mid, post] = trim33(prefix);
+        if (mid === '') ret.push(...recur11(jevko1, byId));
+        else if (mid.endsWith('=')) ret.push([
+            mid.slice(0, -1),
+            jevko1
+        ]);
+        else {
+            const element = document.createElement(mid);
+            const nodes = recur11(jevko1, byId);
+            for (const e of nodes){
+                if (Array.isArray(e)) {
+                    const [name1, jevko99] = e;
+                    if (jevko99.subjevkos.length > 0) throw Error('Unexpected subjevko in attribute value.');
+                    const { suffix  } = jevko99;
+                    element.setAttribute(name1, suffix);
+                    if (name1 === 'id') byId[suffix] = element;
+                } else {
+                    element.append(e);
+                }
+            }
+            ret.push(element);
+        }
+    }
+    return ret;
+};
+const ejevkoToDomNodes = (jevko100)=>{
+    const { subjevkos , suffix  } = jevko100;
+    let mode = 'text';
+    let tag = '', attrs = [];
+    let ret = [];
+    for (const { prefix , jevko: jevko1  } of subjevkos){
+        if (mode === 'text') {
+            [tag, attrs] = jevkoToTagAttrs(jevko1);
+            ret.push(document.createTextNode(prefix));
+            mode = 'content';
+        } else {
+            if (prefix.trim() !== '') throw Error('oops');
+            const el = document.createElement(tag);
+            for (const [k, v] of attrs){
+                el.setAttribute(k, v);
+            }
+            el.append(...ejevkoToDomNodes(jevko1));
+            ret.push(el);
+            mode = 'text';
+        }
+    }
+    ret.push(document.createTextNode(suffix));
+    return ret;
+};
+const jevkoToTagAttrs = (jevko101)=>{
+    const { subjevkos , suffix  } = jevko101;
+    const [pre, tag, post] = trim33(suffix);
+    let attrs = [];
+    for (const { prefix , jevko: jevko2  } of subjevkos){
+        const [pre, mid, post] = trim33(prefix);
+        attrs.push([
+            mid,
+            jevkoToAttrValue(jevko2)
+        ]);
+    }
+    return [
+        tag,
+        attrs
+    ];
+};
+const jevkoToAttrValue = (jevko102)=>{
+    const { subjevkos , suffix  } = jevko102;
+    if (subjevkos.length > 0) throw Error('oops');
+    return suffix;
 };
 const examples = {
     '': '',
@@ -20958,16 +21089,16 @@ const zjevkoToHtml = (zjevko)=>{
         const type = sigilToType[suffix[0]] || 'float64';
         return `<span class="${type}">${escape(suffix)}</span>`;
     }
-    const { prefix , jevko: jevko93  } = subjevkos[0];
+    const { prefix , jevko: jevko103  } = subjevkos[0];
     const type = sigilToType[prefix[0]] || 'float64';
     let ret = `<span class="${type}">`;
     if (type === 'object') {
         const [pre, mid, post] = trim3(prefix.slice(1));
-        ret += `${prefix[0]}${pre}<span class="key">${escape(mid)}</span>${post}[${zjevkoToHtml(jevko93)}]`;
-        for(let i21 = 1; i21 < subjevkos.length; ++i21){
-            const { prefix , jevko: jevko94  } = subjevkos[i21];
+        ret += `${prefix[0]}${pre}<span class="key">${escape(mid)}</span>${post}[${zjevkoToHtml(jevko103)}]`;
+        for(let i22 = 1; i22 < subjevkos.length; ++i22){
+            const { prefix , jevko: jevko104  } = subjevkos[i22];
             const [pre, mid, post] = trim3(prefix);
-            ret += `${pre}<span class="key">${escape(mid)}</span>${post}[${zjevkoToHtml(jevko94)}]`;
+            ret += `${pre}<span class="key">${escape(mid)}</span>${post}[${zjevkoToHtml(jevko104)}]`;
         }
     } else for (const { prefix: prefix1 , jevko: jevko1  } of subjevkos){
         ret += `${escape(prefix1)}[${zjevkoToHtml(jevko1)}]`;
@@ -20984,11 +21115,11 @@ const sigilToType = {
     'f': 'boolean'
 };
 function shuffleArray(array) {
-    for(let i22 = array.length - 1; i22 > 0; i22--){
-        const j = Math.floor(Math.random() * (i22 + 1));
-        [array[i22], array[j]] = [
+    for(let i23 = array.length - 1; i23 > 0; i23--){
+        const j = Math.floor(Math.random() * (i23 + 1));
+        [array[i23], array[j]] = [
             array[j],
-            array[i22]
+            array[i23]
         ];
     }
     return array;
@@ -21009,7 +21140,7 @@ document.body.onload = ()=>{
         "https://freegeoip.app/json/",
         "http://httpbin.org/get", 
     ]);
-    const [elems, elemsById] = toElemsById(parseJevko(`
+    const [elems, elemsById] = djevkoToDomNodesById(parseJevko(`
   style [
     .cm-editor {
       height: 30rem;
@@ -21125,7 +21256,7 @@ document.body.onload = ()=>{
           id=[selfDescribing]
           type=[checkbox]
         ]
-        self-describing
+        [self-describing ]
       ]
       select[id=[examples]\n${Object.entries(examples).map(([k, v])=>{
         return jv`option[value=[${v}][${k}]]`;
@@ -21204,7 +21335,7 @@ document.body.onload = ()=>{
         elemsById.json.scroll(scrollLeft, scrollTop);
         console.log(jsonEditor.state.doc.toString());
         convertJson();
-        elemsById.json.replaceChildren(...toElems(jsonStrToHtmlSpans(jsonEditor.state.doc.toString(), {
+        elemsById.json.replaceChildren(...djevkoToDomNodes(jsonStrToHtmlSpans(jsonEditor.state.doc.toString(), {
             pretty: true
         })));
     });
@@ -21219,7 +21350,7 @@ document.body.onload = ()=>{
                     insert: JSON.stringify(JSON.parse(jsonStr), null, 2)
                 }
             });
-            elemsById.json.replaceChildren(...toElems(jsonStrToHtmlSpans(jsonStr, {
+            elemsById.json.replaceChildren(...djevkoToDomNodes(jsonStrToHtmlSpans(jsonStr, {
                 pretty: true
             })));
             convertJson();
@@ -21236,27 +21367,27 @@ document.body.onload = ()=>{
         const { checked  } = e.target;
     };
     const applyExample = (jevkoStr)=>{
-        const jevko95 = parseJevko(jevkoStr);
+        const jevko105 = parseJevko(jevkoStr);
         console.log(elemsById.selfDescribing.checked);
         try {
-            const schema = interJevkoToSchema(jevko95);
+            const schema = interJevkoToSchema(jevko105);
             console.log(schema);
             const sjevko = highlightSjevko(jevkoToPrettyJevko(schemaToSjevko(schema)));
-            elemsById.jsonSchema.replaceChildren(...toElems(sjevko));
+            elemsById.jsonSchema.replaceChildren(...djevkoToDomNodes(sjevko));
             if (elemsById.selfDescribing.checked) {
-                const zipped = zipWithSchema(jevko95, schema);
+                const zipped = zipWithSchema(jevko105, schema);
                 console.log(zipped);
                 elemsById.jevko.innerHTML = zjevkoToHtml(zipped, schema);
             } else {
-                elemsById.jevko.innerHTML = jevkoBySchemaToHtml(jevko95, schema);
+                elemsById.jevko.innerHTML = jevkoBySchemaToHtml(jevko105, schema);
             }
-            const val = jevkoBySchemaToValue(jevko95, schema);
+            const val = jevkoBySchemaToValue(jevko105, schema);
             replaceEditorContents(jsonEditor, JSON.stringify(val, null, 2));
-            elemsById.json.replaceChildren(...toElems(jsonStrToHtmlSpans(jsonEditor.state.doc.toString(), {
+            elemsById.json.replaceChildren(...djevkoToDomNodes(jsonStrToHtmlSpans(jsonEditor.state.doc.toString(), {
                 pretty: true
             })));
         } catch (e) {
-            elemsById.jsonSchema.replaceChildren(...toElems(parseJevko(`span[class=[error][Error: ${e.message}]]`)));
+            elemsById.jsonSchema.replaceChildren(...djevkoToDomNodes(parseJevko(`span[class=[error][Error: ${e.message}]]`)));
             throw e;
         }
     };
@@ -21286,17 +21417,17 @@ document.body.onload = ()=>{
         pretty: true
     });
     console.log(sss, parseJevko(sss));
-    elemsById.json.replaceChildren(...toElems(sss));
+    elemsById.json.replaceChildren(...djevkoToDomNodes(sss));
     const convertJson = ()=>{
         const jsonStr = jsonEditor.state.doc.sliceString(0);
         const json5 = JSON.parse(jsonStr);
-        const jevko96 = jsonToJevko1(json5);
+        const jevko106 = jsonToJevko1(json5);
         const schema = jsonToSchema(json5);
-        const jevkoStr = jevkoToPrettyString(jevko96);
+        const jevkoStr = jevkoToPrettyString(jevko106);
         const sjevko = highlightSjevko(jevkoToPrettyJevko(schemaToSjevko(schema)));
         console.log(sjevko);
-        elemsById.jsonSchema.replaceChildren(...toElems(sjevko));
-        elemsById.jevko.innerHTML = jevkoBySchemaToHtml(jevkoToPrettyJevko(jevko96), schema);
+        elemsById.jsonSchema.replaceChildren(...djevkoToDomNodes(sjevko));
+        elemsById.jevko.innerHTML = jevkoBySchemaToHtml(jevkoToPrettyJevko(jevko106), schema);
         jevkoEditor.dispatch({
             changes: {
                 from: 0,
