@@ -19156,28 +19156,103 @@ const typeToSigil = {
     tuple: '.',
     string: "'"
 };
-const zjevkoToHtml = (zjevko)=>{
+const zjevkoToDjevko = (zjevko)=>{
+    return argsToJevko1(...recur6(zjevko));
+};
+const recur6 = (zjevko)=>{
     const { subjevkos , suffix  } = zjevko;
     if (subjevkos.length === 0) {
-        if (suffix === '') return `<span class="null">${escape1(suffix)}</span>`;
+        if (suffix === '') return [
+            "span",
+            [
+                "class=",
+                [
+                    "null"
+                ],
+                [
+                    suffix
+                ]
+            ]
+        ];
         const type = sigilToType[suffix[0]] || 'float64';
-        return `<span class="${type}">${escape1(suffix)}</span>`;
+        return [
+            "span",
+            [
+                "class=",
+                [
+                    type
+                ],
+                [
+                    suffix
+                ]
+            ]
+        ];
     }
     const { prefix , jevko: jevko39  } = subjevkos[0];
     const type = sigilToType[prefix[0]] || 'float64';
-    let ret = `<span class="${type}">`;
+    let ret = [];
     if (type === 'object') {
         const [pre, mid, post] = trim3(prefix.slice(1));
-        ret += `${prefix[0]}${pre}<span class="key">${escape1(mid)}</span>${post}[${zjevkoToHtml(jevko39)}]`;
+        ret.push([
+            prefix[0] + pre
+        ], "span", [
+            "class=",
+            [
+                "key"
+            ],
+            [
+                mid
+            ]
+        ], [
+            post
+        ], [
+            "["
+        ], ...recur6(jevko39), [
+            "]"
+        ]);
         for(let i10 = 1; i10 < subjevkos.length; ++i10){
             const { prefix , jevko: jevko40  } = subjevkos[i10];
             const [pre, mid, post] = trim3(prefix);
-            ret += `${pre}<span class="key">${escape1(mid)}</span>${post}[${zjevkoToHtml(jevko40)}]`;
+            ret.push([
+                pre
+            ], "span", [
+                "class=",
+                [
+                    "key"
+                ],
+                [
+                    mid
+                ]
+            ], [
+                post
+            ], [
+                "["
+            ], ...recur6(jevko40), [
+                "]"
+            ]);
         }
     } else for (const { prefix: prefix1 , jevko: jevko1  } of subjevkos){
-        ret += `${escape1(prefix1)}[${zjevkoToHtml(jevko1)}]`;
+        ret.push([
+            prefix1
+        ], [
+            "["
+        ], ...recur6(jevko1), [
+            "]"
+        ]);
     }
-    return ret + `${suffix}</span>`;
+    return [
+        "span",
+        [
+            "class=",
+            [
+                type
+            ],
+            ...ret,
+            [
+                suffix
+            ]
+        ]
+    ];
 };
 const sigilToType = {
     ':': 'object',
@@ -19817,13 +19892,13 @@ const escape3 = (str)=>{
 };
 const escapePrefix5 = (prefix)=>prefix === '' ? '' : escape3(prefix) + ' '
 ;
-const recur6 = (jevko41, indent, prevIndent)=>{
+const recur7 = (jevko41, indent, prevIndent)=>{
     const { subjevkos , suffix  } = jevko41;
     let ret = '';
     if (subjevkos.length > 0) {
         ret += '\n';
         for (const { prefix , jevko: jevko42  } of subjevkos){
-            ret += `${indent}${escapePrefix5(prefix)}[${recur6(jevko42, indent + '  ', indent)}]\n`;
+            ret += `${indent}${escapePrefix5(prefix)}[${recur7(jevko42, indent + '  ', indent)}]\n`;
         }
         ret += prevIndent;
     }
@@ -19853,13 +19928,13 @@ const argsToJevko2 = (...args)=>{
 };
 const escapePrefix11 = (prefix)=>prefix === '' ? '' : prefix + ' '
 ;
-const recur12 = (jevko43, indent, prevIndent)=>{
+const recur13 = (jevko43, indent, prevIndent)=>{
     const { subjevkos , suffix  } = jevko43;
     let ret = [];
     if (subjevkos.length > 0) {
         ret.push('\n');
         for (const { prefix , jevko: jevko44  } of subjevkos){
-            ret.push(indent, escapePrefix11(prefix), recur12(jevko44, indent + '  ', indent), '\n');
+            ret.push(indent, escapePrefix11(prefix), recur13(jevko44, indent + '  ', indent), '\n');
         }
         ret.push(prevIndent);
     }
@@ -20233,13 +20308,13 @@ const escape4 = (str)=>{
 };
 const escapePrefix6 = (prefix)=>prefix === '' ? '' : escape4(prefix) + ' '
 ;
-const recur7 = (jevko66, indent, prevIndent)=>{
+const recur8 = (jevko66, indent, prevIndent)=>{
     const { subjevkos , suffix  } = jevko66;
     let ret = '';
     if (subjevkos.length > 0) {
         ret += '\n';
         for (const { prefix , jevko: jevko67  } of subjevkos){
-            ret += `${indent}${escapePrefix6(prefix)}[${recur7(jevko67, indent + '  ', indent)}]\n`;
+            ret += `${indent}${escapePrefix6(prefix)}[${recur8(jevko67, indent + '  ', indent)}]\n`;
         }
         ret += prevIndent;
     }
@@ -20294,9 +20369,9 @@ const jevkoToString4 = (jevko68)=>{
     return ret + escape4(suffix);
 };
 const highlightSjevko = (jevko69)=>{
-    return argsToJevko3(...recur8(jevko69));
+    return argsToJevko3(...recur9(jevko69));
 };
-const recur8 = (jevko70)=>{
+const recur9 = (jevko70)=>{
     const { subjevkos , suffix  } = jevko70;
     const type = suffix.trim();
     if ([
@@ -20341,7 +20416,7 @@ const toArray5 = (jevko71)=>{
             [
                 "["
             ],
-            ...recur8(j),
+            ...recur9(j),
             [
                 "]"
             ],
@@ -20359,7 +20434,7 @@ const toTuple5 = (jevko72)=>{
             prefix
         ], [
             "["
-        ], ...recur8(jevko1), [
+        ], ...recur9(jevko1), [
             "]"
         ]);
     }
@@ -20385,7 +20460,7 @@ const toFirstMatch5 = (jevko73)=>{
             prefix
         ], [
             "["
-        ], ...recur8(jevko2), [
+        ], ...recur9(jevko2), [
             "]"
         ]);
     }
@@ -20422,7 +20497,7 @@ const toObject5 = (jevko74)=>{
             post
         ], [
             "["
-        ], ...recur8(jevko3), [
+        ], ...recur9(jevko3), [
             "]"
         ]);
     }
@@ -20739,7 +20814,7 @@ const toFirstMatch8 = (jevko89, schema)=>{
     }
     throw Error('toFirstMatch: invalid jevko');
 };
-const recur9 = (verified)=>{
+const recur10 = (verified)=>{
     const { schema , jevko: jevko90  } = verified;
     const { type  } = schema;
     const sigil = typeToSigil1[type] || '';
@@ -20755,7 +20830,7 @@ const recur9 = (verified)=>{
     const mapped = [
         {
             prefix: sigil + prefix,
-            jevko: item.ignored ? j : recur9(item.value)
+            jevko: item.ignored ? j : recur10(item.value)
         }
     ];
     ++i19;
@@ -20768,7 +20843,7 @@ const recur9 = (verified)=>{
             });
         } else mapped.push({
             prefix,
-            jevko: recur9(items[i19].value)
+            jevko: recur10(items[i19].value)
         });
     }
     return {
@@ -20784,9 +20859,9 @@ const typeToSigil1 = {
 };
 const jevkoBySchemaToHtml = (jevko92, schema)=>{
     const verified = jevkoBySchemaToVerified1(jevko92, schema);
-    return recur10(verified);
+    return recur11(verified);
 };
-const recur10 = (verified)=>{
+const recur11 = (verified)=>{
     const { schema , jevko: jevko93  } = verified;
     const { type  } = schema;
     const { subjevkos , suffix  } = jevko93;
@@ -20804,7 +20879,7 @@ const toObject9 = (verified)=>{
         if (ignored === true) {
             ret += `<span class="ignored">${escape(prefix)}[${jevkoToString(jevko95)}]</span>`;
         } else {
-            ret += `<span class="item">${pre}<span class="key">${escape(key)}</span>${post}[<span class="value">${recur10(value)}</span>]</span>`;
+            ret += `<span class="item">${pre}<span class="key">${escape(key)}</span>${post}[<span class="value">${recur11(value)}</span>]</span>`;
         }
     }
     return `<span class="${ret === '' ? 'empty ' : ''}object">${ret}${suffix}</span>`;
@@ -20820,7 +20895,7 @@ const toArrayOrTuple = (verified)=>{
         if (ignored === true) {
             ret += `<span class="ignored">${escape(prefix)}[${jevkoToString(jevko97)}]</span>`;
         } else {
-            ret += `<span class="item">${escape(prefix)}[${recur10(value)}]</span>`;
+            ret += `<span class="item">${escape(prefix)}[${recur11(value)}]</span>`;
         }
     }
     return `<span class="${ret === '' ? 'empty ' : ''}${type}">${ret}${suffix}</span>`;
@@ -20834,13 +20909,13 @@ const djevkoToDomNodesById = (jevko98)=>{
     ];
 };
 const djevkoToDomNodes = (jevko99, byId = Object.create(null))=>{
-    const ret = recur11(jevko99, byId);
+    const ret = recur12(jevko99, byId);
     for (const node of ret){
         if (Array.isArray(node)) throw Error(`Unexpected top-level attribute (${node[0]})`);
     }
     return ret;
 };
-const recur11 = (jevko100, byId = Object.create(null))=>{
+const recur12 = (jevko100, byId = Object.create(null))=>{
     const { subjevkos , suffix  } = jevko100;
     if (subjevkos.length === 0) return [
         document.createTextNode(suffix)
@@ -20849,14 +20924,14 @@ const recur11 = (jevko100, byId = Object.create(null))=>{
     const ret = [];
     for (const { prefix , jevko: jevko1  } of subjevkos){
         const [pre, mid, post] = trim3(prefix);
-        if (mid === '') ret.push(...recur11(jevko1, byId));
+        if (mid === '') ret.push(...recur12(jevko1, byId));
         else if (mid.endsWith('=')) ret.push([
             mid.slice(0, -1),
             jevko1
         ]);
         else {
             const element = document.createElement(mid);
-            const nodes = recur11(jevko1, byId);
+            const nodes = recur12(jevko1, byId);
             for (const e of nodes){
                 if (Array.isArray(e)) {
                     const [name1, jevko101] = e;
@@ -21359,7 +21434,7 @@ document.body.onload = ()=>{
             if (elemsById.selfDescribing.checked) {
                 const zipped = zipWithSchema(jevko105, schema);
                 console.log(zipped);
-                elemsById.jevko.innerHTML = zjevkoToHtml(zipped, schema);
+                elemsById.jevko.replaceChildren(...djevkoToDomNodes(zjevkoToDjevko(zipped, schema)));
             } else {
                 elemsById.jevko.innerHTML = jevkoBySchemaToHtml(jevko105, schema);
             }
