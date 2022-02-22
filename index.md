@@ -37,6 +37,8 @@ Below is an illustration of how Jevko compares to other syntaxes in terms of com
 
 ![Jevko compared to other syntaxes](comparison.png)
 
+A more detailed compactness-focused comparsion is [available here](compactness.md).
+
 ## Formal grammar
 
 The Standard Jevko Grammar is [specified here](https://github.com/jevko/specifications/blob/master/spec-standard-grammar.md).
