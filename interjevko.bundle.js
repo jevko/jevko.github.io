@@ -19174,7 +19174,7 @@ const recur6 = (zjevko)=>{
                 ]
             ]
         ];
-        const type = sigilToType[suffix[0]] || 'float64';
+        const type = sigilToType(suffix[0]);
         return [
             "span",
             [
@@ -19189,8 +19189,8 @@ const recur6 = (zjevko)=>{
         ];
     }
     const { prefix , jevko: jevko39  } = subjevkos[0];
-    const type = sigilToType[prefix[0]] || 'float64';
-    let ret = [];
+    const type = sigilToType(prefix[0]);
+    const ret = [];
     if (type === 'object') {
         const [pre, mid, post] = trim3(prefix.slice(1));
         ret.push([
@@ -19254,7 +19254,7 @@ const recur6 = (zjevko)=>{
         ]
     ];
 };
-const sigilToType = {
+const SigilToType = {
     ':': 'object',
     '.': 'tuple',
     '*': 'array',
@@ -19262,6 +19262,9 @@ const sigilToType = {
     'n': 'null',
     't': 'boolean',
     'f': 'boolean'
+};
+const sigilToType = (sigil)=>{
+    return SigilToType[sigil] || 'float64';
 };
 const CodePoint = {
     _0_: '0'.codePointAt(0),
@@ -20924,7 +20927,8 @@ const recur12 = (jevko100, byId = Object.create(null))=>{
     const ret = [];
     for (const { prefix , jevko: jevko1  } of subjevkos){
         const [pre, mid, post] = trim3(prefix);
-        if (mid === '') ret.push(...recur12(jevko1, byId));
+        if (mid.startsWith('!')) continue;
+        else if (mid === '') ret.push(...recur12(jevko1, byId));
         else if (mid.endsWith('=')) ret.push([
             mid.slice(0, -1),
             jevko1
@@ -21265,10 +21269,8 @@ document.body.onload = ()=>{
     }
   ]
   div [
-    style=[margin-left: 1rem]
-    [click on code to edit]
-    br []
-    [click away to apply changes]
+    style=[text-align: center]
+    [Instructions: click on code to edit; click away to apply changes; things may break.]
   ]
   div [
     style=[${containerStyle}]
@@ -21276,12 +21278,15 @@ document.body.onload = ()=>{
       id=[jsonEditorSettings] 
       style=[${editorStyle}] 
       [JSON]
+      !todo [restore elements w/ display: none]
       button [
+        style=[display: none]
         id=[convert]
         [convert]
       ]
       br []
       button [
+        style=[display: none]
         id=[submit]
         [get from]
       ]
@@ -21291,7 +21296,7 @@ document.body.onload = ()=>{
       input [
         id=[url]
         type=[text]
-        style=[width: 30rem]
+        style=[width: 30rem; display: none]
         value=[${apiUrls[Math.random() * apiUrls.length | 0]}]
       ]
       br []
@@ -21308,17 +21313,18 @@ document.body.onload = ()=>{
     ]
     div [ 
       style=[${editorStyle}; text-align: right] 
+      [Interjevko]
+      br []
       label [
         input [
           id=[selfDescribing]
           type=[checkbox]
         ]
-        [self-describing ]
+        [ Schemaless ]
       ]
       select[id=[examples]\n${Object.entries(examples).map(([k, v])=>{
         return jv`option[value=[${v}][${k}]]`;
     }).join('\n')}]
-      [InterJevko]
     ]
   ]
   div [
@@ -21470,11 +21476,6 @@ document.body.onload = ()=>{
             insert: initialJsonStr
         }
     });
-    const sss = jsonStrToHtmlSpans(initialJsonStr, {
-        pretty: true
-    });
-    console.log(sss, parseJevko(sss));
-    elemsById.json.replaceChildren(...djevkoToDomNodes(sss));
     const convertJson = ()=>{
         const jsonStr = jsonEditor.state.doc.sliceString(0);
         const json5 = JSON.parse(jsonStr);
@@ -21492,6 +21493,12 @@ document.body.onload = ()=>{
             }
         });
     };
+    const sss = jsonStrToHtmlSpans(initialJsonStr, {
+        pretty: true
+    });
+    console.log(sss, parseJevko(sss));
+    elemsById.json.replaceChildren(...djevkoToDomNodes(sss));
+    convertJson();
     elemsById.convert.onclick = convertJson;
 };
 const replaceEditorContents = (editor, str)=>{
