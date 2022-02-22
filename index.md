@@ -43,19 +43,17 @@ The Standard Jevko Grammar is [specified here](https://github.com/jevko/specific
 
 ## Demo
 
-An interactive demonstration is of how Jevko can be used for data interchange is here:
-
-[interjevko](interjevko.bundle.md)
+An interactive demonstration is of how Jevko can be used for data interchange is [available here](interjevko.bundle.md).
 
 ## See also
 
-[github.com/jevko](https://github.com/jevko)
+[Jevko GitHub organization](https://github.com/jevko)
 
-[jevko.org](https://jevko.org)
+[Jevko.org](https://jevko.org)
 
 ## Attribution
 
-The example of Jevko data shown here is based on an example piece of JSON from [Wikipedia](https://en.wikipedia.org/wiki/JSON#Syntax).
+The data samples shown above are based on an example piece of JSON from [Wikipedia](https://en.wikipedia.org/wiki/JSON#Syntax).
 
 ***
 
