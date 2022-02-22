@@ -21270,7 +21270,7 @@ document.body.onload = ()=>{
   ]
   div [
     style=[text-align: center]
-    [Instructions: click on code to edit; click away to apply changes; things may break.]
+    [Instructions: click on code to edit; click away to apply changes; some things are not implemented; other things may break.]
   ]
   div [
     style=[${containerStyle}]
@@ -21304,7 +21304,7 @@ document.body.onload = ()=>{
     div [
       id=[schemaContainerSettings] 
       style=[${editorStyle}; text-align: center]
-      [Schema]
+      [Schema (not editable for now)]
       br[]
       button [
         id=[toggleSchema]
@@ -21320,7 +21320,7 @@ document.body.onload = ()=>{
           id=[selfDescribing]
           type=[checkbox]
         ]
-        [ Schemaless ]
+        [ Schemaless (not fully implemented) ]
       ]
       select[id=[examples]\n${Object.entries(examples).map(([k, v])=>{
         return jv`option[value=[${v}][${k}]]`;
@@ -21388,7 +21388,6 @@ document.body.onload = ()=>{
         elemsById.jevko.style.display = 'block';
         elemsById.jevkoEditor.style.display = 'none';
         elemsById.jevko.scroll(scrollLeft, scrollTop);
-        console.log(jevkoEditor.state.doc.toString());
         applyExample(jevkoEditor.state.doc.toString());
     });
     elemsById.jsonEditor.addEventListener('focusout', ()=>{
@@ -21396,7 +21395,6 @@ document.body.onload = ()=>{
         elemsById.json.style.display = 'block';
         elemsById.jsonEditor.style.display = 'none';
         elemsById.json.scroll(scrollLeft, scrollTop);
-        console.log(jsonEditor.state.doc.toString());
         convertJson();
         elemsById.json.replaceChildren(...djevkoToDomNodes(jsonStrToHtmlSpans(jsonEditor.state.doc.toString(), {
             pretty: true
@@ -21431,15 +21429,12 @@ document.body.onload = ()=>{
     };
     const applyExample = (jevkoStr)=>{
         const jevko105 = parseJevko(jevkoStr);
-        console.log(elemsById.selfDescribing.checked);
         try {
             const schema = interJevkoToSchema(jevko105);
-            console.log(schema);
             const sjevko = highlightSjevko(jevkoToPrettyJevko(schemaToSjevko(schema)));
             elemsById.jsonSchema.replaceChildren(...djevkoToDomNodes(sjevko));
             if (elemsById.selfDescribing.checked) {
                 const zipped = zipWithSchema(jevko105, schema);
-                console.log(zipped);
                 elemsById.jevko.replaceChildren(...djevkoToDomNodes(zjevkoToDjevko(zipped, schema)));
             } else {
                 elemsById.jevko.innerHTML = jevkoBySchemaToHtml(jevko105, schema);
@@ -21483,7 +21478,6 @@ document.body.onload = ()=>{
         const schema = jsonToSchema(json5);
         const jevkoStr = jevkoToPrettyString(jevko106);
         const sjevko = highlightSjevko(jevkoToPrettyJevko(schemaToSjevko(schema)));
-        console.log(sjevko);
         elemsById.jsonSchema.replaceChildren(...djevkoToDomNodes(sjevko));
         elemsById.jevko.innerHTML = jevkoBySchemaToHtml(jevkoToPrettyJevko(jevko106), schema);
         jevkoEditor.dispatch({
@@ -21493,11 +21487,10 @@ document.body.onload = ()=>{
             }
         });
     };
-    const sss = jsonStrToHtmlSpans(initialJsonStr, {
+    const spans = jsonStrToHtmlSpans(initialJsonStr, {
         pretty: true
     });
-    console.log(sss, parseJevko(sss));
-    elemsById.json.replaceChildren(...djevkoToDomNodes(sss));
+    elemsById.json.replaceChildren(...djevkoToDomNodes(spans));
     convertJson();
     elemsById.convert.onclick = convertJson;
 };
