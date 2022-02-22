@@ -43,6 +43,8 @@ A more detailed compactness-focused comparsion is [available here](compactness.m
 
 The Standard Jevko Grammar is [specified here](https://github.com/jevko/specifications/blob/master/spec-standard-grammar.md).
 
+Railroad diagrams and EBNF are [here](railroad.md).
+
 ## Demo
 
 An interactive demonstration is of how Jevko can be used for data interchange is [available here](interjevko.bundle.md).
