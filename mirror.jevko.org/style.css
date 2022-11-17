@@ -1,0 +1,292 @@
+body {
+    margin: 0;
+    font-size: 17pt;
+    line-height: 1.25;
+    font-family: c059, "urw bookman", serif;
+    color: white;
+    background-color: black;
+    background-image: url('/background.png');
+}
+a {
+    color: yellow;
+    text-decoration: none;
+}
+body > *, div.sourceCode {
+    max-width: 21cm;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+ul, ol {
+    padding: revert;
+    box-sizing: border-box;
+}
+h1, h2, h3, h4, h5, h6, .top {
+    font-family: c059, "urw bookman", serif;
+    text-align: center;
+}
+.header-link, .footer, .header {
+    max-width: 21cm;
+    margin: auto;
+    padding: 0 1rem;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+.black-bg {
+    background-color: black;
+}
+/* .black-bg .links {
+    filter: invert(1);
+} */
+.black-bg a:hover {
+
+} 
+.black-bg a:active {
+
+}
+.black-bg a:focus {
+
+}
+.black-bg a:visited {
+
+}
+/* a {
+    text-decoration: none;
+} */
+a:hover {
+    text-decoration: underline;
+}
+hr {
+    border: 0;
+    border-top: 2px solid lightgray;
+}
+p {
+    margin-left: auto;
+    margin-right: auto;
+}
+.logo {
+    margin: auto; 
+    display: block;
+    max-width: 50%;
+}
+img.logo {
+    width: 6rem;
+    min-width: 6rem;
+    margin-right: 1rem;
+}
+header.top {
+    background-color: black;
+    padding: 3.5rem 0 2.5rem 0;
+    margin-bottom: 3rem;
+    min-width: 100%;
+    border-bottom: 1px solid #111;
+}
+.header-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1rem;
+}
+.logo-text {
+
+}
+.header-text {
+    /* text-align: center; */
+    line-height: 1;
+    flex-grow: 1;
+    color: white;
+    margin: 0 1rem;
+}
+.header-text .line1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.header-text .line2 {
+    font-size: 1.5rem;
+}
+#title-block-header {
+    text-align: center;
+    /* display: none; */
+}
+
+.left {
+    float: left;
+}
+.right {
+    float: right;
+    text-align: right;
+}
+
+footer {
+    /* border-top: 1px solid lightgray; */
+    min-height: 90vh;
+    margin-top: 3rem;
+    min-width: 100%;
+    padding: 2.5rem 0 3rem 0;
+    color: gray;
+    border-top: 1px solid #111;
+}
+.footer {
+    padding: 0 1rem;
+    overflow: auto;
+}
+
+/* .key {
+    background-color: rgb(242, 252, 252);
+    color: rgb(0, 102, 0);
+    font-weight: bold;
+}
+.string {
+    color: rgb(128, 26, 0);
+}
+.number {
+    color: rgb(102, 102, 102);
+}
+.op {
+    color: rgb(153, 26, 26);
+}
+.line {
+    color: rgb(26, 26, 32);
+    background-color: rgb(242, 242, 252);
+}
+.type {
+    color: rgb(26, 26, 153);
+    font-weight: bold;
+}
+.bracket {
+    color: #007020;
+    font-weight: bold;
+}
+.tag {
+    color: #007020;
+    font-weight: bold;
+}
+.attrib {
+    color: #007020;
+}
+.avalue {
+    color: #4070a0;
+} */
+
+/* override pandoc */
+
+code span.dt {
+    color: lightgreen;
+}
+
+code span.ot {
+    color: dodgerblue;
+}
+
+code span.st, .metasym {
+    color: lightsalmon;
+}
+
+code span.fu {
+    color: lightseagreen;
+}
+code span.kw {
+    color: greenyellow;
+    font-weight: bold;
+}
+code span.dv {
+    color: greenyellow;
+}
+code span.op {
+    color: yellow;
+    background: black;
+}
+
+.comparison {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-bottom: 2rem;
+}
+.comparison .sourceCode {
+    display: inline-block;
+    margin: 0;
+    line-height: 1.25;
+    font-size: 1rem;
+    padding: 0 1rem;
+}
+.comparison pre {
+    font-size: 1rem;
+    overflow: auto;
+}
+
+pre.sourceCode.xml::before {
+    content: "XML";
+    display: block;
+    text-align: center;
+}
+
+pre.sourceCode.json::before {
+    content: "JSON";
+}
+
+pre.sourceCode.taoJson::before {
+    content: "Jevko";
+}
+
+pre.sourceCode.taoJson {
+    overflow: auto;
+}
+
+pre.sourceCode.taoJson::before,
+pre.sourceCode.json::before,
+pre.sourceCode.xml::before {
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem;
+}
+
+.bubble {
+    /* font-size: 1rem; */
+    color: #f3f3f0;
+    border-left: 1rem solid tomato;
+    font-family: sans-serif;
+}
+
+.links {
+    font-family: monospace;
+    /* display: flex;
+    flex-wrap: wrap; */
+}
+
+.center {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* .title::before {
+    content: '[';
+}
+.title::after {
+    content: ']';
+} */
+
+.interrupt {
+    background-color: black;
+    min-width: 100%;
+    text-align: center;
+    padding: 0;
+}
+
+div.sourceCode {
+    background-color: black;
+
+}
+
+blockquote {
+    padding-left: 4rem;
+}

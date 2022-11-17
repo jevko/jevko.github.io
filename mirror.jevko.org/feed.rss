@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Jevko updates</title>
+    <description>Latest official updates on the Jevko syntax</description>
+    <link>https://jevko.org</link>
+
+	<item>
+		<title>Fri, 11 Nov 2022 17:20:00 +0000 (2)</title>
+		<link>>https://github.com/jevko/community</link>
+		<pubDate>Fri, 11 Nov 2022 17:20:00 +0000</pubDate>
+		<description><![CDATA[
+<p>Created <a href="https://github.com/jevko/community">https://github.com/jevko/community</a> -- a place to feature various Jevko-related things (including Jevko parsers in different languages) created by various authors. Contributions welcome!</p>
+
+<p>#jevko #syntax #community #contributions</p>
+]]></description>
+	</item>
+  </channel>
+</rss>

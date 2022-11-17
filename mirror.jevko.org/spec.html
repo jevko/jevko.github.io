@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="by Darius J Chuck" />
+  <title>The Jevko Syntax: Standard Grammar Specification</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/style.css?stamp=1668612582116" />
+  <link rel="stylesheet" href="/highlight/style.css?stamp=1668612582116" />
+  <link rel="icon" type="image/png" href="/jevko.png" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="top" class="top black-bg">
+  <div class="header">
+    <a href="/index.html">
+      <img class="logo" src="/jevko.png">
+    </a>
+    &nbsp;
+    <div class="right links" style="flex-grow: 1">
+      <div>
+        <a href="https://xtao.org">[^TAO]</a>
+      </div>
+      <div>
+          <a href="https://github.com/jevko">[^github]</a>
+      </div>
+      <div>
+        <a href="/spec.html">[specification]</a>
+        <a href="/diagram.xhtml">[diagrams]</a>
+        <a href="/license.html">[license]</a>
+      </div>
+    </div>
+  </div>
+</header>
+<header id="title-block-header">
+<h1 class="title">The Jevko Syntax: Standard Grammar Specification</h1>
+<p class="author">by Darius J Chuck</p>
+<p class="date">2022-02</p>
+</header>
+<p style="text-align: center;">
+First Edition
+</p>
+<p>Also available <a
+href="https://github.com/jevko/specifications/blob/master/spec-standard-grammar.md">on
+GitHub</a>.</p>
+<div style="page-break-after: always;">
+
+</div>
+<h1 id="introduction-and-scope">Introduction and scope</h1>
+<p>Jevko is a versatile minimal syntax for encoding tree-structured
+information.</p>
+<p>It can be used to define simple and portable formats and languages in
+a variety of domains, such as data interchange, configuration, or text
+markup.</p>
+<p>Jevko is completely programming-language independent and has no
+inherent semantics. It is a pure syntactic building block which can be
+joined together with other syntactic or semantic building blocks in a
+modular way.</p>
+<p>These additional building blocks are specified separately. The
+purpose of this specification is only to describe the basic syntax in
+terms of Unicode <a href="#ref-unicode">[Unicode]</a> code points,
+providing a reference for implementations as well as other
+specifications.</p>
+<p>The formal grammar definitions in this document use the ABNF notation
+<a href="#ref-rfc-5234">[RFC 5234]</a>.</p>
+<div style="page-break-after: always;">
+
+</div>
+<h1 id="valid-jevko-sequence">Valid Jevko sequence</h1>
+<p>A valid Jevko sequence is a sequence of Unicode code points which
+conforms to the Jevko rule defined in this document.</p>
+<h1 id="the-rules">The rules</h1>
+<p>The syntax of Jevko is extremely minimal.</p>
+<p>There are two main grammatical rules: the <code>Jevko</code> rule and
+the <code>Subjevko</code> rule.</p>
+<p>The <code>Jevko</code> rule is the <em>start symbol</em> of the
+grammar.</p>
+<p>It refers to the <code>Subjevko</code> rule which in turn refers back
+to <code>Jevko</code>: the two rules are mutually-recursive.</p>
+<p>This makes Jevko a <em>recursive grammar</em>.</p>
+<p>This recursion is minimal: if a reference to either
+<code>Jevko</code> or <code>Subjevko</code> was removed, the grammar
+would cease to be recursive.</p>
+<p>All remaining rules are non-recursive. Notably:</p>
+<ul>
+<li><p>The <a href="#character"><code>Character</code></a> rule covers
+all possible code points except three.</p></li>
+<li><p>The three remaining code points (<a
+href="#delimiters"><code>Delimiters</code></a>) are the only special
+characters in the grammar.</p></li>
+<li><p>There are no special rules for whitespace. All whitespace
+characters are captured by the <code>Character</code> rule.</p></li>
+</ul>
+<p>All rules are described and formally defined in the following
+sections. The first section covers rules for delimiters. The remaining
+sections describe the rest of the rules, top to bottom, starting with
+<code>Jevko</code>.</p>
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="delimiters">Delimiters</h2>
+<p>Jevko is based around three delimiters, named by the Delimiter
+rule:</p>
+<pre class="abnf"><code>Delimiter = Opener / Closer / Escaper</code></pre>
+<p>The delimiters are defined as the following code points:</p>
+<pre class="abnf"><code>Opener  = %x5b ; left square bracket 
+Closer  = %x5d ; right square bracket
+Escaper = %x60 ; grave accent</code></pre>
+<p>Equivalently:</p>
+<pre class="abnf"><code>Opener  = &quot;[&quot;
+Closer  = &quot;]&quot;
+Escaper = &quot;`&quot;</code></pre>
+<h2 id="jevko">Jevko</h2>
+<p>A <code>Jevko</code> is a sequence of zero or more
+<code>Subjevko</code>s followed by a <code>Suffix</code>.</p>
+<pre class="abnf"><code>Jevko = *Subjevko Suffix</code></pre>
+<h2 id="subjevko">Subjevko</h2>
+<p>A <code>Subjevko</code> is a <code>Prefix</code> followed by an
+<code>Opener</code>, followed by a <code>Jevko</code>, followed by a
+<code>Closer</code>.</p>
+<pre class="abnf"><code>Subjevko = Prefix Opener Jevko Closer</code></pre>
+<p>Equivalently:</p>
+<pre class="abnf"><code>Subjevko = Prefix &quot;[&quot; Jevko &quot;]&quot;</code></pre>
+<h2 id="prefix">Prefix</h2>
+<p>A <code>Prefix</code> is an alias for <code>Text</code>:</p>
+<pre class="abnf"><code>Prefix = Text</code></pre>
+<p>This alias identifies that the <code>Text</code> is a part of a
+<code>Subjevko</code>. A <code>Prefix</code> is <em>always</em> followed
+by an <code>Opener</code>.</p>
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="suffix">Suffix</h2>
+<p>A <code>Suffix</code> is an alias for <code>Text</code>:</p>
+<pre class="abnf"><code>Suffix = Text</code></pre>
+<p>This alias identifies that the <code>Text</code> is a part of
+<code>Jevko</code>. A <code>Suffix</code> is <em>never</em> followed by
+an <code>Opener</code>.</p>
+<h2 id="text">Text</h2>
+<p><code>Text</code> is a sequence of zero or more
+<code>Symbol</code>s:</p>
+<pre class="abnf"><code>Text = *Symbol</code></pre>
+<h2 id="symbol">Symbol</h2>
+<p>A <code>Symbol</code> is either a <code>Digraph</code> or a
+<code>Character</code>:</p>
+<pre class="abnf"><code>Symbol = Digraph / Character</code></pre>
+<h2 id="digraph">Digraph</h2>
+<p>A <code>Digraph</code> is an <code>Escaper</code> followed by a
+<code>Delimiter</code>:</p>
+<pre class="abnf"><code>Digraph = Escaper Delimiter</code></pre>
+<p>Equivalently:</p>
+<pre class="abnf"><code>Digraph = &quot;`&quot; (&quot;`&quot; / &quot;[&quot; / &quot;]&quot;)
+Digraph = &quot;``&quot; / &quot;`[&quot; / &quot;`]&quot;</code></pre>
+<h2 id="character">Character</h2>
+<p>A <code>Character</code> is any code point which is not a
+<code>Delimiter</code>:</p>
+<pre class="abnf"><code>Character = %x0-5a / %x5c / %x5e-5f / %x61-10ffff</code></pre>
+<div style="page-break-after: always;">
+
+</div>
+<h1 id="normative-references">Normative references</h1>
+<p><a id="ref-unicode"></a> [Unicode] The Unicode Consortium, “The
+Unicode Standard”, the latest version, <a
+href="http://www.unicode.org/versions/latest/"
+class="uri">http://www.unicode.org/versions/latest/</a>.</p>
+<p><a id="ref-rfc-5234"></a> [RFC 5234] Crocker, D., Ed. and P. Overell,
+“Augmented BNF for Syntax Specifications: ABNF”, STD 68, RFC 5234, DOI
+10.17487/RFC5234, January 2008, <a
+href="https://www.rfc-editor.org/info/rfc5234"
+class="uri">https://www.rfc-editor.org/info/rfc5234</a>.</p>
+<h1 id="see-also">See also</h1>
+<ul>
+<li><a href="https://github.com/jevko/examples">Jevko examples</a></li>
+</ul>
+<h1 id="appendix">Appendix</h1>
+<h2 id="the-standard-grammar-abnf-in-one-page">The Standard Grammar ABNF
+in one page</h2>
+<pre class="abnf"><code>; start symbol, main rule #1
+Jevko = *Subjevko Suffix
+; main rule #2, mutually recursive with #1
+Subjevko = Prefix Opener Jevko Closer
+
+; delimiters
+Delimiter = Opener / Closer / Escaper
+
+Opener  = %x5b ; left square bracket 
+Closer  = %x5d ; right square bracket
+Escaper = %x60 ; grave accent
+
+; aliases
+Suffix = Text
+Prefix = Text
+
+; text
+Text = *Symbol
+Symbol = Digraph / Character
+Digraph = Escaper Delimiter
+; Character is any code point which is not a Delimiter
+Character = %x0-5a / %x5c / %x5e-5f / %x61-10ffff</code></pre>
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="etymology-and-pronunciation">Etymology and pronunciation</h2>
+<p>The name <a
+href="http://ipa-reader.xyz/?text=%CB%88d%CD%A1%CA%92ef.k%C9%99%CA%8A&amp;voice=Joey"><em>Jevko</em>
+/ˈd͡ʒef.kəʊ/</a> is derived from Polish <a
+href="https://en.wiktionary.org/wiki/drzewko"><em>drzewko</em>
+/ˈdʐɛf.kɔ/</a>, meaning small tree.</p>
+<footer id="bottom" class="black-bg">
+    <div class="footer">
+        <!-- <a href="/index.html" class="footer-link"> -->
+            <div class="left" style="margin-bottom: 1.25rem;">© 2022 Jevko.org</div>
+        <!-- </a> -->
+        &nbsp;
+        <div class="right links">
+        </div>
+    </div>
+</footer>
+</body>
+</html>

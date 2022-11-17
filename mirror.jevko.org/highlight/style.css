@@ -1,0 +1,89 @@
+#output {
+    white-space: pre;
+    font-family: monospace;
+    background-color: black;
+}
+
+/* .array, .object { */
+.array {
+    /* font-weight: bold; */
+}
+.key {
+    color: lightgreen;
+}
+.key .matter, .key .space, .key .escape {
+    background-color: rgba(24, 64, 24, 0.5);
+}
+.string {
+    font-weight: normal;
+    color: lightsalmon;
+}
+/* .string .escape {
+    font-weight: bold;
+} */
+/* .string .op {
+    color: red;
+} */
+.op, .pad {
+    color: #bbb;
+    background-color: black;
+    /* background-color: rgb(224, 224, 224); */
+}
+
+/* .key .escape {
+    font-weight: normal;
+    color: green;
+} */
+
+
+.object {
+    background-color: rgba(24, 64, 24, 0.2);
+}
+.array {
+    background-color: rgba(24, 24, 64, 0.4);
+}
+.string .matter, .string .space, .string .escape {
+    background-color: rgba(64, 24, 24, 0.33);
+}
+
+.object > .bracket {
+    color: lightseagreen;
+    /* transform: scaleX(0.5); */
+}
+
+.array > .bracket {
+    color: dodgerblue;
+    /* transform: scaleX(1.5); */
+}
+
+.string > .bracket {
+    color: lightcoral;
+    /* transform: scaleY(0.5); */
+}
+
+.bracket {
+    display: inline-block;
+}
+
+.item {
+    position: relative;
+}
+.item > * > .bracket:first-of-type {
+    background-color: darkblue;
+}
+.item::before {
+    /* content: "◦"; */
+    /* left: 1ex; */
+    /* content: "•";
+    font-weight: bold;
+    transform: translate(-0.5ex, 0.15ex);
+    position: absolute;
+    color: #88f;
+    z-index: 1; */
+}
+/* .item::after {
+    content: "-";
+    position: absolute;
+    right: 1ex;
+    color: blue;
+} */
