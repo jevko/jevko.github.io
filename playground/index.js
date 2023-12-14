@@ -1,22 +1,52 @@
 import {jevkoFromString} from './jevkoFromStringFenced.js'
+import { makeJevkoEditor } from './editor.bundle.js';
 
-const tarea = document.createElement('textarea')
-const resultdiv = document.createElement('div')
+const resultdiv = document.createElement('pre')
+const editordiv = document.createElement('div')
 
-tarea.onchange(() => {
-  try {
-    resultdiv.textContent = doctest(jevkoFromString(tarea.value))
-  } catch (e) {
-
-  }
-})
+const replaceEditorContents = (editor, str)=>{
+  editor.dispatch({
+      changes: {
+          from: 0,
+          to: editor.state.doc.length,
+          insert: str
+      }
+  });
+};
 
 const {body} = document
 body.onload = () => {
-  tarea.value = doctesttxt
+  body.style = `display: flex; flex-direction: column; height: 100vh; box-sizing: border-box; margin: 0; padding: 1rem`
 
-  body.append(tarea)
-  body.append(resultdiv)
+  const sidebysidediv = document.createElement('div')
+  sidebysidediv.style = `display: flex; flex-direction: row;`
+
+  const editor = makeJevkoEditor(editordiv)
+  editordiv.style = 'flex-grow: 1; max-width: 45vw;'
+
+  replaceEditorContents(editor, doctesttxt)
+
+  body.onkeydown = (e) => {
+    if (e.ctrlKey) {
+
+      try {
+        resultdiv.textContent = doctest(jevkoFromString(editor.state.doc.toString()))
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  resultdiv.style = `flex-grow: 1; margin: 0 1rem;`
+
+  sidebysidediv.append(editordiv)
+  sidebysidediv.append(resultdiv)
+
+  const hints = document.createElement('div')
+  hints.textContent = `press Ctrl to process your input`
+
+  body.append(hints)
+  body.append(sidebysidediv)
 }
 
 const doctest = (parsed) => {
@@ -40,7 +70,7 @@ const doctest = (parsed) => {
 
     {
       const {prefix, jevko} = ss.at(-1)
-      assert(prefix.trim() === '')
+      // assert(prefix.trim() === '')
       ret += '\n' + normalizeindent(jevko.suffix, 3)
     }
   }
