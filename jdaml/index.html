@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	</head>
+	<body>
+    <style>
+      body {
+        background-color: #222;
+        color: #ccc;
+      }
+    </style>
+    <div style="display: flex; align-items: center;">
+      <img alt="JDAML logo" src="logo.svg" width="160" style="margin-right: 1rem;" />
+      <h2>JDAML (Jevko D🌲ta Markup Language) demo</h2>
+    </div>
+    <div style="margin: 1rem 0;">
+      <select id="fileselect"></select>
+      <button id="as-json">interpret as JSON</button>
+      <button id="as-html">interpret as HTML</button>
+      <label>
+        <input type="checkbox" />
+        be creative
+      </label>
+    </div>
+    <div style="display: flex;">
+		<div id="container" style="width: 80rem; height: 600px; border: 1px solid grey"></div>
+		<pre id="output" style="width: 800px; height: 600px; border: 1px solid grey; margin: 0;"></pre>
+    </div>
+
+		<script src="./node_modules/monaco-editor/min/vs/loader.js"></script>
+		<script type="module">
+      import {parseJdaml} from './jdaml.js'
+      import {jdamltodom} from './jdamltodom.js'
+
+			require.config({ paths: { vs: './node_modules/monaco-editor/min/vs' } });
+
+			require(['vs/editor/editor.main'], function () {
+				monaco.languages.register({
+					id: 'jdaml',
+          extensions: ['.jdaml', '.jdml'],
+          aliases: ['JDAML', 'jdaml'],
+          mimetypes: ['text/jdaml'],
+				});
+        monaco.languages.setLanguageConfiguration('jdaml', {
+          brackets: [
+            ['[', ']']
+          ],
+          autoClosingPairs: [
+            { open: '{', close: '}' },
+            { open: '[', close: ']' },
+            { open: '(', close: ')' },
+          ],
+          surroundingPairs: [
+            { open: '{', close: '}' },
+            { open: '[', close: ']' },
+            { open: '(', close: ')' },
+            { open: '"', close: '"' },
+            { open: "'", close: "'" },
+            { open: "`", close: "`" },
+          ],
+        })
+				monaco.languages.setMonarchTokensProvider('jdaml', {
+          // Set defaultToken to invalid to see what you do not tokenize yet
+          defaultToken: 'invalid',
+          tokenPostfix: ".jdaml",
+
+          brackets: [
+            ['[',']','delimiter.square'],
+          ],
+
+          outdentTriggers: ']',
+
+          // The main tokenizer for our languages
+          tokenizer: {
+            root: [
+              {include: 'elem'},
+            ],
+            jevko: [
+              [/(\.)(\/\[)/, ['attribute.name', {token: 'regexp', bracket: '@open', next: '@attrn'}]],
+              [/(')(\/\[)/, ['tag.name', {token: 'regexp', bracket: '@open', next: '@tagn'}]],
+              [/(\.[a-zA-Z_0-9\-$]+)(\[)/, ['attribute.name', {token: '@brackets', next: '@attrib'}]],
+              // whitespace
+              [/\[/, {token: '@brackets', next: '@elem1'}],
+              [/('[&=])(\[)/, ['tag.name', {token: '@brackets', next: '@elem1'}]],
+              [/('[a-zA-Z_0-9\-$]*)(\[)/, ['tag.name', {token: '@brackets', next: '@elem'}]],
+              { include: '@whitespace' },
+              [/(\.[^.' \r\n\t]+)(\[)/, ['invalid', {token: '@brackets', next: '@attrib'}]],
+              [/('[^.' \r\n\t]+)(\[)/, ['invalid', {token: '@brackets', next: '@elem'}]],
+              [/\]/, { token: '@brackets', next: '@pop' } ],
+
+
+              // strings
+              [/((``)*`)'/,  { token: 'regexp.$1', bracket: '@open', next: '@string_fenced.$1.normal' } ],
+              [/`\/([a-zA-Z0-9_]*)\//,  { token: 'regexp.$1', bracket: '@open', next: '@string_tagged.$1.normal' } ],
+
+              [/`(`|\[|\])/, 'string.escape'],
+              [/[\[\]]/, '@brackets'],
+            ],
+            elem1: [
+              {include: 'jevko'},
+              [/[^\]\[`]+?/, 'anonstring'],
+            ],
+            elem: [
+              {include: 'jevko'},
+              [/[^\]\[`]+?/, 'text'],
+            ],
+            attrib: [
+              {include: 'jevko'},
+              [/[^\]\[`]+?/, 'string'],
+            ],
+
+            attrn: [
+              [/\[/, { token: 'invalid', next: '@invalidnesting' } ],
+              [/((``)*`)'/,  { token: 'regexp.$1', bracket: '@open', next: '@string_fenced.$1.attribute' } ],
+              [/`\/([a-zA-Z0-9_]*)\//,  { token: 'regexp.$1', bracket: '@open', next: '@string_tagged.$1.attribute' } ],
+              [/`(`|\[|\])/, 'string.attribute.escape'],
+              [/[^\]\[`]+?/, 'attribute.name'],
+              [/\]/, { token: 'regexp', bracket: '@close', switchTo: '@attrx' } ],
+              // {include: 'attrib'},
+            ],
+            attrx: [
+              [/(\/)(\[)/, ['regexp', { token: 'delimiter.square', switchTo: '@attrib' }]]
+            ],
+            invalidnesting: [
+               [/\[/, { token: 'invalid', next: '@invalidnesting' } ],
+               [/\]/, { token: 'invalid', next: '@pop' } ],
+               [/./, 'invalid'],
+            ],
+
+            tagn: [
+              [/\[/, { token: 'invalid', next: '@invalidnesting' } ],
+              [/((``)*`)'/,  { token: 'regexp.$1', bracket: '@open', next: '@string_fenced.$1.tag' } ],
+              [/`\/([a-zA-Z0-9_]*)\//,  { token: 'regexp.$1', bracket: '@open', next: '@string_tagged.$1.tag' } ],
+              [/`(`|\[|\])/, 'string.tag.escape'],
+              [/[^\]\[`]+?/, 'tag.name'],
+              [/\]/, { token: 'regexp', bracket: '@close', switchTo: '@tagx' } ],
+            ],
+            tagx: [
+              [/(\/)(\[)/, ['regexp', { token: 'delimiter.square', switchTo: '@elem' }]]
+            ],
+
+            comment: [
+              [/\[/, { token: 'comment', bracket: '@open', next: '@comment' } ],
+              [/\]/, { token: 'comment', bracket: '@close', next: '@pop' } ],
+              [/((``)*`)'/,  { token: 'comment.regexp.$1', bracket: '@open', next: '@string_fenced.$1.comment' } ],
+              [/`\/([a-zA-Z0-9_]*)\//,  { token: 'comment.regexp.$1', bracket: '@open', next: '@string_tagged.$1.comment' } ],
+              [/./, 'comment']
+            ],
+
+            string_fenced: [
+              [/'(`(?:``)*)(?=\[|\])/, {
+                cases: {
+                  "$S2==$1": { token: 'delimiter.$S3.$1', bracket: '@close', next: '@pop' }
+                }
+              }],
+              [/./, {token: 'string.$S3'}],
+            ],
+            string_tagged: [
+              [/\/([a-zA-Z0-9_$]*)\/(?=\[|\])/, {
+                cases: {
+                  "$S2==$1": { token: 'delimiter.$S3.$1', bracket: '@close', next: '@pop' }
+                }
+              }],
+              [/./, {token: 'string.$S3'}],
+            ],
+
+            whitespace: [
+              [/(\.|');[a-zA-Z_-]*\[/, 'comment', '@comment'],
+              [/[ \t\r\n]+/, 'white'],
+            ],
+          },
+        });
+
+				// Define a new theme that constains only rules that match this language
+				monaco.editor.defineTheme('jdamlTheme', {
+					colors: {
+            // 'editor.background': '#000000',
+          },
+					base: 'vs-dark',
+					inherit: false,
+					rules: [
+            { background: '#1f1f1f' },
+						{ token: 'invalid', foreground: '#ff0000' },
+						{ token: 'delimiter', foreground: '#b46695' },
+						{ token: 'comment', foreground: '#608b4e' },
+						{ token: 'string.comment', foreground: '#608b4e' },
+						{ token: 'delimiter.comment', foreground: '#608b4e' },
+						{ token: 'string', foreground: '#ce9178' },
+						{ token: 'anonstring', foreground: '#fbcab6' },
+						{ token: 'regexp', foreground: '#b46695' },
+						{ token: 'delimiter.normal', foreground: '#b46695' },
+						{ token: 'bracket', foreground: '#ffd700' },
+						{ token: 'attribute', foreground: '#9cdcfe' },
+						{ token: 'string.attribute', foreground: '#9cdcfe' },
+						{ token: 'string.attribute.escape', foreground: '#ccffff' },
+						{ token: 'tag', foreground: '#569cd6' },
+						{ token: 'string.tag', foreground: '#569cd6' },
+						{ token: 'string.tag.escape', foreground: '#86ccff' },
+						{ token: 'text', foreground: '#cccccc' },
+						// { token: 'delimiter', foreground: '#ffd700' },
+						{ token: 'attribute', foreground: '#9cdcfe' },
+					]
+				});
+
+        const files = [
+          'hodgepodge.jdaml',
+          'explainer.jdaml',
+          'heaven.jdaml',
+          'johnsmith.jdaml',
+          'johnsmith2.jdaml',
+          'config.jdaml',
+          'html.jdaml',
+          'markdownlike.jdaml',
+        ]
+
+        const fetchfiles = async () => {
+          const responses = await Promise.all(files.map(name => fetch(name)))
+          const texts = await Promise.all(responses.map((res) => res.text()))
+
+          let i = 0
+          for (const text of texts) {
+            const name = files[i]
+            const option = document.createElement('option')
+            option.value = text
+            option.text = name
+            fileselect.append(option)
+            i += 1
+          }
+          editor.setValue(texts[0])
+        }
+
+        const fileselect = document.getElementById('fileselect')
+        fileselect.onchange = () => {
+          editor.setValue(fileselect.value)
+        }
+        // document.body.prepend(fileselect)
+
+        fetchfiles()
+
+
+        let editor
+        // fetch('testfile').then((res) => {
+        //   return res.text()
+        // }).then((text) => {
+          // const lines = text.split('\n')
+          editor = monaco.editor.create(document.getElementById('container'), {
+            theme: 'jdamlTheme',
+            value: '',
+            language: 'jdaml',
+            "bracketPairColorization.enabled": true,
+          });
+        // })
+
+        const outputdiv = document.getElementById('output')
+
+        let outed
+        document.getElementById('as-json').onclick = () => {
+          const value = editor.getValue()
+          const parsed = parseJdaml(value)
+          const stringified = JSON.stringify(parsed, null, 2)
+          console.log(parsed)
+          console.log(stringified)
+          // outputdiv.textContent = stringified
+          if (outed !== undefined) {
+            outed.dispose()
+            outed = undefined
+          }
+          outed = monaco.editor.create(document.getElementById('output'), {
+            theme: 'vs-dark',
+            value: '',
+            language: 'json',
+            "bracketPairColorization.enabled": true,
+          });
+          outed.setValue(stringified)
+        }
+        document.getElementById('as-html').onclick = () => {
+          const value = editor.getValue()
+          const parsed = jdamltodom(value)
+          const stringified = parsed.outerHTML
+          console.log(parsed)
+          console.log(stringified)
+          // outputdiv.textContent = stringified
+          if (outed !== undefined) {
+            outed.dispose()
+            outed = undefined
+          }
+          outed = monaco.editor.create(document.getElementById('output'), {
+            theme: 'vs-dark',
+            value: '',
+            language: 'html',
+            "bracketPairColorization.enabled": true,
+          });
+          outed.setValue(stringified)
+        }
+			});
+		</script>
+	</body>
+</html>
