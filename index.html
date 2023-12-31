@@ -22,8 +22,8 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="/style.css?stamp=1704043551235" />
-  <link rel="stylesheet" href="/highlight/style.css?stamp=1704043551235" />
+  <link rel="stylesheet" href="/style.css?stamp=1704046554076" />
+  <link rel="stylesheet" href="/highlight/style.css?stamp=1704046554076" />
   <link rel="icon" type="image/png" href="/jevko.png" />
   <meta name="og-image" property="og:image" content="/jevko.png" />
   <meta name="twitter:image" content="/jevko.png" />
@@ -206,14 +206,14 @@ href="#resources">[#socials]</a> <a
 href="#etymology-and-pronunciation">[#pronunciation]</a> <a
 href="#license">[#license]</a></p>
 </div>
-<p><strong>Jevko</strong> is a versatile minimal syntax for representing
-trees as text in a human-friendly manner.</p>
+<p><strong>Jevko</strong> is a versatile minimal syntax for encoding
+tree-structured information as human-friendly text.</p>
 <p>Jevko is designed to integrate with and complement familiar formats
 and programming languages.</p>
 <p>It can be used as a building block for simple formats, languages, and
-notations in a variety of domains.</p>
+notations across a variety of domains.</p>
 <p>For example, <a href="#jdaml"><strong>JDAML</strong></a> is an
-XML-like format built on Jevko that works just as well for data
+XML-like format built on Jevko that works equally well for data
 interchange, configuration, <em>and</em> text markup.</p>
 <h2 id="at-a-glance">At a glance</h2>
 <p>Here is how Jevko compares to the most popular syntaxes often used
@@ -237,9 +237,9 @@ for representing trees as text.</p>
 <div style="font-family: monospace;text-align: center;"><a href="#json-analogy">[#likejson]</a></div>
 </div>
 </div>
-<p>Thanks to its simplicity, Jevko makes a great building block on top
-of which we can layer additional restrictions and features to create
-formats, such as…</p>
+<p>Thanks to its simplicity and generic nature, Jevko is the perfect
+building block for various formats, languages, and notations, such
+as…</p>
 <p><a name="jdaml"></a></p>
 <h1 id="jevko-data-and-markup-language">Jevko Data And Markup
 Language</h1>
@@ -253,9 +253,10 @@ built on Jevko, designed to map equally well to markup-oriented formats
 (such as HTML or XML) and data-oriented formats (such as JSON or
 YAML).</p>
 <p>It can serve as a unified, lean, flexible, and human-friendly
-representation of these formats, or it can be used on its own.</p>
-<p>Below are a few examples of how JDAML maps to formats in various
-domains.</p>
+representation of these formats, can be mixed with them, or can be used
+alone.</p>
+<p>Below are a few examples of mapping JDAML to and from formats in
+various domains.</p>
 <p><a name="data"></a></p>
 <h2 id="data-interchange">Data interchange<a href="#fn1"
 class="footnote-ref" id="fnref1"
@@ -344,13 +345,13 @@ HTML:JDAML
 <h2 id="just-text-and-square-brackets">Just <code>text</code> and
 <code>[</code>square brackets<code>]</code></h2>
 <p>Plain Jevko is just Unicode text in which nested square brackets
-create a hierarchical tree structure. On top of that there is syntax to
+create a hierarchical tree structure. In addition, there is syntax to
 escape the brackets, so they can also be part of text, and some syntax
 sugar useful when we don’t want to worry about escaping. That’s
 basically it.</p>
 <p>Jevko simply captures the concept of a generic tree of text in the
 most minimal reasonable way. The only significant characters in Jevko
-are the square brackets.</p>
+are two square brackets and one escape character.</p>
 <h2 id="square-brackets-in-text">Square brackets in text</h2>
 <p>To treat square brackets as text, they can be escaped.</p>
 <p>Alternatively text can be fenced, like in Markdown, in which case no
@@ -358,13 +359,13 @@ escaping is needed at all.</p>
 <h2 id="whitespace-agnostic">Whitespace-agnostic</h2>
 <p>Jevko is completely whitespace-agnostic: it treats whitespace as any
 other character. It doesn’t ignore it or use it as a separator or
-anything like that. It gets preserved along with everything else in the
-tree.</p>
+anything like that. All whitespace is preserved in the tree
+verbatim.</p>
 <h2 id="good-for-all-kinds-of-formats">Good for all kinds of
 formats</h2>
 <p>Because of this we can use Jevko to build formats that work well not
 only for representing data, but also for text markup. We can even do
-both with one format, as <a href="#jevko-data-and-markup-language">Jevko
+both in one format, as <a href="#jevko-data-and-markup-language">Jevko
 Data And Markup Language</a> demonstrates.</p>
 <h1 id="jevko-is-like">Jevko is like…</h1>
 <p><a name="xml-analogy"></a></p>
@@ -384,18 +385,17 @@ text.</li>
 <p>All in an extremely lean syntax.</p>
 <p><a name="json-analogy"></a></p>
 <h2 id="simplified-json">…simplified JSON</h2>
-<p>Because of its popularity, sometimes JSON is also used for
-representing trees. Even though it is fairly minimal, it was designed
-specifically for data interchange and it is just not a good tool for
-this particular job.</p>
+<p>Due to its popularity, JSON is sometimes also used to represent
+trees. Even though it is quite minimal, it is not a good tool for this
+particular job as it was designed specifically for data interchange.</p>
 <p>Jevko can be thought of as a very stripped down JSON where we only
 have:</p>
 <ol type="1">
 <li>Strings.</li>
 <li>Arrays.</li>
 </ol>
-<p>However Jevko strings (text nodes) can span multiple lines and don’t
-have to be quoted (but can be fenced like in Markdown to include square
+<p>However Jevko strings (text nodes) can span multiple lines and do not
+need to be quoted (but can be fenced like in Markdown to include square
 brackets without having to escape them).</p>
 <h1 id="implementing-jevko">Implementing Jevko</h1>
 <p><a name="spec"></a></p>
