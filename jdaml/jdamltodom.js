@@ -7,11 +7,6 @@ export const jdamltodom = (str) => {
 
 const anonName = '_node'
 
-// todo: perhaps default root should be 'html'
-//       and then the jevko.org JDAML:HTML:JDAML example would skip the root
-//       because right now the actual result is <jdaml><html>...</html></jdaml>
-//       even though the website shows <html>...</html>
-
 // todo: could support adjustable root in HTML and XML via .:root[custom]
 
 // todo: could support .:before[<!doctype html>] and .:after[</xml>]

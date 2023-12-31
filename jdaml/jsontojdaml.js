@@ -3,7 +3,6 @@ import { serializeJdaml } from "./serializejdaml.js"
 export const jsonstrToJdaml = (jsonstr) => {
   const json = JSON.parse(jsonstr)
   const ast = indentAst0(jsonToJdamlAst(json))
-  // todo: maybe insert format at the beginning?
   ast.unshift({tag: '.:format', subs: ['json']}, '\n')
   return serializeJdaml(ast)
 }

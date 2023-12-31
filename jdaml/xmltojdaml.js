@@ -37,9 +37,7 @@ const htmlToJdamlAst = (doc) => {
     if (attr.name === '_isattr') continue
     subs.push({tag: `.${attr.name}`, subs: [attr.value]})
   }
-  console.log('>>>', doc)
   for (const node of doc.childNodes) {
-    // console.log('>>>', node)
     const t = node.nodeType
     if (t === Node.TEXT_NODE) {
       subs.push(node.textContent)
@@ -61,7 +59,6 @@ const htmlToJdamlAst = (doc) => {
           subs.push({tag: ``, subs: htmlToJdamlAst(node)})
         }
         else {
-          console.log('>>>', name)
           subs.push({tag: `'${name}`, subs: htmlToJdamlAst(node)})
         }
       }

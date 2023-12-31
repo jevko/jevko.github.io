@@ -43,18 +43,23 @@ export const tokensProvider = {
     ],
     jevko: [
       // attributes with arbitrary names
-      [/(\.)(\/\[)/, ['attribute.name', {token: 'regexp', bracket: '@open', next: '@attrn.attribute'}]],
+      [/(\.)(\/\[)/, ['delimiter', {token: 'regexp', bracket: '@open', next: '@attrn.attribute'}]],
       // elements with arbitrary names
-      [/(')(\/\[)/, ['tag.name', {token: 'regexp', bracket: '@open', next: '@tagn.tag'}]],
+      [/(')(\/\[)/, ['delimiter', {token: 'regexp', bracket: '@open', next: '@tagn.tag'}]],
 
       // regular .attributes
-      [/(\.[a-zA-Z_0-9\-$]+)(\[)/, ['attribute.name', {token: '@brackets', next: '@jevko.attrib'}]],
+      [/(\.)([a-zA-Z_0-9\-$]+)(\[)/, ['delimiter', 'attribute.name', {token: '@brackets', next: '@jevko.attrib'}]],
+      // meta attributes
+      [/(\.:)([a-zA-Z_0-9\-$]+)(\[)/, ['delimiter', 'attribute.meta.name', {token: '@brackets', next: '@jevko.attrib'}]],
       // anonymous elements
-      [/('?)(\[)/, ['tag.name', {token: '@brackets', next: '@jevko.anon'}]],
+      [/('?)(\[)/, ['delimiter', {token: '@brackets', next: '@jevko.anon'}]],
       // '=[] and '&
-      [/('[&=])(\[)/, ['tag.name', {token: '@brackets', next: '@jevko.anon'}]],
+      [/(')([&=])(\[)/, ['delimiter', 'tag.name', {token: '@brackets', next: '@jevko.anon'}]],
       // regular 'elements
-      [/('[a-zA-Z_0-9\-$]+)(\[)/, ['tag.name', {token: '@brackets', next: '@jevko'}]],
+      [/(')([a-zA-Z_0-9\-$]+)(\[)/, ['delimiter', 'tag.name', {token: '@brackets', next: '@jevko'}]],
+      // special elements
+      [/('[:=])([a-zA-Z_0-9\-$]+)(\[)/, ['delimiter', 'tag.special.name', {token: '@brackets', next: '@jevko'}]],
+      // comments
       [/(\.|');[a-zA-Z_-]*\[/, 'comment', '@comment'],
       // { include: '@whitespace' },
       // invalid 'attributes
@@ -148,6 +153,7 @@ export const theme = {
     { token: 'regexp', foreground: '#b46695' },
     { token: 'bracket', foreground: '#ffd700' },
     { token: 'attribute.name', foreground: '#9cdcfe' },
+    { token: 'attribute.meta.name', foreground: '#ecacff' },
     // todo: rename to something like string.attributename
     //       will have to change @attrn.attribute to @attrn.attributename
     { token: 'string.attribute', foreground: '#9cdcfe' },
@@ -155,6 +161,7 @@ export const theme = {
     //       will have to change @attrn.attribute to @attrn.attributename
     { token: 'string.escape.attribute', foreground: '#ccffff' },
     { token: 'tag', foreground: '#569cd6' },
+    { token: 'tag.special.name', foreground: '#9c56d6' },
     // todo: rename to something like string.tagname or string.elementname
     //       will have to change @tagn.tag to @tagn.tagname / @tagn.elementname
     //       maybe also rename @tagn to @elementname
