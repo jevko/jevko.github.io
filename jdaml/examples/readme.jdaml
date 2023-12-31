@@ -1,0 +1,23 @@
+.:format[znatchke]
+
+';[
+  todo: explain what this is
+]
+
+[JDAML.img[logo.svg].width[160]]
+
+[# JDAML]
+[
+  JDAML (Jevko D🌲ta Markup Language)
+]
+
+[## Demo]
+
+[### Running locally]
+
+[`'''bash
+python3 -m http.server 8006
+'`]
+
+[<https://jevko.org]
+[<https://jevko.org>]

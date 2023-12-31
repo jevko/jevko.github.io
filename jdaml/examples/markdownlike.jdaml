@@ -1,0 +1,109 @@
+.:format[znatchke]
+
+';[
+  todo: explain what this is
+]
+
+[#title]
+
+[
+  paragraph
+]
+
+[*emphasized]
+[**strong]
+[***emphasized strong]
+[***] horizontal rule
+
+[-deleted]
+[+inserted]
+
+[_subscript]
+[^superscript]
+
+[&quot]entities[&quot]
+
+[,
+  [list]
+  [of]
+  [items]
+]
+
+[,
+  [/list.a[#1]]
+  [/of.a[#2]]
+  [/links.a[#3]]
+]
+
+[.
+  [a]
+  [numbered]
+  [list]
+]
+
+[/a link.a[https://jevko.org]]
+[!an image.src[https://xtao.org/tao-logo.png].width[128]]
+[/[!an image wrapped in a link.src[https://xtao.org/tao-logo.png].width[128]].a[https://xtao.org]]
+
+table:
+[| 
+  [#[th][th][th]] 
+  [ [td][td][td]] 
+  [[#th][td][td]] 
+]
+
+commented out table:
+[;| 
+  [#[th][th][th]] 
+  [ [td][td][td]] 
+  [[#th][td][td]] 
+]
+
+[;anything can be commented out by prepending ;]
+
+['code]
+
+[''
+code block
+]
+
+[''js
+code block with a language specifier
+]
+
+[`'''
+fenced code block
+'`]
+
+[`'''bash
+fenced code block with a language specifier
+'`]
+
+[$a + b]
+
+[$$a^2 - b^2]
+
+[:+1] [:emoji]
+
+[>
+Play the best song in the world!]
+
+[> Or I'll eat your soul!]
+
+[=mark my words]
+
+[\=this is escaped]
+
+[::a div]
+
+[::a div with a class.c[some class]]
+
+[***]
+
+[<https://jevko.org]
+[<https://jevko.org>]
+
+[ 
+  line1[\]
+  [***very very important]
+]

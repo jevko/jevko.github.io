@@ -3,12 +3,12 @@ import { decodeString, textToString } from "./node_modules/@jevko-org/jevko.js/d
 
 //                   JDAML -- Jevko DAta Markup Language
 
-// Data Markup Ńotation
-export const parseJdaml = (str) => {
-  return extractData(applyAttrs(parseElems(seedFromString(str))))
+export const parseJdaml = (str, forgiving = false) => {
+  const extract = forgiving? extractDataCreative: extractData
+  return extract(applyAttrs(parseNodes(seedFromString(str))))
 }
 export const parseJdamlMarkup = (str) => {
-  return applyAttrs(parseElems(seedFromString(str)))
+  return applyAttrs(parseNodes(seedFromString(str)))
 }
 
 export const seedFromString = (str) => {
@@ -30,8 +30,9 @@ export const seedFromString = (str) => {
     }
   })
 }
-
-export const parseElems = (tree) => {
+// note: resolveTag takes parsed nodes and should return a [text_node]
+//       that text node will be used as a tag name for a /[fancy]/ tag
+export const parseNodes = (tree, resolveTag = (s) => s) => {
   const {subs, text} = tree
   const nsubs = []
 
@@ -46,20 +47,20 @@ export const parseElems = (tree) => {
       // substitute tag
       // todo: ?impl in highlighter?
       else if (tag.length === 2 && tag[1] === '/') {
-        //                 ./[key]/[value]
-        const {substag, substree, subsi} = extractSubstag(subs, i)
-        nsubs.push({tag: tag[0] + substag, subs: parseElems(substree)})
+        //                 /[key]/[value]
+        const {substag, substree, subsi} = extractSubstag(subs, i, resolveTag)
+        nsubs.push({tag: tag[0] + substag, subs: parseNodes(substree, resolveTag)})
         i = subsi
         continue
       }
     }
-    nsubs.push({tag, subs: parseElems(tree)})
+    nsubs.push({tag, subs: parseNodes(tree, resolveTag)})
   }
 
   if (text !== '') nsubs.push(text)
   return nsubs
 }
-const extractSubstag = (subs, i) => {
+const extractSubstag = (subs, i, resolveTag) => {
   // we are at the sub that contains ./[...]
   // if (i >= subs.length) throw Error('oops')
   let substag
@@ -68,9 +69,14 @@ const extractSubstag = (subs, i) => {
     // note: ignore text
     const {text: _, tree} = subs[i]
     {
-      const {subs, text} = tree
-      if (subs.length > 0) throw Error('oops')
-      substag = text
+      const doc = resolveTag(parseNodes(tree, resolveTag))
+      if (doc.length === 0) substag = ''
+      else {
+        if (doc.length !== 1) throw Error('oops')
+        const node0 = doc[0]
+        if (typeof node0 !== 'string') throw Error('oops')
+        substag = node0
+      }
     }
   }
   i += 1
@@ -140,7 +146,7 @@ const parseTag = (tree) => {
   return text
 }
 
-const applyAttrs = (subs, parent = {_tag: ''}) => {
+export const applyAttrs = (subs, parent = {_tag: ''}) => {
   const nsubs = []
   for (const sub of subs) {
     if (typeof sub === 'string') {
@@ -152,7 +158,9 @@ const applyAttrs = (subs, parent = {_tag: ''}) => {
     if (tag.startsWith('.')) {
       let t2 = tag.slice(1)
       if (t2.startsWith('_')) t2 = '_' + t2
-      if (Object.hasOwn(parent, t2)) throw Error('dupe')
+      if (Object.hasOwn(parent, t2)) {
+        throw Error(`Duplicate attribute [${t2}]!`)
+      }
       parent[t2] = applyAttrs(subs)
     }
     else {
@@ -184,6 +192,21 @@ const parsers = {
   NaN: ({_subs, _tag, ...rest}) => {
     if (_subs.length !== 0 || Object.entries(rest).length !== 0) throw Error('oops')
     return NaN
+  },
+  doctest: ({_subs, _tag, ...rest}) => {
+    const data = extractData({_subs, _tag: '', ...rest})
+    const out = eval(data.code).toString()
+    if (out !== data.expect) {
+      data.status = 'FAILED'
+      data.actual = out
+      // console.error(out)
+      // throw Error('oops')
+    }
+    else {
+      data.status = 'PASSED'
+    }
+    // console.log(parent)
+    return data
   },
   // todo:
   '=': ({_subs, _tag, ...rest}) => {
@@ -227,6 +250,24 @@ const parsers = {
     // actually should use a standard number parser
     return Number(sub)
   },
+  // todo: number types
+  u16: ({_subs, _tag, ...rest}) => {
+    if (_subs.length !== 1 || Object.entries(rest).length !== 0) throw Error('oops')
+    const sub = _subs[0]
+    if (typeof sub !== 'string') throw Error('oops')
+    // todo: error check, etc.
+    // actually should use a standard number parser
+    return Number(sub)
+  },
+  // todo: number types
+  u8: ({_subs, _tag, ...rest}) => {
+    if (_subs.length !== 1 || Object.entries(rest).length !== 0) throw Error('oops')
+    const sub = _subs[0]
+    if (typeof sub !== 'string') throw Error('oops')
+    // todo: error check, etc.
+    // actually should use a standard number parser
+    return Number(sub)
+  },
   seq: ({_subs, _tag, ...rest}) => {
     if (Object.entries(rest).length !== 0) throw Error('oops')
     // console.log('>>', _subs)
@@ -249,7 +290,7 @@ const defaultParser = (parent) => {
   // throw Error('oops')
   return parent
 }
-const extractData = (parent) => {
+export const extractData = (parent) => {
   const {_tag, _subs, ...rest} = parent
 
   // tagged type
@@ -298,6 +339,7 @@ const extractData = (parent) => {
   }
 
   const ret = {}
+
   for (let [key, value] of entries) {
     if (key.startsWith('__')) key = key.slice(1)
     ret[key] = extractData(value)
@@ -309,6 +351,52 @@ const convertArray = (subs) => {
   for (const sub of subs) {
     if (typeof sub === 'string') continue
     ret.push(extractData(sub))
+  }
+  return ret
+}
+// a version which puts extra subs in objects in _subs, processed
+export const extractDataCreative = (parent) => {
+  const {_tag, _subs, ...rest} = parent
+
+  // tagged type
+  if (_tag !== '') {
+    const parser = parsers[_tag] ?? defaultParser
+    // todo: blow up here/delegate to user-defined handler
+    return parser(parent)
+  }
+
+  const entries = Object.entries(rest)
+
+  if (entries.length === 0) {
+    if (_subs.length === 1) {
+      const sub = _subs[0]
+      if (typeof sub === 'string') return sub
+    }
+
+    const items = convertArrayCreative(_subs)
+    if (items.length === 1) {
+      return items[0]
+    }
+    else {
+      // array
+      return items
+    }
+  }
+
+  // object
+  const ret = {}
+  for (let [key, value] of entries) {
+    // if (key.startsWith('__')) key = key.slice(1)
+    ret[key] = extractDataCreative(value)
+  }
+  if (_subs.filter(s => typeof s !== 'string').length > 0) ret._subs = convertArrayCreative(_subs)
+  return ret
+}
+const convertArrayCreative = (subs) => {
+  const ret = []
+  for (const sub of subs) {
+    if (typeof sub === 'string') continue
+    ret.push(extractDataCreative(sub))
   }
   return ret
 }
@@ -564,3 +652,78 @@ export const highlightJdaml = (str) => {
   return highlightSubs(parseElemsForHighlight(seedFromStringForHighlight(str)))
 }
 
+
+
+
+export const parseJdaml2 = (str) => {
+  const extract = extractDataCreative2
+  return extract(applyAttrs(parseNodes(seedFromString(str))))
+}
+export const extractDataCreative2 = (parent) => {
+  const {_tag, _subs, ...rest} = parent
+
+  // tagged type
+  if (_tag !== '') {
+    const parser = parsers[_tag] ?? defaultParser
+    // todo: blow up here/delegate to user-defined handler
+    return parser(parent)
+  }
+
+  const entries = Object.entries(rest)
+
+  if (entries.length === 0) {
+    if (_subs.length === 1) {
+      const sub = _subs[0]
+      if (typeof sub === 'string') return sub
+    }
+
+    // array
+    return convertArrayCreative2(_subs)
+  }
+
+  if (entries.length === 1) {
+    const [key, v] = entries[0]
+    const val = extractDataCreative2(v)
+    // todo: check/handle nonempty _subs, etc.
+    if (key === '=') {
+      if (val === 'true') return true
+      if (val === 'false') return false
+      if (val === 'nil') return null
+      if (val === 'seq') return []
+      console.log('>>>', val)
+      const num_ = Number(val)
+      if (Number.isNaN(num_)) throw Error('todo')
+      return num_
+    }
+    else if (key === ':') {
+      if (val === 'number') {
+        if (_subs.length === 1) {
+          const sub = _subs[0]
+          if (typeof sub === 'string') return Number(sub)
+          else throw Error('oops')
+        }
+        else throw Error('oops')
+      }
+      else {
+        throw Error('todo')
+      }
+    }
+  }
+
+  // object
+  const ret = {}
+  for (let [key, value] of entries) {
+    // if (key.startsWith('__')) key = key.slice(1)
+    ret[key] = extractDataCreative2(value)
+  }
+  if (_subs.filter(s => typeof s !== 'string').length > 0) ret._subs = convertArrayCreative2(_subs)
+  return ret
+}
+const convertArrayCreative2 = (subs) => {
+  const ret = []
+  for (const sub of subs) {
+    if (typeof sub === 'string') continue
+    ret.push(extractDataCreative2(sub))
+  }
+  return ret
+}

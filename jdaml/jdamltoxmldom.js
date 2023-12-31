@@ -1,32 +1,15 @@
 import { parseNodes, seedFromString } from "./jdaml.js"
 import { resolveentities } from "./jdamlentities.js"
 
-export const jdamltodom = (str) => {
+export const jdamltoxmldom = (str) => {
   return dumbconvert(resolveentities(parseNodes(seedFromString(str))))
 }
 
 const anonName = '_node'
 
-// todo: perhaps default root should be 'html'
-//       and then the jevko.org JDAML:HTML:JDAML example would skip the root
-//       because right now the actual result is <jdaml><html>...</html></jdaml>
-//       even though the website shows <html>...</html>
-
-// todo: could support adjustable root in HTML and XML via .:root[custom]
-
-// todo: could support .:before[<!doctype html>] and .:after[</xml>]
-
-const createDocument = () => {
-  const doc = new DOMParser().parseFromString("<html _jdaml=\"true\"></html>", "text/html").documentElement
-  // doc.head.remove()
-  // doc.body.remove()
-  doc.replaceChildren()
-  return doc
-}
-
 // todo: stripping space from before attrs should be configurable
-// maybe in creative mode they should only be stripped if attr is not complex
-export const dumbconvert = (subs, parent = createDocument()) => {
+// maybe in creative mode they should only be stripped if attr is not complex 
+export const dumbconvert = (subs, parent = new DOMParser().parseFromString("<xml _jdaml=\"true\"></xml>", "application/xml").documentElement) => {
   const prevtext = []
   for (const sub of subs) {
     if (typeof sub === 'string') {
@@ -75,11 +58,10 @@ const trytostr = (subs) => {
   if (typeof sub !== 'string') throw Error('catch me if you can')
   return sub
 }
-// todo: unhack parent.ownerDocument
+
 const createElement = (name, parent) => {
   try {
-    // if (name === 'head') return parent.ownerDocument.head
-    // if (name === 'body') return parent.ownerDocument.body
+    // little hacky
     return parent.ownerDocument.createElement(name)
   } catch (e) {
     if (e instanceof DOMException && e.name === 'InvalidCharacterError') {
