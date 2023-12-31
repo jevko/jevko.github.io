@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="by Darius J Chuck" />
+  <title>The Jevko Syntax: Extensions Specification</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/style.css?stamp=1704040739078" />
+  <link rel="stylesheet" href="/highlight/style.css?stamp=1704040739078" />
+  <link rel="icon" type="image/png" href="/jevko.png" />
+  <meta name="og-image" property="og:image" content="/jevko.png" />
+  <meta name="twitter:image" content="/jevko.png" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="top" class="top black-bg">
+  <div class="header">
+    <a href="/index.html">
+      <img class="logo" src="/jevko.png" alt="logo" />
+    </a>
+    &nbsp;
+    <div class="right links" style="flex-grow: 1">
+      <div>
+        <a href="https://jevko-org.translate.goog/?_x_tr_sl=en&amp;_x_tr_tl=zh-TW&amp;_x_tr_hl=en" title="Click here to Google Translate jevko.org"><!--
+        --><img src="/translate_icon.svg" style="width: 2.5rem;" alt="[^translate]" /><!--
+        --></a>
+        <a href="https://xtao.org" title="Click here to go to xtao.org, the parent page of jevko.org"><!--
+        --><img src="/tao-logo.svg" style="width: 2.5rem;" alt="[^TAO]" /><!--
+        --></a>
+      </div>
+      <div>
+          <a href="https://archive.org/details/@jevko" title="Click here to go to the official Jevko archive.org profile"><!--
+          --><img src="/archive_icon.svg" style="width: 2.5rem;" alt="[^archive]" /><!--
+          --></a>
+          <a href="https://www.youtube.com/@jevko-org" title="Click here to go to the official Jevko YouTube channel"><!--
+          --><img src="/youtube_icon.svg" style="width: 2.5rem;" alt="[^youtube]" /><!--
+          --></a>
+          <a href="https://codeberg.org/jevko-org" title="Click here to go to the official Jevko Codeberg organization"><!--
+          --><img src="/codeberg_icon.svg" style="width: 2.5rem;" alt="[^codeberg]" /><!--
+          --></a>
+          <a href="https://github.com/jevko" title="Click here to go to the official Jevko GitHub organization"><!--
+          --><img src="/github_icon.svg" style="width: 2.5rem;" alt="[^github]" /><!--
+          --></a>
+          <a rel="me" href="https://layer8.space/@jevko" title="Click here to go to the official Jevko Mastodon channel"><!--
+          --><img src="/mastodon_icon.svg" style="width: 2.5rem;" alt="[^mastodon]" /><!--
+          --></a>
+          <a href="https://reddit.com/r/jevko" title="Click here to go to the official Jevko subreddit"><!--
+          --><img src="/reddit_icon.svg" style="width: 2.5rem;" alt="[^reddit]" /><!--
+          --></a>
+          <a href="https://layer8.space/@jevko.rss" title="Click here to download the official Jevko RSS channel"><!--
+          --><img src="/rss_icon.svg" style="width: 2.5rem;" alt="[rss]" /><!--
+          --></a>
+      </div>
+      <div>
+        <a href="/spec.html" title="Click here to go to see the official Jevko speficication">[specification]</a>
+        <a href="/diagram.xhtml" title="Click here to see the official Jevko syntax railroad diagrams">[diagrams]</a>
+        <a href="/extensions.html" title="Click here to go to see the official Jevko extensions specification">[extensions]</a>
+        <!-- <a href="/license.html" title="Click here to see the license Jevko is available under">[license]</a> -->
+      </div>
+    </div>
+  </div>
+</header>
+<header id="title-block-header">
+<h1 class="title">The Jevko Syntax: Extensions Specification</h1>
+<p class="author">by Darius J Chuck</p>
+<p class="date">First Draft: January 2024.</p>
+</header>
+<p>These extensions complement the <a
+href="specification.html">specification</a>.</p>
+<h1 id="fencedtext">FencedText</h1>
+<p>A Jevko extension which enables arbitrary text without escaping,
+delimited similarly to fenced code blocks in Markdown.</p>
+<h2 id="status">Status</h2>
+<p>This extension is strongly recommended for implementation in all
+Jevko processors.</p>
+<h2 id="examples">Examples</h2>
+<p>Some examples of valid Jevkos using this extension:</p>
+<pre><code>`&#39;hello&#39;`</code></pre>
+<pre><code>```&#39;
+some
+lines
+with [arbitrary] `characters`
+&#39;```</code></pre>
+<pre><code>[`&#39;hello&#39;`]
+
+[```&#39;
+some
+lines
+with [arbitrary] `characters`
+&#39;```]</code></pre>
+<p>Note that there is no whitespace or any other characters before and
+after the enclosing quotes in any of these examples.</p>
+<p>These are also valid, but not recommended:</p>
+<pre><code>`&#39;hello&#39;`[]
+
+[]```&#39;
+some
+lines
+with [arbitrary] `characters`
+&#39;```</code></pre>
+<h2 id="formal-definition">Formal definition</h2>
+<p>We will now formally define the <code>FencedText</code> extension in
+ABNF.</p>
+<p>We change the definition of the Jevko Text rule as follows:</p>
+<pre class="abnf"><code>Text = FencedText / OpenText</code></pre>
+<p>where <code>OpenText</code> is defined the same as the original
+<code>Text</code> rule:</p>
+<pre class="abnf"><code>OpenText = *Symbol</code></pre>
+<p>and the new <code>FencedText</code> rule is defined as:</p>
+<pre class="abnf"><code>FencedText = FencedText_1
+           / FencedText_3
+           / FencedText_5
+           / FencedText_7
+           / FencedText_9
+           / FencedText_11
+           / FencedText_13
+           / FencedText_15
+
+FencedText_1  = &quot;`&#39;&quot; FencedContent_1 &quot;&#39;`&quot;
+FencedText_3  = &quot;```&#39;&quot; FencedContent_3 &quot;&#39;```&quot;
+FencedText_5  = &quot;`````&#39;&quot; FencedContent_5 &quot;&#39;`````&quot;
+FencedText_7  = &quot;```````&#39;&quot; FencedContent_7 &quot;&#39;```````&quot;
+FencedText_9  = &quot;`````````&#39;&quot; FencedContent_9 &quot;&#39;`````````&quot;
+FencedText_11 = &quot;```````````&#39;&quot; 
+                FencedContent_11 
+                &quot;&#39;```````````&quot;
+FencedText_13 = &quot;`````````````&#39;&quot; 
+                FencedContent_13 
+                &quot;&#39;`````````````&quot;
+FencedText_15 = &quot;```````````````&#39;&quot; 
+                FencedContent_15 
+                &quot;&#39;```````````````&quot;
+
+FencedContent_1  = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;`&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_3  = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;```&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_5  = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;`````&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_7  = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;```````&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_9  = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;`````````&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_11 = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;```````````&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_13 = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;`````````````&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_15 = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;```````````````&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+
+; any Unicode codepoint
+AnyCodepoint = %x0-10ffff</code></pre>
+<h2 id="detailed-formal-definition">Detailed formal definition</h2>
+<p><code>FencedText</code> is abstractly defined as follows.</p>
+<p>We’ll use ABNF with some necessary additions which will be explained
+as we go.</p>
+<pre class="abnf"><code>FencedText(n) = {n}Escaper Fencer 
+                FencedContent(n) 
+                Fencer {n}Escaper</code></pre>
+<p>where:</p>
+<ul>
+<li><code>n &gt; 0 &amp;&amp; n &lt;= 15 &amp;&amp; n % 2 == 1</code>
+<ul>
+<li>in other words <code>n ∈ {1, 3, 5, 7, 9, 11, 13, 15}</code></li>
+<li><em>the reason even numbers are excluded is backwards
+compatibility</em></li>
+</ul></li>
+<li><code>{n}Rule</code> means <code>Rule</code> repeated exactly
+<code>n</code> times</li>
+</ul>
+<p>The upper limit of 15 for n is chosen conservatively for now. It may
+be extended in the future.</p>
+<p>Note: <code>FencedText(n)</code> is technically not a valid ABNF
+rule. Rather, from a formal point of view it is a hyperrule with one
+parameter (<code>n</code>).</p>
+<p>Similarly, <code>FencedContent(n)</code> is a hyperrule which matches
+an almost arbitrary sequence of codepoints:</p>
+<pre class="abnf"><code>FencedContent(n) = *AnyCodepoint</code></pre>
+<p>where:</p>
+<ul>
+<li><code>AnyCodepoint</code> means any Unicode codepoint
+(<code>%x0-10ffff</code>)</li>
+<li><code>FencedContent(n)</code> can’t contain the sequence
+<code>Fencer {n}Escaper (Opener / Closer / EOF)</code>
+<ul>
+<li>which is our closing delimiter/fence</li>
+<li><code>EOF</code> matches the End Of Input</li>
+</ul></li>
+</ul>
+<p>Put in practical terms: we have to parse the input lazily, matching
+the rule as soon as we find the closing fence.</p>
+<p>Now we define:</p>
+<pre class="abnf"><code>Fencer = &quot;&#39;&quot;</code></pre>
+<p>Equivalently:</p>
+<pre class="abnf"><code>Fencer = %x27 ; apostrophe</code></pre>
+<p>So we can restate the rule more concretely:</p>
+<pre class="abnf"><code>FencedText(n) = {n}&quot;`&quot; &quot;&#39;&quot; FencedContent(n) &quot;&#39;&quot; {n}&quot;`&quot;</code></pre>
+<ul>
+<li>so <code>FencedContent(n)</code> can’t contain
+<code>"'" {n}"`" ("[" / "]" / EOF)</code></li>
+</ul>
+<p>Finally, we can expand the hyperrules into multiple concrete
+pure-ABNF rules:</p>
+<pre class="abnf"><code>FencedText = FencedText_1 
+           / FencedText_3 
+           / FencedText_5 
+           / ... 
+           / FencedText_15
+
+FencedText_1 = &quot;`&#39;&quot; FencedContent_1 &quot;&#39;`&quot;
+FencedText_3 = &quot;```&#39;&quot; FencedContent_3 &quot;&#39;```&quot;
+FencedText_5 = &quot;`````&#39;&quot; FencedContent_5 &quot;&#39;`````&quot;
+...
+FencedText_15 = &quot;```````````````&#39;&quot; 
+                FencedContent_15 
+                &quot;&#39;```````````````&quot;
+
+FencedContent_1 = *AnyCodepoint  
+  ; can&#39;t contain &quot;&#39;`&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_3 = *AnyCodepoint  
+  ; can&#39;t contain &quot;&#39;```&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+FencedContent_5 = *AnyCodepoint  
+  ; can&#39;t contain &quot;&#39;`````&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+...
+FencedContent_15 = *AnyCodepoint 
+  ; can&#39;t contain &quot;&#39;```````````````&quot; (&quot;[&quot; / &quot;]&quot; / EOF)</code></pre>
+<h1 id="taggedtext">TaggedText</h1>
+<p>A Jevko extension which enables arbitrary text without escaping,
+delimited similarly to heredocs or dollar quoted literals in
+PostgreSQL.</p>
+<p>Even though this extension is technically independent, this
+description assumes <code>FencedText</code> has been implemented as
+well.</p>
+<h2 id="status-1">Status</h2>
+<p>This extension is experimental and its specification may change in
+the future.</p>
+<h2 id="examples-1">Examples</h2>
+<p>Some examples of valid Jevkos using this extension:</p>
+<pre><code>`//hello//</code></pre>
+<pre><code>`/tag/
+some
+lines
+with [arbitrary] `characters`
+/tag/</code></pre>
+<pre><code>[`//hello//]
+
+[`/end/
+some
+lines
+with [arbitrary] `characters`
+/end/]</code></pre>
+<p>These are also valid, but not recommended:</p>
+<pre><code>`//hello//[]
+
+[]`/end/
+some
+lines
+with [arbitrary] `characters`
+/end/</code></pre>
+<h2 id="formal-definition-1">Formal definition</h2>
+<p>The <code>TaggedText</code> extension is formally defined similarly
+to <code>FencedText</code> (therefore see the definition of
+<code>FencedText</code> for more details).</p>
+<p>We further extend the <code>Text</code> rule, assuming we’ve already
+added <code>FencedText</code>:</p>
+<pre class="abnf"><code>Text = TaggedText / FencedText / OpenText</code></pre>
+<p>Exhaustive definition of <code>TaggedText</code> in terms of pure
+ABNF rules is not viable, as the rule admits an enormous number of
+unique user-defined tags to use as delimiters.</p>
+<p>Because of that, we only show ABNF definitions only for a few example
+tags, namely the empty tag, <code>END</code>, and <code>done</code>.</p>
+<pre class="abnf"><code>TaggedText = TaggedText_ 
+           / TaggedText_END 
+           / TaggedText_done 
+           / ...
+
+TaggedText_     = &quot;`//&quot; TaggedContent_ &quot;//&quot;
+TaggedText_END  = &quot;`/END/&quot; TaggedContent_END &quot;/END/&quot;
+TaggedText_done = &quot;`/done/&quot; TaggedContent_done &quot;/done/&quot;
+...
+
+TaggedContent_     = *AnyCodepoint
+  ; can&#39;t contain &quot;//&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+TaggedContent_END  = *AnyCodepoint
+  ; can&#39;t contain &quot;/END/&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+TaggedContent_done = *AnyCodepoint
+  ; can&#39;t contain &quot;/done/&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+...</code></pre>
+<h2 id="detailed-formal-defintion">Detailed formal defintion</h2>
+<p>Abstractly we define two hyperrules:</p>
+<pre class="abnf"><code>TaggedText(Tag) = Escaper Tagger Tag Tagger 
+                  TaggedContent(Tag) 
+                  Tagger Tag Tagger
+
+TaggedContent(n) = *AnyCodepoint</code></pre>
+<p>where <code>TaggedContent(Tag)</code> can’t contain
+<code>Tagger Tag Tagger (Opener / Closer / EOF)</code>.</p>
+<p>Now we define:</p>
+<pre class="abnf"><code>Tagger = &quot;/&quot;</code></pre>
+<p>Equivalently:</p>
+<pre class="abnf"><code>Tagger = %x2f ; slash</code></pre>
+<p>and:</p>
+<pre class="abnf"><code>Tag = *255(ALPHA / DIGIT / &quot;_&quot;)</code></pre>
+<p>Equivalently:</p>
+<pre class="abnf"><code>Tag = 0*255(%x41–5A / %x61–7A / %x30–39 / %x5f)</code></pre>
+<p>or, using a regular expression:</p>
+<pre class="regexp"><code>Tag = /[a-zA-Z0-9_]{0,255}/</code></pre>
+<p>In other words <code>Tag</code> is an identifier of length 0-255
+characters which can contain only alphanumeric characters and
+underscores.</p>
+<p>Note: the tag length is currently limited to 255. If need be, this
+maximum length as well as the allowed characters may be extended in the
+future.</p>
+<p>Now we can restate the hyperrule more concretely:</p>
+<pre class="abnf"><code>TaggedText(Tag) = &quot;`/&quot; Tag &quot;/&quot; 
+                  TaggedContent(Tag) 
+                  &quot;/&quot; Tag &quot;/&quot;</code></pre>
+<p>where <code>TaggedContent(Tag)</code> can’t contain
+<code>"/" Tag "/" ("[" / "]" / EOF)</code>.</p>
+<p>Finally, we can expand this into a very large number of pure ABNF
+rules:</p>
+<pre class="abnf"><code>TaggedText = TaggedText_ 
+           / TaggedText_END 
+           / TaggedText_done 
+           / ...
+
+TaggedText_     = &quot;`//&quot; TaggedContent_ &quot;//&quot;
+TaggedText_END  = &quot;`/END/&quot; TaggedContent_END &quot;/END/&quot;
+TaggedText_done = &quot;`/done/&quot; TaggedContent_done &quot;/done/&quot;
+...
+
+TaggedContent_     = *AnyCodepoint
+  ; can&#39;t contain &quot;//&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+TaggedContent_END  = *AnyCodepoint
+  ; can&#39;t contain &quot;/END/&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+TaggedContent_done = *AnyCodepoint
+  ; can&#39;t contain &quot;/done/&quot; (&quot;[&quot; / &quot;]&quot; / EOF)
+...</code></pre>
+<footer id="bottom" class="black-bg">
+    <div class="footer">
+        <!-- <a href="/index.html" class="footer-link"> -->
+            <div class="left" style="margin-bottom: 1.25rem;">© 2024 Jevko.org</div>
+        <!-- </a> -->
+        &nbsp;
+        <div class="right links">
+            <a href="/attribution.html" title="Click here to go to the [attribution] subpage"><!--
+            -->[attribution]<!--
+            --></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

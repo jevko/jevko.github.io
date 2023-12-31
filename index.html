@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Jevko</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/style.css?stamp=1704040083488" />
+  <link rel="stylesheet" href="/highlight/style.css?stamp=1704040083488" />
+  <link rel="icon" type="image/png" href="/jevko.png" />
+  <meta name="og-image" property="og:image" content="/jevko.png" />
+  <meta name="twitter:image" content="/jevko.png" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="top" class="top black-bg">
+  <div class="header">
+    <a href="/index.html">
+      <img class="logo" src="/jevko.png" alt="logo" />
+    </a>
+    &nbsp;
+    <div class="right links" style="flex-grow: 1">
+      <div>
+        <a href="https://jevko-org.translate.goog/?_x_tr_sl=en&amp;_x_tr_tl=zh-TW&amp;_x_tr_hl=en" title="Click here to Google Translate jevko.org"><!--
+        --><img src="/translate_icon.svg" style="width: 2.5rem;" alt="[^translate]" /><!--
+        --></a>
+        <a href="https://xtao.org" title="Click here to go to xtao.org, the parent page of jevko.org"><!--
+        --><img src="/tao-logo.svg" style="width: 2.5rem;" alt="[^TAO]" /><!--
+        --></a>
+      </div>
+      <div>
+          <a href="https://archive.org/details/@jevko" title="Click here to go to the official Jevko archive.org profile"><!--
+          --><img src="/archive_icon.svg" style="width: 2.5rem;" alt="[^archive]" /><!--
+          --></a>
+          <a href="https://www.youtube.com/@jevko-org" title="Click here to go to the official Jevko YouTube channel"><!--
+          --><img src="/youtube_icon.svg" style="width: 2.5rem;" alt="[^youtube]" /><!--
+          --></a>
+          <a href="https://codeberg.org/jevko-org" title="Click here to go to the official Jevko Codeberg organization"><!--
+          --><img src="/codeberg_icon.svg" style="width: 2.5rem;" alt="[^codeberg]" /><!--
+          --></a>
+          <a href="https://github.com/jevko" title="Click here to go to the official Jevko GitHub organization"><!--
+          --><img src="/github_icon.svg" style="width: 2.5rem;" alt="[^github]" /><!--
+          --></a>
+          <a rel="me" href="https://layer8.space/@jevko" title="Click here to go to the official Jevko Mastodon channel"><!--
+          --><img src="/mastodon_icon.svg" style="width: 2.5rem;" alt="[^mastodon]" /><!--
+          --></a>
+          <a href="https://reddit.com/r/jevko" title="Click here to go to the official Jevko subreddit"><!--
+          --><img src="/reddit_icon.svg" style="width: 2.5rem;" alt="[^reddit]" /><!--
+          --></a>
+          <a href="https://layer8.space/@jevko.rss" title="Click here to download the official Jevko RSS channel"><!--
+          --><img src="/rss_icon.svg" style="width: 2.5rem;" alt="[rss]" /><!--
+          --></a>
+      </div>
+      <div>
+        <a href="/spec.html" title="Click here to go to see the official Jevko speficication">[specification]</a>
+        <a href="/diagram.xhtml" title="Click here to see the official Jevko syntax railroad diagrams">[diagrams]</a>
+        <a href="/extensions.html" title="Click here to go to see the official Jevko extensions specification">[extensions]</a>
+        <!-- <a href="/license.html" title="Click here to see the license Jevko is available under">[license]</a> -->
+      </div>
+    </div>
+  </div>
+</header>
+<header id="title-block-header">
+<h1 class="title">Jevko</h1>
+</header>
+<style>
+.jevko {
+  background-color: #1f1f1f;
+  color: #cccccc;
+}
+.content {
+  /* text-decoration: underline 0.25px dotted rgb(136, 136, 136); */
+}
+.attr > .tag {
+  color: #94dcfe;
+}
+.elem > .tag {
+  /* color: greenyellow; */
+  color: #97d656;
+  /* color: #569cd6; */
+}
+.attr .text:last-of-type {
+  /* color: lightsalmon; */
+  color: #ce9178;
+}
+.level-0 > .bracket {
+  color: rgb(255, 215, 4);
+  /* color: #f89902; */
+}
+.level-1 > .bracket {
+  /* color: #b06db9; */
+  color: rgb(218, 112, 214);
+}
+.level-2 > .bracket {
+  color: rgb(24, 157, 255);
+  /* color: #0e8af8; */
+}
+pre {
+  padding: 1rem;
+}
+</style>
+<style>
+.main { 
+  background-color: #1f1f1f;
+  color: #cccccc;
+  padding: 1rem;
+  margin: 0.5rem;
+  overflow: auto;
+}
+.view-line {
+  white-space: pre;
+}
+
+.mtk1 { color: #cccccc; }
+.mtk2 { color: #1f1f1f; }
+.mtk3 { color: #cc6666; }
+.mtk4 { color: #fbcab6; }
+.mtk5 { color: #9cdcfe; }
+.mtk6 { color: #ce9178; }
+.mtk7 { color: #d4d4d4; }
+.mtk8 { color: #b5cea8; }
+.mtk9 { color: #ffd700; }
+.mtk10 { color: #608b4e; }
+.mtk11 { color: #569cd6; }
+.mtk12 { color: #dcdcdc; }
+.mtk13 { color: #808080; }
+.mtk14 { color: #f44747; }
+.mtk15 { color: #c586c0; }
+.mtk16 { color: #a79873; }
+.mtk17 { color: #dd6a6f; }
+.mtk18 { color: #5bb498; }
+.mtk19 { color: #909090; }
+.mtk20 { color: #778899; }
+.mtk21 { color: #ff00ff; }
+.mtk22 { color: #b46695; }
+.mtk23 { color: #ccffff; }
+.mtk24 { color: #ff0000; }
+.mtk25 { color: #86ccff; }
+.mtk26 { color: #4f76ac; }
+.mtk27 { color: #3dc9b0; }
+.mtk28 { color: #74b0df; }
+.mtk29 { color: #4864aa; }
+.mtki { font-style: italic; }
+.mtkb { font-weight: bold; }
+.mtku { text-decoration: underline; text-underline-position: under; }
+.mtks { text-decoration: line-through; }
+.mtks.mtku { text-decoration: underline line-through; text-underline-position: under; }
+
+.bracket-highlighting-0 { color: #ffd700; }
+.bracket-highlighting-1 { color: #da70d6; }
+.bracket-highlighting-2 { color: #179fff; }
+.bracket-highlighting-3 { color: #ffd700; }
+.bracket-highlighting-4 { color: #da70d6; }
+.bracket-highlighting-5 { color: #179fff; }
+.bracket-highlighting-6 { color: #ffd700; }
+.bracket-highlighting-7 { color: #da70d6; }
+.bracket-highlighting-8 { color: #179fff; }
+.bracket-highlighting-9 { color: #ffd700; }
+.bracket-highlighting-10 { color: #da70d6; }
+.bracket-highlighting-11 { color: #179fff; }
+.bracket-highlighting-12 { color: #ffd700; }
+.bracket-highlighting-13 { color: #da70d6; }
+.bracket-highlighting-14 { color: #179fff; }
+.bracket-highlighting-15 { color: #ffd700; }
+.bracket-highlighting-16 { color: #da70d6; }
+.bracket-highlighting-17 { color: #179fff; }
+.bracket-highlighting-18 { color: #ffd700; }
+.bracket-highlighting-19 { color: #da70d6; }
+.bracket-highlighting-20 { color: #179fff; }
+.bracket-highlighting-21 { color: #ffd700; }
+.bracket-highlighting-22 { color: #da70d6; }
+.bracket-highlighting-23 { color: #179fff; }
+.bracket-highlighting-24 { color: #ffd700; }
+.bracket-highlighting-25 { color: #da70d6; }
+.bracket-highlighting-26 { color: #179fff; }
+.bracket-highlighting-27 { color: #ffd700; }
+.bracket-highlighting-28 { color: #da70d6; }
+.bracket-highlighting-29 { color: #179fff; }
+</style>
+<h1>
+simple syntax
+</h1>
+<div style="font-family: monospace; text-align: center;">
+<p><a href="#spec">[#spec]</a> <a
+href="#jdaml">[#JDAML]<sup>new!</sup></a> <br/> <a
+href="#resources">[#socials]</a> <a
+href="#etymology-and-pronunciation">[#pronunciation]</a> <a
+href="#license">[#license]</a></p>
+</div>
+<p><strong>Jevko</strong> is a versatile minimal syntax for representing
+trees as text in a human-friendly manner.</p>
+<p>Jevko is designed to integrate with and complement familiar formats
+and programming languages.</p>
+<p>It can be used as a building block for simple formats, languages, and
+notations in a variety of domains.</p>
+<p>For example, <a href="#jdaml"><strong>JDAML</strong></a> is an
+XML-like format built on Jevko that works just as well for data
+interchange, configuration, <em>and</em> text markup.</p>
+<h2 id="at-a-glance">At a glance</h2>
+<p>Here is how Jevko compares to the most popular syntaxes often used
+for representing trees as text.</p>
+<div class="comparison black-bg">
+<div>
+<h1>This Jevko...<br/>&nbsp;</h1>
+<div class="view-lines monaco-mouse-cursor-text main" style="font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk1">text&nbsp;data&nbsp;</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk1">leaf&nbsp;text</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk1">more&nbsp;text&nbsp;</span><span class="mtk13 bracket-highlighting-0">[</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;some&nbsp;nesting&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk1">leafy&nbsp;greens</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;more&nbsp;nesting</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;to&nbsp;demonstrate&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;escaped&nbsp;delimiters:&nbsp;</span><span class="mtk4">`[</span><span class="mtk1">&nbsp;</span><span class="mtk4">`]</span><span class="mtk1">&nbsp;</span><span class="mtk4">``</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;some&nbsp;fenced&nbsp;text&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13">```'</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;anything&nbsp;goes&nbsp;here&nbsp;][</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;it's&nbsp;all&nbsp;plain&nbsp;text</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;until&nbsp;the&nbsp;closing&nbsp;fence</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">'```</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span></span></span></div><!--<div style="top:323px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;tagged&nbsp;text&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13">`/my_delimiter/</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;anything&nbsp;goes&nbsp;here&nbsp;as&nbsp;well&nbsp;]`[</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;it's&nbsp;all&nbsp;plain&nbsp;text</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;until&nbsp;the&nbsp;closing&nbsp;delimiter</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">/my_delimiter/</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span></span></span></div>--><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;some&nbsp;extra&nbsp;text</span></span></div><div style="top:456px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;and&nbsp;on&nbsp;and&nbsp;on...</span></span></div><div style="top:475px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:494px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:513px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:532px;height:19px;" class="view-line"><span><span class="mtk1">even&nbsp;more&nbsp;text&nbsp;at&nbsp;the&nbsp;end</span></span></div></div>
+<div style="font-family: monospace;text-align: center;"><a href="#jevko-features">[#jevko]</a></div>
+</div>
+
+<div>
+<h1>...is similar<br/>to this XML...</h1>
+<div class="view-lines monaco-mouse-cursor-text main" role="presentation" aria-hidden="true" data-mprt="7" style="font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;"><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk1">text&nbsp;data&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_</span><span class="mtk13">&gt;</span><span class="mtk1">leaf&nbsp;text</span><span class="mtk13">&lt;/</span><span class="mtk11">_</span><span class="mtk13">&gt;</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk1">more&nbsp;text&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_</span><span class="mtk13">&gt;</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;some&nbsp;nesting&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_</span><span class="mtk13">&gt;</span><span class="mtk1">leafy&nbsp;greens</span><span class="mtk13">&lt;/</span><span class="mtk11">_</span><span class="mtk13">&gt;</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;more&nbsp;nesting</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;to&nbsp;demonstrate&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_</span><span class="mtk13">&gt;</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;escaped&nbsp;delimiters:&nbsp;[&nbsp;]&nbsp;`</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">_</span><span class="mtk13">&gt;</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;some&nbsp;fenced&nbsp;text&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_</span><span class="mtk13">&gt;&lt;![CDATA[</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;anything&nbsp;goes&nbsp;here&nbsp;][</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;it's&nbsp;all&nbsp;plain&nbsp;text</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;until&nbsp;the&nbsp;closing&nbsp;fence</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">]]&gt;&lt;/</span><span class="mtk11">_</span><span class="mtk13">&gt;</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span></span></span></div><!--<div style="top:323px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;tagged&nbsp;text&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_</span><span class="mtk13">&gt;&lt;![CDATA[</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;anything&nbsp;goes&nbsp;here&nbsp;as&nbsp;well&nbsp;]`[</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;it's&nbsp;all&nbsp;plain&nbsp;text</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;until&nbsp;the&nbsp;closing&nbsp;delimiter</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">]]&gt;&lt;/</span><span class="mtk11">_</span><span class="mtk13">&gt;</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span></span></span></div>--><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;some&nbsp;extra&nbsp;text</span></span></div><div style="top:456px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;and&nbsp;on&nbsp;and&nbsp;on...</span></span></div><div style="top:475px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:494px;height:19px;" class="view-line"><span><span class="mtk13">&lt;/</span><span class="mtk11">_</span><span class="mtk13">&gt;</span></span></div><div style="top:513px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:532px;height:19px;" class="view-line"><span><span class="mtk1">even&nbsp;more&nbsp;text&nbsp;at&nbsp;the&nbsp;end</span></span></div></div>
+<div style="font-family: monospace;text-align: center;"><a href="#xml-analogy">[#likexml]</a></div>
+</div>
+
+<div>
+<h1>...or<br/>to this <abbr title="To keep the comparison clear we split single text nodes into multiple here.&#10;&#10;Actual JSON would look more like this:&#10;&#10;[&quot;text data &quot;,[&quot;leaf text&quot;],&quot;\n\nmore text &quot;,[&quot;\n\n  some nesting &quot;,[&quot;leafy greens&quot;],&quot;\n\n  more nesting\n  to demonstrate &quot;,[&quot;\n    escaped delimiters: [ ] `\n  &quot;],&quot;\n\n  some fenced text &quot;,[&quot;\n    anything goes here ][\n    it's all plain text\n    until the closing fence\n  &quot;],&quot;\n\n  some extra text\n  and on and on...\n\n&quot;],&quot;\n\neven more text at the end&quot;]">JSON*</abbr>.</h1>
+<div class="view-lines monaco-mouse-cursor-text main" style="font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk6">&nbsp;"text&nbsp;data&nbsp;"</span><span class="mtk13">,</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">"leaf&nbsp;text"</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13">,</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13">,</span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>more&nbsp;text&nbsp;"</span><span class="mtk13">,</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13">,</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;some&nbsp;nesting&nbsp;"</span><span class="mtk13">,</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">"leafy&nbsp;greens"</span><span class="mtk13 bracket-highlighting-2">]</span><span class="mtk13">,</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13">,</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;more&nbsp;nesting"</span><span class="mtk13">,</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;to&nbsp;demonstrate&nbsp;"</span><span class="mtk13">,</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;&nbsp;&nbsp;escaped&nbsp;delimiters:&nbsp;[&nbsp;]&nbsp;`"</span><span class="mtk13">,</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;"</span><span class="mtk13 bracket-highlighting-2">]</span><span class="mtk13">,</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13">,</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;some&nbsp;fenced&nbsp;text&nbsp;"</span><span class="mtk13">,</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;&nbsp;&nbsp;anything&nbsp;goes&nbsp;here&nbsp;]["</span><span class="mtk13">,</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;&nbsp;&nbsp;it's&nbsp;all&nbsp;plain&nbsp;text"</span><span class="mtk13">,</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;&nbsp;&nbsp;until&nbsp;the&nbsp;closing&nbsp;fence"</span><span class="mtk13">,</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;"</span><span class="mtk13 bracket-highlighting-2">]</span><span class="mtk13">,</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13">,</span></span></div><!--<div style="top:323px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;tagged&nbsp;text&nbsp;"</span><span class="mtk13">,</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;&nbsp;&nbsp;anything&nbsp;goes&nbsp;here&nbsp;as&nbsp;well&nbsp;]`["</span><span class="mtk13">,</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;&nbsp;&nbsp;it's&nbsp;all&nbsp;plain&nbsp;text"</span><span class="mtk13">,</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;&nbsp;&nbsp;until&nbsp;the&nbsp;closing&nbsp;delimiter"</span><span class="mtk13">,</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;"</span><span class="mtk13 bracket-highlighting-2">]</span><span class="mtk13">,</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13">,</span></span></div>--><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;some&nbsp;extra&nbsp;text"</span><span class="mtk13">,</span></span></div><div style="top:456px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>&nbsp;&nbsp;and&nbsp;on&nbsp;and&nbsp;on..."</span><span class="mtk13">,</span></span></div><div style="top:475px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13">,</span></span></div><div style="top:494px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13">,</span></span></div><div style="top:513px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>"</span><span class="mtk13">,</span></span></div><div style="top:532px;height:19px;" class="view-line"><span><span class="mtk6">"<span class="mtk4">\n</span>even&nbsp;more&nbsp;text&nbsp;at&nbsp;the&nbsp;end"&nbsp;</span><span class="mtk13 bracket-highlighting-0">]</span></span></div></div>
+<div style="font-family: monospace;text-align: center;"><a href="#json-analogy">[#likejson]</a></div>
+</div>
+</div>
+<p>Thanks to its simplicity, Jevko makes a great building block on top
+of which we can layer additional restrictions and features to create
+formats, such as…</p>
+<p><a name="jdaml"></a></p>
+<h1 id="jevko-data-and-markup-language">Jevko Data And Markup
+Language</h1>
+<div style="font-family: monospace; text-align: center;">
+<p><a href="#data-interchange">[#data]</a> <a
+href="#configuration">[#config]</a> <a
+href="#text-markup">[#markup]</a></p>
+</div>
+<p>JDAML (Jevko Data And Markup Language) is an experimental format
+built on Jevko, designed to map equally well to markup-oriented formats
+(such as HTML or XML) and data-oriented formats (such as JSON or
+YAML).</p>
+<p>It can serve as a unified, lean, flexible, and human-friendly
+representation of these formats, or it can be used on its own.</p>
+<p>Below are a few examples of how JDAML maps to formats in various
+domains.</p>
+<p><a name="data"></a></p>
+<h2 id="data-interchange">Data interchange<a href="#fn1"
+class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></h2>
+<div style="text-align: center; font-family: monospace;">
+<p><a href="http://0.0.0.0:8006/#json">[see the example live]</a></p>
+</div>
+<div class="comparison black-bg"><div><h1>JDAML:JSON</h1><div class="view-lines monaco-mouse-cursor-text main" style=" font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk5">.first-name</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk6">John</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk5">.last-name</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk6">Smith</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk5">.is-alive</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk11">'true</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk5">.age</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk11">'u8</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk1">27</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk5">.address</span><span class="mtk13 bracket-highlighting-0">[</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">.street-address</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">21</span><span class="mtk1">&nbsp;</span><span class="mtk6">2nd</span><span class="mtk1">&nbsp;</span><span class="mtk6">Street</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">.city</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">New</span><span class="mtk1">&nbsp;</span><span class="mtk6">York</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">.state</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">NY</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">.postal-code</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">10021-3100</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk5">.phone-numbers</span><span class="mtk13 bracket-highlighting-0">[</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.type</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">home</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:323px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.number</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">212</span><span class="mtk1">&nbsp;</span><span class="mtk6">555-1234</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.type</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">office</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.number</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">646</span><span class="mtk1">&nbsp;</span><span class="mtk6">555-4567</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:456px;height:19px;" class="view-line"><span><span class="mtk5">.children</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk11">'seq</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:475px;height:19px;" class="view-line"><span><span class="mtk5">.spouse</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk11">'nil</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13 bracket-highlighting-0">]</span></span></div></div>
+</div>
+<div><h1>JSON:JDAML</h1><div style="position: ; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; width: ; height: ;" role="presentation" aria-hidden="true" data-mprt="7" class="main view-lines monaco-mouse-cursor-text"><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">{</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"first-name"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"John"</span><span class="mtk13">,</span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"last-name"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"Smith"</span><span class="mtk13">,</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"is-alive"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">true</span><span class="mtk13">,</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk8">27</span><span class="mtk13">,</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"address"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-1">{</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"street-address"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"21&nbsp;2nd&nbsp;Street"</span><span class="mtk13">,</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"city"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"New&nbsp;York"</span><span class="mtk13">,</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"state"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"NY"</span><span class="mtk13">,</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"postal-code"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"10021-3100"</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">}</span><span class="mtk13">,</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"phone-numbers"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">{</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"type"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"home"</span><span class="mtk13">,</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"number"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"212&nbsp;555-1234"</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">}</span><span class="mtk13">,</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">{</span></span></div><div style="top:323px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"type"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"office"</span><span class="mtk13">,</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"number"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"646&nbsp;555-4567"</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">}</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13">,</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"children"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13">,</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"spouse"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">null</span></span></div><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">}</span></span></div></div></div></div>
+<div
+style="text-align: center; font-family: monospace; margin-top: 5rem;">
+<p><a href="http://0.0.0.0:8006/#xml">[see the example live]</a></p>
+</div>
+<div class="comparison black-bg"><div><h1>JDAML:XML</h1><div class="view-lines monaco-mouse-cursor-text main" style=" font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk5">.first-name</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk6">John</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk5">.last-name</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk6">Smith</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk5">.is-alive</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk11">'true</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk5">.age</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk11">'u8</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk1">27</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk5">.address</span><span class="mtk13 bracket-highlighting-0">[</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">.street-address</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">21</span><span class="mtk1">&nbsp;</span><span class="mtk6">2nd</span><span class="mtk1">&nbsp;</span><span class="mtk6">Street</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">.city</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">New</span><span class="mtk1">&nbsp;</span><span class="mtk6">York</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">.state</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">NY</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">.postal-code</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">10021-3100</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk5">.phone-numbers</span><span class="mtk13 bracket-highlighting-0">[</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.type</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">home</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:323px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.number</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">212</span><span class="mtk1">&nbsp;</span><span class="mtk6">555-1234</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.type</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">office</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.number</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk6">646</span><span class="mtk1">&nbsp;</span><span class="mtk6">555-4567</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:456px;height:19px;" class="view-line"><span><span class="mtk5">.children</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk11">'seq</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:475px;height:19px;" class="view-line"><span><span class="mtk5">.spouse</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk11">'nil</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk13 bracket-highlighting-1">]</span><span class="mtk13 bracket-highlighting-0">]</span></span></div></div>
+</div>
+
+<div>
+<h1>XML:JDAML</h1>
+<div class="view-lines monaco-mouse-cursor-text main" style="font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">xml</span><span class="mtk1">&nbsp;</span><span class="mtk5">_jdaml</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk1">&nbsp;</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">first-name</span><span class="mtk1">=</span><span class="mtk6">"John"</span><span class="mtk1">&nbsp;</span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">last-name</span><span class="mtk1">=</span><span class="mtk6">"Smith"</span><span class="mtk13">&gt;</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">is-alive</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;&lt;</span><span class="mtk11">true/</span><span class="mtk13">&gt;&lt;/</span><span class="mtk11">is-alive</span><span class="mtk13">&gt;</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">age</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;&lt;</span><span class="mtk11">u8</span><span class="mtk13">&gt;</span><span class="mtk1">27</span><span class="mtk13">&lt;/</span><span class="mtk11">u8</span><span class="mtk13">&gt;&lt;/</span><span class="mtk11">age</span><span class="mtk13">&gt;</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">address</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk1">&nbsp;</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">street-address</span><span class="mtk1">=</span><span class="mtk6">"21&nbsp;2nd&nbsp;Street"</span><span class="mtk1">&nbsp;</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">city</span><span class="mtk1">=</span><span class="mtk6">"New&nbsp;York"</span><span class="mtk1">&nbsp;</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">state</span><span class="mtk1">=</span><span class="mtk6">"NY"</span><span class="mtk1">&nbsp;</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">postal-code</span><span class="mtk1">=</span><span class="mtk6">"10021-3100"</span><span class="mtk13">&gt;</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk13">&lt;/</span><span class="mtk11">address</span><span class="mtk13">&gt;</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">phone-numbers</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_node</span><span class="mtk1">&nbsp;</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">type</span><span class="mtk1">=</span><span class="mtk6">"home"</span><span class="mtk1">&nbsp;</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">number</span><span class="mtk1">=</span><span class="mtk6">"212&nbsp;555-1234"</span><span class="mtk13">&gt;</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">_node</span><span class="mtk13">&gt;</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_node</span><span class="mtk1">&nbsp;</span></span></div><div style="top:323px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">type</span><span class="mtk1">=</span><span class="mtk6">"office"</span><span class="mtk1">&nbsp;</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">number</span><span class="mtk1">=</span><span class="mtk6">"646&nbsp;555-4567"</span><span class="mtk13">&gt;</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">_node</span><span class="mtk13">&gt;</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk13">&lt;/</span><span class="mtk11">phone-numbers</span><span class="mtk13">&gt;</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">children</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;&lt;</span><span class="mtk11">seq/</span><span class="mtk13">&gt;&lt;/</span><span class="mtk11">children</span><span class="mtk13">&gt;</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">spouse</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;&lt;</span><span class="mtk11">nil/</span><span class="mtk13">&gt;&lt;/</span><span class="mtk11">spouse</span><span class="mtk13">&gt;</span></span></div><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk13">&lt;/</span><span class="mtk11">xml</span><span class="mtk13">&gt;</span></span></div></div></div></div>
+<style>
+  .comparison > div {
+    overflow-x: auto;
+  }
+  div.sourceCode {
+    margin: 0;
+  }
+  /* h1 {
+    text-align: center;
+  } */
+  .jevko .dt, .key .matter {
+    text-decoration: dotted underline #888 0.25px;
+  }
+  .comparison h1 {
+    font-size: 2rem;
+    font-family: monospace;
+  }
+</style>
+<h2 id="configuration">Configuration<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a></h2>
+<style>
+  .jevko .bracket-0 {
+    color: #ffd704;
+  }
+  .jevko .bracket-1 {
+    color: #da70d6;
+  }
+  .jevko .bracket-2 {
+    color: #189dff;
+  }
+</style>
+<div style="text-align: center; font-family: monospace;">
+<p><a href="http://0.0.0.0:8006/#config">[see the example live]</a></p>
+</div>
+<div class="comparison black-bg">
+<div>
+<h1>JDAML:JSON</h1>
+
+<div class="view-lines monaco-mouse-cursor-text main" style="font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk10">';[last&nbsp;modified&nbsp;1&nbsp;April&nbsp;2001&nbsp;by&nbsp;John&nbsp;Doe]</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk5">.owner</span><span class="mtk13 bracket-highlighting-0">[</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk5">.name</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">John&nbsp;Doe</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk5">.organization</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">Acme&nbsp;Widgets&nbsp;Inc.</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk5">.database</span><span class="mtk13 bracket-highlighting-0">[</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk10">';[use&nbsp;IP&nbsp;if&nbsp;name&nbsp;resolution&nbsp;is&nbsp;not&nbsp;working]</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk5">.server</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">192.0.2.62</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk5">.port</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk11">'u16</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">143</span><span class="mtk13 bracket-highlighting-2">]</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk5">.file</span><span class="mtk13 bracket-highlighting-1">[</span><span class="mtk6">payroll.dat</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk5">.select_columns</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">name</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">address</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">phone&nbsp;number</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:323px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">]</span></span></div></div></div><div>
+<h1>JSON:JDAML</h1>
+
+<div class="view-lines monaco-mouse-cursor-text main" style="font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">{</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"owner"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-1">{</span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"John&nbsp;Doe"</span><span class="mtk13">,</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"organization"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"Acme&nbsp;Widgets&nbsp;Inc."</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">}</span><span class="mtk13">,</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk5">"database"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-1">{</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"server"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"192.0.2.62"</span><span class="mtk13">,</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"port"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk8">143</span><span class="mtk13">,</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"file"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk6">"payroll.dat"</span><span class="mtk13">,</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"select_columns"</span><span class="mtk13">:</span><span class="mtk1">&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk6">"name"</span><span class="mtk13">,</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk6">"address"</span><span class="mtk13">,</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk6">"phone&nbsp;number"</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">}</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk13 bracket-highlighting-0">}</span></span></div></div></div>
+</div>
+<h2 id="text-markup">Text markup<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a></h2>
+<div style="text-align: center; font-family: monospace;">
+<p><a href="http://0.0.0.0:8006/#html">[see the example live]</a></p>
+</div>
+<div class="comparison black-bg">
+<div>
+<h1>JDAML:HTML</h1>
+<div class="view-lines monaco-mouse-cursor-text main" style="font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:0px;height:19px;" class="view-line"></div><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk11">'head</span><span class="mtk12 bracket-highlighting-0">[</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk11">'title</span><span class="mtk12 bracket-highlighting-1">[</span><span class="mtk1">This&nbsp;is&nbsp;a&nbsp;title</span><span class="mtk12 bracket-highlighting-1">]</span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk12 bracket-highlighting-0">]</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk11">'body</span><span class="mtk12 bracket-highlighting-0">[</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk11">'div</span><span class="mtk12 bracket-highlighting-1">[</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">'p</span><span class="mtk12 bracket-highlighting-2">[</span><span class="mtk1">Hello&nbsp;world!</span><span class="mtk12 bracket-highlighting-2">]</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">'abbr</span><span class="mtk12 bracket-highlighting-2">[</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.id</span><span class="mtk12 bracket-highlighting-3">[</span><span class="mtk6">anId</span><span class="mtk12 bracket-highlighting-3">]</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.class</span><span class="mtk12 bracket-highlighting-3">[</span><span class="mtk6">jargon</span><span class="mtk12 bracket-highlighting-3">]</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.style</span><span class="mtk12 bracket-highlighting-3">[</span><span class="mtk6">color:&nbsp;purple;</span><span class="mtk12 bracket-highlighting-3">]</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">.title</span><span class="mtk12 bracket-highlighting-3">[</span><span class="mtk6">Hypertext&nbsp;Markup&nbsp;Language</span><span class="mtk12 bracket-highlighting-3">]</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;HTML</span><span class="mtk12 bracket-highlighting-2">]</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">'a</span><span class="mtk12 bracket-highlighting-2">[</span><span class="mtk5">.href</span><span class="mtk12 bracket-highlighting-3">[</span><span class="mtk6 detected-link">https://www.wikipedia.org/</span><span class="mtk12 bracket-highlighting-3">]</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;link&nbsp;to&nbsp;Wikipedia!</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk12 bracket-highlighting-2">]</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">'p</span><span class="mtk12 bracket-highlighting-2">[</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oh&nbsp;well,&nbsp;</span></span></div><div style="top:323px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">'span</span><span class="mtk12 bracket-highlighting-3">[</span><span class="mtk5">.lang</span><span class="mtk12 bracket-highlighting-4">[</span><span class="mtk6">fr</span><span class="mtk12 bracket-highlighting-4">]</span><span class="mtk1">c'est&nbsp;la&nbsp;vie</span><span class="mtk12 bracket-highlighting-3">]</span><span class="mtk1">,</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;they&nbsp;say&nbsp;in&nbsp;France.</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk12 bracket-highlighting-2">]</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk12 bracket-highlighting-1">]</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk12 bracket-highlighting-0">]</span></span></div><div style="top:399px;height:19px;" class="view-line"></div></div>
+</div><div>
+<h1>
+HTML:JDAML
+</h1>
+<div class="view-lines monaco-mouse-cursor-text main" style="font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">html</span><span class="mtk1">&nbsp;</span><span class="mtk5">_jdaml</span><span class="mtk13">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">head</span><span class="mtk13">&gt;</span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">title</span><span class="mtk13">&gt;</span><span class="mtk1">This&nbsp;is&nbsp;a&nbsp;title</span><span class="mtk13">&lt;/</span><span class="mtk11">title</span><span class="mtk13">&gt;</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">head</span><span class="mtk13">&gt;</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">body</span><span class="mtk13">&gt;</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">div</span><span class="mtk13">&gt;</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">p</span><span class="mtk13">&gt;</span><span class="mtk1">Hello&nbsp;world!</span><span class="mtk13">&lt;/</span><span class="mtk11">p</span><span class="mtk13">&gt;</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">abbr</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">id</span><span class="mtk13">=</span><span class="mtk6">"anId"</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">class</span><span class="mtk13">=</span><span class="mtk6">"jargon"</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">style</span><span class="mtk13">=</span><span class="mtk6">"color:&nbsp;purple;"</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">title</span><span class="mtk13">=</span><span class="mtk6">"Hypertext&nbsp;Markup&nbsp;Language"</span><span class="mtk13">&gt;</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTML</span><span class="mtk13">&lt;/</span><span class="mtk11">abbr</span><span class="mtk13">&gt;</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">a</span><span class="mtk1">&nbsp;</span><span class="mtk5">href</span><span class="mtk13">=</span><span class="mtk6">"</span><span class="mtk6 detected-link">https://www.wikipedia.org/</span><span class="mtk6">"</span><span class="mtk13">&gt;</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;link&nbsp;to&nbsp;Wikipedia!</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">a</span><span class="mtk13">&gt;</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">p</span><span class="mtk13">&gt;</span></span></div><div style="top:323px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oh&nbsp;well,&nbsp;</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">span</span><span class="mtk1">&nbsp;</span><span class="mtk5">lang</span><span class="mtk13">=</span><span class="mtk6">"fr"</span><span class="mtk13">&gt;</span><span class="mtk1">c'est&nbsp;la&nbsp;vie</span><span class="mtk13">&lt;/</span><span class="mtk11">span</span><span class="mtk13">&gt;</span><span class="mtk1">,&nbsp;</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;they&nbsp;say&nbsp;in&nbsp;France.</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">p</span><span class="mtk13">&gt;</span></span></div><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">div</span><span class="mtk13">&gt;</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">body</span><span class="mtk13">&gt;</span></span></div><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk13">&lt;/</span><span class="mtk11">html</span><span class="mtk13">&gt;</span></span></div></div>
+</div>
+</div>
+<p><a name="jevko-features"></a></p>
+<h1 id="jevko-features">Jevko features</h1>
+<h2 id="just-text-and-square-brackets">Just <code>text</code> and
+<code>[</code>square brackets<code>]</code></h2>
+<p>Plain Jevko is just Unicode text in which nested square brackets
+create a hierarchical tree structure. On top of that there is syntax to
+escape the brackets, so they can also be part of text, and some syntax
+sugar useful when we don’t want to worry about escaping. That’s
+basically it.</p>
+<p>Jevko simply captures the concept of a generic tree of text in the
+most minimal reasonable way. The only significant characters in Jevko
+are the square brackets.</p>
+<h2 id="square-brackets-in-text">Square brackets in text</h2>
+<p>To treat square brackets as text, they can be escaped.</p>
+<p>Alternatively text can be fenced, like in Markdown, in which case no
+escaping is needed at all.</p>
+<h2 id="whitespace-agnostic">Whitespace-agnostic</h2>
+<p>Jevko is completely whitespace-agnostic: it treats whitespace as any
+other character. It doesn’t ignore it or use it as a separator or
+anything like that. It gets preserved along with everything else in the
+tree.</p>
+<h2 id="good-for-all-kinds-of-formats">Good for all kinds of
+formats</h2>
+<p>Because of this we can use Jevko to build formats that work well not
+only for representing data, but also for text markup. We can even do
+both with one format, as <a href="#jevko-data-and-markup-language">Jevko
+Data And Markup Language</a> demonstrates.</p>
+<h1 id="jevko-by-analogy">Jevko by analogy</h1>
+<p><a name="xml-analogy"></a></p>
+<h2 id="jevko-as-simplified-xmlhtml">Jevko as simplified XML/HTML</h2>
+<p>Currently XML is perhaps the best popular option for representing
+trees as text. However XML was designed with a lot more in mind.</p>
+<p>For the specific purpose of representing trees, Jevko offers a much
+much simpler and more pleasant alternative.</p>
+<p>Jevko can be thought of as a very stripped down XML where we only
+have:</p>
+<ol type="1">
+<li>Text nodes.</li>
+<li>Anonymous, tagless elements without attributes.</li>
+<li>A more flexible and convenient CDATA in the form of fenced
+text.</li>
+</ol>
+<p>All in an extremely lean syntax.</p>
+<p><a name="json-analogy"></a></p>
+<h2 id="jevko-as-simplified-json">Jevko as simplified JSON</h2>
+<p>Because of its popularity, sometimes JSON is also used for
+representing trees. Even though it is fairly minimal, it was designed
+specifically for data interchange and it is just not a good tool for
+this particular job.</p>
+<p>Jevko can be thought of as a very stripped down JSON where we only
+have:</p>
+<ol type="1">
+<li>Strings.</li>
+<li>Arrays.</li>
+</ol>
+<p>However Jevko strings (text nodes) can span multiple lines and don’t
+have to be quoted (but can be fenced like in Markdown to include square
+brackets without having to escape them).</p>
+<h1 id="implementing-jevko">Implementing Jevko</h1>
+<p><a name="spec"></a></p>
+<h2 id="formal-specification">Formal specification</h2>
+<p><a href="spec.html">The Jevko Syntax: Standard Grammar
+Specification</a> is a stable formal specification of the basic syntax.
+No breaking changes shall be introduced to this specification.</p>
+<h2 id="interactive-railroad-diagrams">Interactive railroad
+diagrams</h2>
+<p>The <a href="diagram.xhtml">Jevko interactive railroad diagrams</a>
+complement the specification, together providing a convenient reference
+for implementing parsers and other Jevko processors.</p>
+<h2 id="extensions-specification">Extensions specification</h2>
+<p><a href="extensions.html">The Jevko Syntax: Extensions
+Specification</a> is a formal specification of two backwards-compatible
+extensions to Jevko. These extensions introduce fenced text a’la
+Markdown and tagged text a’la heredocs.</p>
+<h2 id="reference-implementation">Reference implementation</h2>
+<p><a href="https://github.com/jevko/jevko.js">jevko.js</a> is the
+official reference implementation of Jevko in JavaScript.</p>
+<section id="more" style="display:none">
+<h1>More</h1>
+<h2 id="jevko-for-hackers">Jevko for hackers</h2>
+<p>For do-it-yourself-oriented tinkerers, hackers, or minimalists plain
+Jevko is ready to be used to define custom formats for all kinds of
+applications that deal with tree-structured information.</p>
+<h2 id="experimental-software">Experimental software</h2>
+<h3 id="use-jevko-today">Use Jevko today</h3>
+<p>For solution-oriented users, Jevko formats like those shown above are
+in development and available to experiment with via the Jevko CLI or the
+<a
+href="https://marketplace.visualstudio.com/items?itemName=jevko.jevko">Jevko
+Interface for Visual Studio Code</a>.</p>
+<h3 id="jevko-cli-and-jevko-for-vs-code">Jevko CLI and Jevko for VS
+Code</h3>
+<p>You can try out the formats you see above today with the experimental
+<a href="https://github.com/jevko/jevko-cli">Jevko Command Line
+Interface</a> or the <a
+href="https://marketplace.visualstudio.com/items?itemName=jevko.jevko">Jevko
+Interface for Visual Studio Code</a>. These can convert Jevko into JSON,
+HTML, or various XML-based formats. This allows for easy integration
+with existing applications.</p>
+<p>Jevko formats give you the full power of the target format via JSON
+or XML literals and data-model compatibility. On top of that you get
+features such as here documents (via the <a
+href="https://github.com/jevko/specifications/blob/master/draft-extension-heredocs.md">backwards-compatible
+Jevko syntax extension</a>), extremely lean comments, ability to disable
+(“comment out”) an entire Jevko subtree by prefixing it with “-”,
+autotrimmed unquoted strings, or quoted multiline strings.</p>
+<p>All this in a very simple human-friendly syntax.</p>
+<h3 id="syntax-highlighting">Syntax highlighting</h3>
+<p>Experimental Jevko syntax highlighting extensions for Visual Studio
+Code are available for the following formats/file types:</p>
+<ul>
+<li>Data interchange: <a
+href="https://github.com/jevko/jevkodata-basic-highlighting-vscode">.jevkodata</a></li>
+<li>Configuration: <a
+href="https://github.com/jevko/jevkodata-basic-highlighting-vscode">.jevkocfg</a>
+(same extension as .jevkodata for now)</li>
+<li>Markup: <a
+href="https://github.com/jevko/jevkoml-basic-highlighting-vscode">.jevkoml</a></li>
+<li>Generic: <a
+href="https://github.com/jevko/jevko-basic-highlighting-vscode">.jevko</a></li>
+</ul>
+<p>There are also experimental Jevko syntax highlighting definitions for
+other environments:</p>
+<ul>
+<li>Generic: <a
+href="https://github.com/jevko/jevko-basic-highlighting">.jevko</a> –
+KDE KatePart Syntax Highlight System, CodeMirror6</li>
+</ul>
+</section>
+<p><a name="resources"></a></p>
+<h1 id="news-social-media-other-resources">News, social media, other
+resources</h1>
+<p>You can follow Jevko on <a
+href="https://layer8.space/@jevko">Mastodon</a> or subscribe to the <a
+href="https://layer8.space/@jevko.rss">RSS channel</a> for latest
+news.</p>
+<p>You can also follow the official Jevko organizations on <a
+href="https://github.com/jevko">GitHub</a> and <a
+href="https://codeberg.org/jevko-org">Codeberg</a> to track the latest
+developments.</p>
+<p>There is also an official and an official <a
+href="https://www.reddit.com/r/jevko/">/r/jevko subreddit</a>.</p>
+<p>Jevko-related resources can also be found at the official <a
+href="https://archive.org/details/@jevko">Jevko profile on
+archive.org</a> and the official <a
+href="https://www.youtube.com/@jevko-org">Jevko YouTube channel</a>.</p>
+<h1 id="etymology-and-pronunciation">Etymology and pronunciation</h1>
+<p>The name <a
+href="http://ipa-reader.xyz/?text=%CB%88d%CD%A1%CA%92ef.k%C9%99%CA%8A&amp;voice=Joey"><em>Jevko</em>
+/ˈd͡ʒef.kəʊ/</a> is derived from Polish <a
+href="https://en.wiktionary.org/wiki/drzewko"><em>drzewko</em>
+/ˈdʐɛf.kɔ/</a>, meaning small tree.</p>
+<h1 id="license">License</h1>
+<p>Jevko is intended as a universal syntax, to be used without
+restriction in any software, for any purpose. It is open and free, along
+with any syntaxes, formats, and standards based upon it.</p>
+<p>For legal purposes, if not specified otherwise, Jevko and related
+projects are under the <a
+href="https://choosealicense.com/licenses/mit/">MIT License</a>.</p>
+<div style="font-size: 10pt">
+<pre><code>Copyright (c) 2021-2024 Jevko.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</code></pre>
+</div>
+<p>Thank you for visiting.</p>
+<hr />
+<p>Jevko is a part of <a
+href="https://xtao.org"><img style="width:2rem;position: relative;top: 0.5rem;" src="/tao-logo.svg" />
+<strong>TAO</strong></a>, a project to cultivate simplicity in
+software.</p>
+<hr />
+<div style="font-size: 30pt; text-align: center;"
+title="Click here to Google Translate jevko.org. The default target language is Chinese. You can change it in the menu that will appear at the top.">
+<p><a
+href="https://jevko-org.translate.goog/?_x_tr_sl=en&amp;_x_tr_tl=zh-TW&amp;_x_tr_hl=en">Google
+Translate jevko.org</a></p>
+</div>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The data interchange examples shown here are based on an
+<a href="https://en.wikipedia.org/wiki/JSON#Syntax">example piece of
+JSON from Wikipedia</a>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The configuration examples shown here are based on an <a
+href="https://en.m.wikipedia.org/wiki/INI_file#Example">example piece of
+INI from Wikipedia</a>.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The text markup examples shown here are based on an <a
+href="https://en.wikipedia.org/wiki/HTML#Attributes">example pieces of
+HTML from Wikipedia</a>.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+<footer id="bottom" class="black-bg">
+    <div class="footer">
+        <!-- <a href="/index.html" class="footer-link"> -->
+            <div class="left" style="margin-bottom: 1.25rem;">© 2024 Jevko.org</div>
+        <!-- </a> -->
+        &nbsp;
+        <div class="right links">
+            <a href="/attribution.html" title="Click here to go to the [attribution] subpage"><!--
+            -->[attribution]<!--
+            --></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

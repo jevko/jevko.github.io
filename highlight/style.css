@@ -1,0 +1,37 @@
+#output {
+    white-space: pre;
+    font-family: monospace;
+    background-color: black;
+}
+.key {
+    color: lightgreen;
+    line-height: initial;
+}
+.string {
+    font-weight: normal;
+    color: lightsalmon;
+}
+.op, .pad {
+    color: #bbb;
+    background-color: black;
+}
+
+.object > .bracket {
+    color: lightseagreen;
+}
+
+.array > .bracket {
+    color: dodgerblue;
+}
+
+.string > .bracket {
+    color: lightcoral;
+}
+
+.bracket {
+    display: inline-block;
+}
+
+.item {
+    position: relative;
+}
