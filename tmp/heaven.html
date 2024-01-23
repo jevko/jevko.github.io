@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script async="async" type="text/javascript" src="heaven_files/editor.main.js"></script><link rel="stylesheet" type="text/css" data-name="vs/editor/editor.main" href="heaven_files/editor.main.css"><script async="async" type="text/javascript" src="heaven_files/editor.main.nls.js"></script><style type="text/css" media="screen" class="monaco-colors">.codicon-add:before { content: '\ea60'; }
+.codicon-plus:before { content: '\ea60'; }
+.codicon-gist-new:before { content: '\ea60'; }
+.codicon-repo-create:before { content: '\ea60'; }
+.codicon-lightbulb:before { content: '\ea61'; }
+.codicon-light-bulb:before { content: '\ea61'; }
+.codicon-repo:before { content: '\ea62'; }
+.codicon-repo-delete:before { content: '\ea62'; }
+.codicon-gist-fork:before { content: '\ea63'; }
+.codicon-repo-forked:before { content: '\ea63'; }
+.codicon-git-pull-request:before { content: '\ea64'; }
+.codicon-git-pull-request-abandoned:before { content: '\ea64'; }
+.codicon-record-keys:before { content: '\ea65'; }
+.codicon-keyboard:before { content: '\ea65'; }
+.codicon-tag:before { content: '\ea66'; }
+.codicon-tag-add:before { content: '\ea66'; }
+.codicon-tag-remove:before { content: '\ea66'; }
+.codicon-git-pull-request-label:before { content: '\ea66'; }
+.codicon-person:before { content: '\ea67'; }
+.codicon-person-follow:before { content: '\ea67'; }
+.codicon-person-outline:before { content: '\ea67'; }
+.codicon-person-filled:before { content: '\ea67'; }
+.codicon-git-branch:before { content: '\ea68'; }
+.codicon-git-branch-create:before { content: '\ea68'; }
+.codicon-git-branch-delete:before { content: '\ea68'; }
+.codicon-source-control:before { content: '\ea68'; }
+.codicon-mirror:before { content: '\ea69'; }
+.codicon-mirror-public:before { content: '\ea69'; }
+.codicon-star:before { content: '\ea6a'; }
+.codicon-star-add:before { content: '\ea6a'; }
+.codicon-star-delete:before { content: '\ea6a'; }
+.codicon-star-empty:before { content: '\ea6a'; }
+.codicon-comment:before { content: '\ea6b'; }
+.codicon-comment-add:before { content: '\ea6b'; }
+.codicon-alert:before { content: '\ea6c'; }
+.codicon-warning:before { content: '\ea6c'; }
+.codicon-search:before { content: '\ea6d'; }
+.codicon-search-save:before { content: '\ea6d'; }
+.codicon-log-out:before { content: '\ea6e'; }
+.codicon-sign-out:before { content: '\ea6e'; }
+.codicon-log-in:before { content: '\ea6f'; }
+.codicon-sign-in:before { content: '\ea6f'; }
+.codicon-eye:before { content: '\ea70'; }
+.codicon-eye-unwatch:before { content: '\ea70'; }
+.codicon-eye-watch:before { content: '\ea70'; }
+.codicon-circle-filled:before { content: '\ea71'; }
+.codicon-primitive-dot:before { content: '\ea71'; }
+.codicon-close-dirty:before { content: '\ea71'; }
+.codicon-debug-breakpoint:before { content: '\ea71'; }
+.codicon-debug-breakpoint-disabled:before { content: '\ea71'; }
+.codicon-debug-hint:before { content: '\ea71'; }
+.codicon-primitive-square:before { content: '\ea72'; }
+.codicon-edit:before { content: '\ea73'; }
+.codicon-pencil:before { content: '\ea73'; }
+.codicon-info:before { content: '\ea74'; }
+.codicon-issue-opened:before { content: '\ea74'; }
+.codicon-gist-private:before { content: '\ea75'; }
+.codicon-git-fork-private:before { content: '\ea75'; }
+.codicon-lock:before { content: '\ea75'; }
+.codicon-mirror-private:before { content: '\ea75'; }
+.codicon-close:before { content: '\ea76'; }
+.codicon-remove-close:before { content: '\ea76'; }
+.codicon-x:before { content: '\ea76'; }
+.codicon-repo-sync:before { content: '\ea77'; }
+.codicon-sync:before { content: '\ea77'; }
+.codicon-clone:before { content: '\ea78'; }
+.codicon-desktop-download:before { content: '\ea78'; }
+.codicon-beaker:before { content: '\ea79'; }
+.codicon-microscope:before { content: '\ea79'; }
+.codicon-vm:before { content: '\ea7a'; }
+.codicon-device-desktop:before { content: '\ea7a'; }
+.codicon-file:before { content: '\ea7b'; }
+.codicon-file-text:before { content: '\ea7b'; }
+.codicon-more:before { content: '\ea7c'; }
+.codicon-ellipsis:before { content: '\ea7c'; }
+.codicon-kebab-horizontal:before { content: '\ea7c'; }
+.codicon-mail-reply:before { content: '\ea7d'; }
+.codicon-reply:before { content: '\ea7d'; }
+.codicon-organization:before { content: '\ea7e'; }
+.codicon-organization-filled:before { content: '\ea7e'; }
+.codicon-organization-outline:before { content: '\ea7e'; }
+.codicon-new-file:before { content: '\ea7f'; }
+.codicon-file-add:before { content: '\ea7f'; }
+.codicon-new-folder:before { content: '\ea80'; }
+.codicon-file-directory-create:before { content: '\ea80'; }
+.codicon-trash:before { content: '\ea81'; }
+.codicon-trashcan:before { content: '\ea81'; }
+.codicon-history:before { content: '\ea82'; }
+.codicon-clock:before { content: '\ea82'; }
+.codicon-folder:before { content: '\ea83'; }
+.codicon-file-directory:before { content: '\ea83'; }
+.codicon-symbol-folder:before { content: '\ea83'; }
+.codicon-logo-github:before { content: '\ea84'; }
+.codicon-mark-github:before { content: '\ea84'; }
+.codicon-github:before { content: '\ea84'; }
+.codicon-terminal:before { content: '\ea85'; }
+.codicon-console:before { content: '\ea85'; }
+.codicon-repl:before { content: '\ea85'; }
+.codicon-zap:before { content: '\ea86'; }
+.codicon-symbol-event:before { content: '\ea86'; }
+.codicon-error:before { content: '\ea87'; }
+.codicon-stop:before { content: '\ea87'; }
+.codicon-variable:before { content: '\ea88'; }
+.codicon-symbol-variable:before { content: '\ea88'; }
+.codicon-array:before { content: '\ea8a'; }
+.codicon-symbol-array:before { content: '\ea8a'; }
+.codicon-symbol-module:before { content: '\ea8b'; }
+.codicon-symbol-package:before { content: '\ea8b'; }
+.codicon-symbol-namespace:before { content: '\ea8b'; }
+.codicon-symbol-object:before { content: '\ea8b'; }
+.codicon-symbol-method:before { content: '\ea8c'; }
+.codicon-symbol-function:before { content: '\ea8c'; }
+.codicon-symbol-constructor:before { content: '\ea8c'; }
+.codicon-symbol-boolean:before { content: '\ea8f'; }
+.codicon-symbol-null:before { content: '\ea8f'; }
+.codicon-symbol-numeric:before { content: '\ea90'; }
+.codicon-symbol-number:before { content: '\ea90'; }
+.codicon-symbol-structure:before { content: '\ea91'; }
+.codicon-symbol-struct:before { content: '\ea91'; }
+.codicon-symbol-parameter:before { content: '\ea92'; }
+.codicon-symbol-type-parameter:before { content: '\ea92'; }
+.codicon-symbol-key:before { content: '\ea93'; }
+.codicon-symbol-text:before { content: '\ea93'; }
+.codicon-symbol-reference:before { content: '\ea94'; }
+.codicon-go-to-file:before { content: '\ea94'; }
+.codicon-symbol-enum:before { content: '\ea95'; }
+.codicon-symbol-value:before { content: '\ea95'; }
+.codicon-symbol-ruler:before { content: '\ea96'; }
+.codicon-symbol-unit:before { content: '\ea96'; }
+.codicon-activate-breakpoints:before { content: '\ea97'; }
+.codicon-archive:before { content: '\ea98'; }
+.codicon-arrow-both:before { content: '\ea99'; }
+.codicon-arrow-down:before { content: '\ea9a'; }
+.codicon-arrow-left:before { content: '\ea9b'; }
+.codicon-arrow-right:before { content: '\ea9c'; }
+.codicon-arrow-small-down:before { content: '\ea9d'; }
+.codicon-arrow-small-left:before { content: '\ea9e'; }
+.codicon-arrow-small-right:before { content: '\ea9f'; }
+.codicon-arrow-small-up:before { content: '\eaa0'; }
+.codicon-arrow-up:before { content: '\eaa1'; }
+.codicon-bell:before { content: '\eaa2'; }
+.codicon-bold:before { content: '\eaa3'; }
+.codicon-book:before { content: '\eaa4'; }
+.codicon-bookmark:before { content: '\eaa5'; }
+.codicon-debug-breakpoint-conditional-unverified:before { content: '\eaa6'; }
+.codicon-debug-breakpoint-conditional:before { content: '\eaa7'; }
+.codicon-debug-breakpoint-conditional-disabled:before { content: '\eaa7'; }
+.codicon-debug-breakpoint-data-unverified:before { content: '\eaa8'; }
+.codicon-debug-breakpoint-data:before { content: '\eaa9'; }
+.codicon-debug-breakpoint-data-disabled:before { content: '\eaa9'; }
+.codicon-debug-breakpoint-log-unverified:before { content: '\eaaa'; }
+.codicon-debug-breakpoint-log:before { content: '\eaab'; }
+.codicon-debug-breakpoint-log-disabled:before { content: '\eaab'; }
+.codicon-briefcase:before { content: '\eaac'; }
+.codicon-broadcast:before { content: '\eaad'; }
+.codicon-browser:before { content: '\eaae'; }
+.codicon-bug:before { content: '\eaaf'; }
+.codicon-calendar:before { content: '\eab0'; }
+.codicon-case-sensitive:before { content: '\eab1'; }
+.codicon-check:before { content: '\eab2'; }
+.codicon-checklist:before { content: '\eab3'; }
+.codicon-chevron-down:before { content: '\eab4'; }
+.codicon-drop-down-button:before { content: '\eab4'; }
+.codicon-chevron-left:before { content: '\eab5'; }
+.codicon-chevron-right:before { content: '\eab6'; }
+.codicon-chevron-up:before { content: '\eab7'; }
+.codicon-chrome-close:before { content: '\eab8'; }
+.codicon-chrome-maximize:before { content: '\eab9'; }
+.codicon-chrome-minimize:before { content: '\eaba'; }
+.codicon-chrome-restore:before { content: '\eabb'; }
+.codicon-circle:before { content: '\eabc'; }
+.codicon-circle-outline:before { content: '\eabc'; }
+.codicon-debug-breakpoint-unverified:before { content: '\eabc'; }
+.codicon-circle-slash:before { content: '\eabd'; }
+.codicon-circuit-board:before { content: '\eabe'; }
+.codicon-clear-all:before { content: '\eabf'; }
+.codicon-clippy:before { content: '\eac0'; }
+.codicon-close-all:before { content: '\eac1'; }
+.codicon-cloud-download:before { content: '\eac2'; }
+.codicon-cloud-upload:before { content: '\eac3'; }
+.codicon-code:before { content: '\eac4'; }
+.codicon-collapse-all:before { content: '\eac5'; }
+.codicon-color-mode:before { content: '\eac6'; }
+.codicon-comment-discussion:before { content: '\eac7'; }
+.codicon-compare-changes:before { content: '\eafd'; }
+.codicon-credit-card:before { content: '\eac9'; }
+.codicon-dash:before { content: '\eacc'; }
+.codicon-dashboard:before { content: '\eacd'; }
+.codicon-database:before { content: '\eace'; }
+.codicon-debug-continue:before { content: '\eacf'; }
+.codicon-debug-disconnect:before { content: '\ead0'; }
+.codicon-debug-pause:before { content: '\ead1'; }
+.codicon-debug-restart:before { content: '\ead2'; }
+.codicon-debug-start:before { content: '\ead3'; }
+.codicon-debug-step-into:before { content: '\ead4'; }
+.codicon-debug-step-out:before { content: '\ead5'; }
+.codicon-debug-step-over:before { content: '\ead6'; }
+.codicon-debug-stop:before { content: '\ead7'; }
+.codicon-debug:before { content: '\ead8'; }
+.codicon-device-camera-video:before { content: '\ead9'; }
+.codicon-device-camera:before { content: '\eada'; }
+.codicon-device-mobile:before { content: '\eadb'; }
+.codicon-diff-added:before { content: '\eadc'; }
+.codicon-diff-ignored:before { content: '\eadd'; }
+.codicon-diff-modified:before { content: '\eade'; }
+.codicon-diff-removed:before { content: '\eadf'; }
+.codicon-diff-renamed:before { content: '\eae0'; }
+.codicon-diff:before { content: '\eae1'; }
+.codicon-discard:before { content: '\eae2'; }
+.codicon-editor-layout:before { content: '\eae3'; }
+.codicon-empty-window:before { content: '\eae4'; }
+.codicon-exclude:before { content: '\eae5'; }
+.codicon-extensions:before { content: '\eae6'; }
+.codicon-eye-closed:before { content: '\eae7'; }
+.codicon-file-binary:before { content: '\eae8'; }
+.codicon-file-code:before { content: '\eae9'; }
+.codicon-file-media:before { content: '\eaea'; }
+.codicon-file-pdf:before { content: '\eaeb'; }
+.codicon-file-submodule:before { content: '\eaec'; }
+.codicon-file-symlink-directory:before { content: '\eaed'; }
+.codicon-file-symlink-file:before { content: '\eaee'; }
+.codicon-file-zip:before { content: '\eaef'; }
+.codicon-files:before { content: '\eaf0'; }
+.codicon-filter:before { content: '\eaf1'; }
+.codicon-flame:before { content: '\eaf2'; }
+.codicon-fold-down:before { content: '\eaf3'; }
+.codicon-fold-up:before { content: '\eaf4'; }
+.codicon-fold:before { content: '\eaf5'; }
+.codicon-folder-active:before { content: '\eaf6'; }
+.codicon-folder-opened:before { content: '\eaf7'; }
+.codicon-gear:before { content: '\eaf8'; }
+.codicon-gift:before { content: '\eaf9'; }
+.codicon-gist-secret:before { content: '\eafa'; }
+.codicon-gist:before { content: '\eafb'; }
+.codicon-git-commit:before { content: '\eafc'; }
+.codicon-git-compare:before { content: '\eafd'; }
+.codicon-git-merge:before { content: '\eafe'; }
+.codicon-github-action:before { content: '\eaff'; }
+.codicon-github-alt:before { content: '\eb00'; }
+.codicon-globe:before { content: '\eb01'; }
+.codicon-grabber:before { content: '\eb02'; }
+.codicon-graph:before { content: '\eb03'; }
+.codicon-gripper:before { content: '\eb04'; }
+.codicon-heart:before { content: '\eb05'; }
+.codicon-home:before { content: '\eb06'; }
+.codicon-horizontal-rule:before { content: '\eb07'; }
+.codicon-hubot:before { content: '\eb08'; }
+.codicon-inbox:before { content: '\eb09'; }
+.codicon-issue-closed:before { content: '\eba4'; }
+.codicon-issue-reopened:before { content: '\eb0b'; }
+.codicon-issues:before { content: '\eb0c'; }
+.codicon-italic:before { content: '\eb0d'; }
+.codicon-jersey:before { content: '\eb0e'; }
+.codicon-json:before { content: '\eb0f'; }
+.codicon-bracket:before { content: '\eb0f'; }
+.codicon-kebab-vertical:before { content: '\eb10'; }
+.codicon-key:before { content: '\eb11'; }
+.codicon-law:before { content: '\eb12'; }
+.codicon-lightbulb-autofix:before { content: '\eb13'; }
+.codicon-link-external:before { content: '\eb14'; }
+.codicon-link:before { content: '\eb15'; }
+.codicon-list-ordered:before { content: '\eb16'; }
+.codicon-list-unordered:before { content: '\eb17'; }
+.codicon-live-share:before { content: '\eb18'; }
+.codicon-loading:before { content: '\eb19'; }
+.codicon-location:before { content: '\eb1a'; }
+.codicon-mail-read:before { content: '\eb1b'; }
+.codicon-mail:before { content: '\eb1c'; }
+.codicon-markdown:before { content: '\eb1d'; }
+.codicon-megaphone:before { content: '\eb1e'; }
+.codicon-mention:before { content: '\eb1f'; }
+.codicon-milestone:before { content: '\eb20'; }
+.codicon-git-pull-request-milestone:before { content: '\eb20'; }
+.codicon-mortar-board:before { content: '\eb21'; }
+.codicon-move:before { content: '\eb22'; }
+.codicon-multiple-windows:before { content: '\eb23'; }
+.codicon-mute:before { content: '\eb24'; }
+.codicon-no-newline:before { content: '\eb25'; }
+.codicon-note:before { content: '\eb26'; }
+.codicon-octoface:before { content: '\eb27'; }
+.codicon-open-preview:before { content: '\eb28'; }
+.codicon-package:before { content: '\eb29'; }
+.codicon-paintcan:before { content: '\eb2a'; }
+.codicon-pin:before { content: '\eb2b'; }
+.codicon-play:before { content: '\eb2c'; }
+.codicon-run:before { content: '\eb2c'; }
+.codicon-plug:before { content: '\eb2d'; }
+.codicon-preserve-case:before { content: '\eb2e'; }
+.codicon-preview:before { content: '\eb2f'; }
+.codicon-project:before { content: '\eb30'; }
+.codicon-pulse:before { content: '\eb31'; }
+.codicon-question:before { content: '\eb32'; }
+.codicon-quote:before { content: '\eb33'; }
+.codicon-radio-tower:before { content: '\eb34'; }
+.codicon-reactions:before { content: '\eb35'; }
+.codicon-references:before { content: '\eb36'; }
+.codicon-refresh:before { content: '\eb37'; }
+.codicon-regex:before { content: '\eb38'; }
+.codicon-remote-explorer:before { content: '\eb39'; }
+.codicon-remote:before { content: '\eb3a'; }
+.codicon-remove:before { content: '\eb3b'; }
+.codicon-replace-all:before { content: '\eb3c'; }
+.codicon-replace:before { content: '\eb3d'; }
+.codicon-repo-clone:before { content: '\eb3e'; }
+.codicon-repo-force-push:before { content: '\eb3f'; }
+.codicon-repo-pull:before { content: '\eb40'; }
+.codicon-repo-push:before { content: '\eb41'; }
+.codicon-report:before { content: '\eb42'; }
+.codicon-request-changes:before { content: '\eb43'; }
+.codicon-rocket:before { content: '\eb44'; }
+.codicon-root-folder-opened:before { content: '\eb45'; }
+.codicon-root-folder:before { content: '\eb46'; }
+.codicon-rss:before { content: '\eb47'; }
+.codicon-ruby:before { content: '\eb48'; }
+.codicon-save-all:before { content: '\eb49'; }
+.codicon-save-as:before { content: '\eb4a'; }
+.codicon-save:before { content: '\eb4b'; }
+.codicon-screen-full:before { content: '\eb4c'; }
+.codicon-screen-normal:before { content: '\eb4d'; }
+.codicon-search-stop:before { content: '\eb4e'; }
+.codicon-server:before { content: '\eb50'; }
+.codicon-settings-gear:before { content: '\eb51'; }
+.codicon-settings:before { content: '\eb52'; }
+.codicon-shield:before { content: '\eb53'; }
+.codicon-smiley:before { content: '\eb54'; }
+.codicon-sort-precedence:before { content: '\eb55'; }
+.codicon-split-horizontal:before { content: '\eb56'; }
+.codicon-split-vertical:before { content: '\eb57'; }
+.codicon-squirrel:before { content: '\eb58'; }
+.codicon-star-full:before { content: '\eb59'; }
+.codicon-star-half:before { content: '\eb5a'; }
+.codicon-symbol-class:before { content: '\eb5b'; }
+.codicon-symbol-color:before { content: '\eb5c'; }
+.codicon-symbol-customcolor:before { content: '\eb5c'; }
+.codicon-symbol-constant:before { content: '\eb5d'; }
+.codicon-symbol-enum-member:before { content: '\eb5e'; }
+.codicon-symbol-field:before { content: '\eb5f'; }
+.codicon-symbol-file:before { content: '\eb60'; }
+.codicon-symbol-interface:before { content: '\eb61'; }
+.codicon-symbol-keyword:before { content: '\eb62'; }
+.codicon-symbol-misc:before { content: '\eb63'; }
+.codicon-symbol-operator:before { content: '\eb64'; }
+.codicon-symbol-property:before { content: '\eb65'; }
+.codicon-wrench:before { content: '\eb65'; }
+.codicon-wrench-subaction:before { content: '\eb65'; }
+.codicon-symbol-snippet:before { content: '\eb66'; }
+.codicon-tasklist:before { content: '\eb67'; }
+.codicon-telescope:before { content: '\eb68'; }
+.codicon-text-size:before { content: '\eb69'; }
+.codicon-three-bars:before { content: '\eb6a'; }
+.codicon-thumbsdown:before { content: '\eb6b'; }
+.codicon-thumbsup:before { content: '\eb6c'; }
+.codicon-tools:before { content: '\eb6d'; }
+.codicon-triangle-down:before { content: '\eb6e'; }
+.codicon-triangle-left:before { content: '\eb6f'; }
+.codicon-triangle-right:before { content: '\eb70'; }
+.codicon-triangle-up:before { content: '\eb71'; }
+.codicon-twitter:before { content: '\eb72'; }
+.codicon-unfold:before { content: '\eb73'; }
+.codicon-unlock:before { content: '\eb74'; }
+.codicon-unmute:before { content: '\eb75'; }
+.codicon-unverified:before { content: '\eb76'; }
+.codicon-verified:before { content: '\eb77'; }
+.codicon-versions:before { content: '\eb78'; }
+.codicon-vm-active:before { content: '\eb79'; }
+.codicon-vm-outline:before { content: '\eb7a'; }
+.codicon-vm-running:before { content: '\eb7b'; }
+.codicon-watch:before { content: '\eb7c'; }
+.codicon-whitespace:before { content: '\eb7d'; }
+.codicon-whole-word:before { content: '\eb7e'; }
+.codicon-window:before { content: '\eb7f'; }
+.codicon-word-wrap:before { content: '\eb80'; }
+.codicon-zoom-in:before { content: '\eb81'; }
+.codicon-zoom-out:before { content: '\eb82'; }
+.codicon-list-filter:before { content: '\eb83'; }
+.codicon-list-flat:before { content: '\eb84'; }
+.codicon-list-selection:before { content: '\eb85'; }
+.codicon-selection:before { content: '\eb85'; }
+.codicon-list-tree:before { content: '\eb86'; }
+.codicon-debug-breakpoint-function-unverified:before { content: '\eb87'; }
+.codicon-debug-breakpoint-function:before { content: '\eb88'; }
+.codicon-debug-breakpoint-function-disabled:before { content: '\eb88'; }
+.codicon-debug-stackframe-active:before { content: '\eb89'; }
+.codicon-circle-small-filled:before { content: '\eb8a'; }
+.codicon-debug-stackframe-dot:before { content: '\eb8a'; }
+.codicon-debug-stackframe:before { content: '\eb8b'; }
+.codicon-debug-stackframe-focused:before { content: '\eb8b'; }
+.codicon-debug-breakpoint-unsupported:before { content: '\eb8c'; }
+.codicon-symbol-string:before { content: '\eb8d'; }
+.codicon-debug-reverse-continue:before { content: '\eb8e'; }
+.codicon-debug-step-back:before { content: '\eb8f'; }
+.codicon-debug-restart-frame:before { content: '\eb90'; }
+.codicon-call-incoming:before { content: '\eb92'; }
+.codicon-call-outgoing:before { content: '\eb93'; }
+.codicon-menu:before { content: '\eb94'; }
+.codicon-expand-all:before { content: '\eb95'; }
+.codicon-feedback:before { content: '\eb96'; }
+.codicon-git-pull-request-reviewer:before { content: '\eb96'; }
+.codicon-group-by-ref-type:before { content: '\eb97'; }
+.codicon-ungroup-by-ref-type:before { content: '\eb98'; }
+.codicon-account:before { content: '\eb99'; }
+.codicon-git-pull-request-assignee:before { content: '\eb99'; }
+.codicon-bell-dot:before { content: '\eb9a'; }
+.codicon-debug-console:before { content: '\eb9b'; }
+.codicon-library:before { content: '\eb9c'; }
+.codicon-output:before { content: '\eb9d'; }
+.codicon-run-all:before { content: '\eb9e'; }
+.codicon-sync-ignored:before { content: '\eb9f'; }
+.codicon-pinned:before { content: '\eba0'; }
+.codicon-github-inverted:before { content: '\eba1'; }
+.codicon-debug-alt:before { content: '\eb91'; }
+.codicon-server-process:before { content: '\eba2'; }
+.codicon-server-environment:before { content: '\eba3'; }
+.codicon-pass:before { content: '\eba4'; }
+.codicon-stop-circle:before { content: '\eba5'; }
+.codicon-play-circle:before { content: '\eba6'; }
+.codicon-record:before { content: '\eba7'; }
+.codicon-debug-alt-small:before { content: '\eba8'; }
+.codicon-vm-connect:before { content: '\eba9'; }
+.codicon-cloud:before { content: '\ebaa'; }
+.codicon-merge:before { content: '\ebab'; }
+.codicon-export:before { content: '\ebac'; }
+.codicon-graph-left:before { content: '\ebad'; }
+.codicon-magnet:before { content: '\ebae'; }
+.codicon-notebook:before { content: '\ebaf'; }
+.codicon-redo:before { content: '\ebb0'; }
+.codicon-check-all:before { content: '\ebb1'; }
+.codicon-pinned-dirty:before { content: '\ebb2'; }
+.codicon-pass-filled:before { content: '\ebb3'; }
+.codicon-circle-large-filled:before { content: '\ebb4'; }
+.codicon-circle-large:before { content: '\ebb5'; }
+.codicon-circle-large-outline:before { content: '\ebb5'; }
+.codicon-combine:before { content: '\ebb6'; }
+.codicon-gather:before { content: '\ebb6'; }
+.codicon-table:before { content: '\ebb7'; }
+.codicon-variable-group:before { content: '\ebb8'; }
+.codicon-type-hierarchy:before { content: '\ebb9'; }
+.codicon-type-hierarchy-sub:before { content: '\ebba'; }
+.codicon-type-hierarchy-super:before { content: '\ebbb'; }
+.codicon-git-pull-request-create:before { content: '\ebbc'; }
+.codicon-run-above:before { content: '\ebbd'; }
+.codicon-run-below:before { content: '\ebbe'; }
+.codicon-notebook-template:before { content: '\ebbf'; }
+.codicon-debug-rerun:before { content: '\ebc0'; }
+.codicon-workspace-trusted:before { content: '\ebc1'; }
+.codicon-workspace-untrusted:before { content: '\ebc2'; }
+.codicon-workspace-unspecified:before { content: '\ebc3'; }
+.codicon-terminal-cmd:before { content: '\ebc4'; }
+.codicon-terminal-debian:before { content: '\ebc5'; }
+.codicon-terminal-linux:before { content: '\ebc6'; }
+.codicon-terminal-powershell:before { content: '\ebc7'; }
+.codicon-terminal-tmux:before { content: '\ebc8'; }
+.codicon-terminal-ubuntu:before { content: '\ebc9'; }
+.codicon-terminal-bash:before { content: '\ebca'; }
+.codicon-arrow-swap:before { content: '\ebcb'; }
+.codicon-copy:before { content: '\ebcc'; }
+.codicon-person-add:before { content: '\ebcd'; }
+.codicon-filter-filled:before { content: '\ebce'; }
+.codicon-wand:before { content: '\ebcf'; }
+.codicon-debug-line-by-line:before { content: '\ebd0'; }
+.codicon-inspect:before { content: '\ebd1'; }
+.codicon-layers:before { content: '\ebd2'; }
+.codicon-layers-dot:before { content: '\ebd3'; }
+.codicon-layers-active:before { content: '\ebd4'; }
+.codicon-compass:before { content: '\ebd5'; }
+.codicon-compass-dot:before { content: '\ebd6'; }
+.codicon-compass-active:before { content: '\ebd7'; }
+.codicon-azure:before { content: '\ebd8'; }
+.codicon-issue-draft:before { content: '\ebd9'; }
+.codicon-git-pull-request-closed:before { content: '\ebda'; }
+.codicon-git-pull-request-draft:before { content: '\ebdb'; }
+.codicon-debug-all:before { content: '\ebdc'; }
+.codicon-debug-coverage:before { content: '\ebdd'; }
+.codicon-run-errors:before { content: '\ebde'; }
+.codicon-folder-library:before { content: '\ebdf'; }
+.codicon-debug-continue-small:before { content: '\ebe0'; }
+.codicon-beaker-stop:before { content: '\ebe1'; }
+.codicon-graph-line:before { content: '\ebe2'; }
+.codicon-graph-scatter:before { content: '\ebe3'; }
+.codicon-pie-chart:before { content: '\ebe4'; }
+.codicon-bracket-dot:before { content: '\ebe5'; }
+.codicon-bracket-error:before { content: '\ebe6'; }
+.codicon-lock-small:before { content: '\ebe7'; }
+.codicon-azure-devops:before { content: '\ebe8'; }
+.codicon-verified-filled:before { content: '\ebe9'; }
+.codicon-newline:before { content: '\ebea'; }
+.codicon-layout:before { content: '\ebeb'; }
+.codicon-layout-activitybar-left:before { content: '\ebec'; }
+.codicon-layout-activitybar-right:before { content: '\ebed'; }
+.codicon-layout-panel-left:before { content: '\ebee'; }
+.codicon-layout-panel-center:before { content: '\ebef'; }
+.codicon-layout-panel-justify:before { content: '\ebf0'; }
+.codicon-layout-panel-right:before { content: '\ebf1'; }
+.codicon-layout-panel:before { content: '\ebf2'; }
+.codicon-layout-sidebar-left:before { content: '\ebf3'; }
+.codicon-layout-sidebar-right:before { content: '\ebf4'; }
+.codicon-layout-statusbar:before { content: '\ebf5'; }
+.codicon-layout-menubar:before { content: '\ebf6'; }
+.codicon-layout-centered:before { content: '\ebf7'; }
+.codicon-layout-sidebar-right-off:before { content: '\ec00'; }
+.codicon-layout-panel-off:before { content: '\ec01'; }
+.codicon-layout-sidebar-left-off:before { content: '\ec02'; }
+.codicon-target:before { content: '\ebf8'; }
+.codicon-indent:before { content: '\ebf9'; }
+.codicon-record-small:before { content: '\ebfa'; }
+.codicon-error-small:before { content: '\ebfb'; }
+.codicon-arrow-circle-down:before { content: '\ebfc'; }
+.codicon-arrow-circle-left:before { content: '\ebfd'; }
+.codicon-arrow-circle-right:before { content: '\ebfe'; }
+.codicon-arrow-circle-up:before { content: '\ebff'; }
+.codicon-heart-filled:before { content: '\ec04'; }
+.codicon-map:before { content: '\ec05'; }
+.codicon-map-filled:before { content: '\ec06'; }
+.codicon-circle-small:before { content: '\ec07'; }
+.codicon-bell-slash:before { content: '\ec08'; }
+.codicon-bell-slash-dot:before { content: '\ec09'; }
+.codicon-comment-unresolved:before { content: '\ec0a'; }
+.codicon-git-pull-request-go-to-changes:before { content: '\ec0b'; }
+.codicon-git-pull-request-new-changes:before { content: '\ec0c'; }
+.codicon-search-fuzzy:before { content: '\ec0d'; }
+.codicon-comment-draft:before { content: '\ec0e'; }
+.codicon-send:before { content: '\ec0f'; }
+.codicon-sparkle:before { content: '\ec10'; }
+.codicon-insert:before { content: '\ec11'; }
+.codicon-mic:before { content: '\ec12'; }
+.codicon-thumbsdown-filled:before { content: '\ec13'; }
+.codicon-thumbsup-filled:before { content: '\ec14'; }
+.codicon-coffee:before { content: '\ec15'; }
+.codicon-snake:before { content: '\ec16'; }
+.codicon-game:before { content: '\ec17'; }
+.codicon-vr:before { content: '\ec18'; }
+.codicon-chip:before { content: '\ec19'; }
+.codicon-piano:before { content: '\ec1a'; }
+.codicon-music:before { content: '\ec1b'; }
+.codicon-mic-filled:before { content: '\ec1c'; }
+.codicon-git-fetch:before { content: '\ec1d'; }
+.codicon-copilot:before { content: '\ec1e'; }
+.codicon-lightbulb-sparkle:before { content: '\ec1f'; }
+.codicon-lightbulb-sparkle-autofix:before { content: '\ec1f'; }
+.codicon-robot:before { content: '\ec20'; }
+.codicon-sparkle-filled:before { content: '\ec21'; }
+.codicon-diff-single:before { content: '\ec22'; }
+.codicon-diff-multiple:before { content: '\ec23'; }
+.codicon-dialog-error:before { content: '\ea87'; }
+.codicon-dialog-warning:before { content: '\ea6c'; }
+.codicon-dialog-info:before { content: '\ea74'; }
+.codicon-dialog-close:before { content: '\ea76'; }
+.codicon-tree-item-expanded:before { content: '\eab4'; }
+.codicon-tree-filter-on-type-on:before { content: '\eb83'; }
+.codicon-tree-filter-on-type-off:before { content: '\eb85'; }
+.codicon-tree-filter-clear:before { content: '\ea76'; }
+.codicon-tree-item-loading:before { content: '\eb19'; }
+.codicon-menu-selection:before { content: '\eab2'; }
+.codicon-menu-submenu:before { content: '\eab6'; }
+.codicon-menubar-more:before { content: '\ea7c'; }
+.codicon-scrollbar-button-left:before { content: '\eb6f'; }
+.codicon-scrollbar-button-right:before { content: '\eb70'; }
+.codicon-scrollbar-button-up:before { content: '\eb71'; }
+.codicon-scrollbar-button-down:before { content: '\eb6e'; }
+.codicon-toolbar-more:before { content: '\ea7c'; }
+.codicon-quick-input-back:before { content: '\ea9b'; }
+.codicon-widget-close:before { content: '\ea76'; }
+.codicon-goto-previous-location:before { content: '\eaa1'; }
+.codicon-goto-next-location:before { content: '\ea9a'; }
+.codicon-diff-insert:before { content: '\ea60'; }
+.codicon-diff-remove:before { content: '\eb3b'; }
+.codicon-folding-expanded:before { content: '\eab4'; }
+.codicon-folding-collapsed:before { content: '\eab6'; }
+.codicon-folding-manual-collapsed:before { content: '\eab6'; }
+.codicon-folding-manual-expanded:before { content: '\eab4'; }
+.codicon-diff-review-insert:before { content: '\ea60'; }
+.codicon-diff-review-remove:before { content: '\eb3b'; }
+.codicon-diff-review-close:before { content: '\ea76'; }
+.codicon-find-selection:before { content: '\eb85'; }
+.codicon-find-collapsed:before { content: '\eab6'; }
+.codicon-find-expanded:before { content: '\eab4'; }
+.codicon-find-replace:before { content: '\eb3d'; }
+.codicon-find-replace-all:before { content: '\eb3c'; }
+.codicon-find-previous-match:before { content: '\eaa1'; }
+.codicon-find-next-match:before { content: '\ea9a'; }
+.codicon-suggest-more-info:before { content: '\eab6'; }
+.codicon-parameter-hints-next:before { content: '\eab4'; }
+.codicon-parameter-hints-previous:before { content: '\eab7'; }
+.codicon-inline-suggestion-hints-next:before { content: '\eab6'; }
+.codicon-inline-suggestion-hints-previous:before { content: '\eab5'; }
+.codicon-extensions-warning-message:before { content: '\ea6c'; }
+.codicon-marker-navigation-next:before { content: '\ea9a'; }
+.codicon-marker-navigation-previous:before { content: '\eaa1'; }
+.monaco-editor .inputarea.ime-input { background-color: #1e1e1e; }
+.monaco-editor .unexpected-closing-bracket { color: rgba(255, 18, 18, 0.8); }
+.monaco-editor .bracket-highlighting-0 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-1 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-2 { color: #179fff; }
+.monaco-editor .bracket-highlighting-3 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-4 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-5 { color: #179fff; }
+.monaco-editor .bracket-highlighting-6 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-7 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-8 { color: #179fff; }
+.monaco-editor .bracket-highlighting-9 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-10 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-11 { color: #179fff; }
+.monaco-editor .bracket-highlighting-12 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-13 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-14 { color: #179fff; }
+.monaco-editor .bracket-highlighting-15 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-16 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-17 { color: #179fff; }
+.monaco-editor .bracket-highlighting-18 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-19 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-20 { color: #179fff; }
+.monaco-editor .bracket-highlighting-21 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-22 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-23 { color: #179fff; }
+.monaco-editor .bracket-highlighting-24 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-25 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-26 { color: #179fff; }
+.monaco-editor .bracket-highlighting-27 { color: #ffd700; }
+.monaco-editor .bracket-highlighting-28 { color: #da70d6; }
+.monaco-editor .bracket-highlighting-29 { color: #179fff; }
+.monaco-editor .view-overlays .current-line { border: 2px solid #282828; }
+.monaco-editor .margin-view-overlays .current-line-margin { border: 2px solid #282828; }
+.monaco-editor .bracket-indent-guide.lvl-0 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-1 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-2 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-3 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-4 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-5 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-6 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-7 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-8 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-9 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-10 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-11 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-12 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-13 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-14 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-15 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-16 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-17 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-18 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-19 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-20 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-21 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-22 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-23 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-24 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-25 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-26 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .bracket-indent-guide.lvl-27 { --guide-color: rgba(255, 215, 0, 0.3); --guide-color-active: #ffd700; }
+.monaco-editor .bracket-indent-guide.lvl-28 { --guide-color: rgba(218, 112, 214, 0.3); --guide-color-active: #da70d6; }
+.monaco-editor .bracket-indent-guide.lvl-29 { --guide-color: rgba(23, 159, 255, 0.3); --guide-color-active: #179fff; }
+.monaco-editor .vertical { box-shadow: 1px 0 0 0 var(--guide-color) inset; }
+.monaco-editor .horizontal-top { border-top: 1px solid var(--guide-color); }
+.monaco-editor .horizontal-bottom { border-bottom: 1px solid var(--guide-color); }
+.monaco-editor .vertical.indent-active { box-shadow: 1px 0 0 0 var(--guide-color-active) inset; }
+.monaco-editor .horizontal-top.indent-active { border-top: 1px solid var(--guide-color-active); }
+.monaco-editor .horizontal-bottom.indent-active { border-bottom: 1px solid var(--guide-color-active); }
+.monaco-editor .lines-content .core-guide-indent.lvl-0 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-1 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-2 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-3 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-4 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-5 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-6 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-7 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-8 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-9 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-10 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-11 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-12 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-13 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-14 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-15 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-16 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-17 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-18 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-19 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-20 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-21 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-22 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-23 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-24 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-25 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-26 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-27 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-28 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent.lvl-29 { --indent-color: #404040; --indent-color-active: #707070; }
+.monaco-editor .lines-content .core-guide-indent { box-shadow: 1px 0 0 0 var(--indent-color) inset; }
+.monaco-editor .lines-content .core-guide-indent.indent-active { box-shadow: 1px 0 0 0 var(--indent-color-active) inset; }
+.monaco-editor .line-numbers.dimmed-line-number { color: rgba(133, 133, 133, 0.4); }
+.monaco-editor .cursors-layer .cursor { background-color: #aeafad; border-color: #aeafad; color: #515052; }
+.monaco-editor .squiggly-error { background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%23f14c4c'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat-x bottom left; }
+.monaco-editor .squiggly-warning { background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%23cca700'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat-x bottom left; }
+.monaco-editor .squiggly-info { background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%233794ff'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat-x bottom left; }
+.monaco-editor .squiggly-hint { background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%223%22%20width%3D%2212%22%3E%3Cg%20fill%3D%22rgba(238%2C%20238%2C%20238%2C%200.7)%22%3E%3Ccircle%20cx%3D%221%22%20cy%3D%221%22%20r%3D%221%22%2F%3E%3Ccircle%20cx%3D%225%22%20cy%3D%221%22%20r%3D%221%22%2F%3E%3Ccircle%20cx%3D%229%22%20cy%3D%221%22%20r%3D%221%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") no-repeat bottom left; }
+.monaco-editor.showUnused .squiggly-inline-unnecessary { opacity: 0.667; }
+.monaco-editor .findMatch { background-color: rgba(234, 92, 0, 0.33); }
+.monaco-editor .currentFindMatch { background-color: #515c6a; }
+.monaco-editor .findScope { background-color: rgba(58, 61, 65, 0.4); }
+.monaco-editor .find-widget { background-color: #252526; }
+.monaco-editor .find-widget { box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.36); }
+.monaco-editor .find-widget { color: #cccccc; }
+.monaco-editor .find-widget.no-results .matchesCount { color: #f48771; }
+.monaco-editor .find-widget .monaco-sash { background-color: #454545; }
+
+		.monaco-editor .find-widget .button:not(.disabled):hover,
+		.monaco-editor .find-widget .codicon-find-selection:hover {
+			background-color: rgba(90, 93, 94, 0.31) !important;
+		}
+	
+.monaco-editor .find-widget .monaco-inputbox.synthetic-focus { outline-color: #007fd4; }
+.monaco-editor .selectionHighlight { background-color: rgba(173, 214, 255, 0.07); }
+.monaco-editor .quickfix-edit-highlight { background-color: rgba(234, 92, 0, 0.33); }
+.monaco-editor .monaco-hover .hover-row:not(:first-child):not(:empty) { border-top: 1px solid rgba(69, 69, 69, 0.5); }
+.monaco-editor .monaco-hover hr { border-top: 1px solid rgba(69, 69, 69, 0.5); }
+.monaco-editor .monaco-hover hr { border-bottom: 0px solid rgba(69, 69, 69, 0.5); }
+.monaco-editor, .monaco-diff-editor, .monaco-component { --vscode-foreground: #cccccc;
+--vscode-disabledForeground: rgba(204, 204, 204, 0.5);
+--vscode-errorForeground: #f48771;
+--vscode-descriptionForeground: rgba(204, 204, 204, 0.7);
+--vscode-icon-foreground: #c5c5c5;
+--vscode-focusBorder: #007fd4;
+--vscode-textSeparator-foreground: rgba(255, 255, 255, 0.18);
+--vscode-textLink-foreground: #3794ff;
+--vscode-textLink-activeForeground: #3794ff;
+--vscode-textPreformat-foreground: #d7ba7d;
+--vscode-textPreformat-background: rgba(255, 255, 255, 0.1);
+--vscode-textBlockQuote-background: #222222;
+--vscode-textBlockQuote-border: rgba(0, 122, 204, 0.5);
+--vscode-textCodeBlock-background: rgba(10, 10, 10, 0.4);
+--vscode-widget-shadow: rgba(0, 0, 0, 0.36);
+--vscode-input-background: #3c3c3c;
+--vscode-input-foreground: #cccccc;
+--vscode-inputOption-activeBorder: #007acc;
+--vscode-inputOption-hoverBackground: rgba(90, 93, 94, 0.5);
+--vscode-inputOption-activeBackground: rgba(0, 127, 212, 0.4);
+--vscode-inputOption-activeForeground: #ffffff;
+--vscode-input-placeholderForeground: rgba(204, 204, 204, 0.5);
+--vscode-inputValidation-infoBackground: #063b49;
+--vscode-inputValidation-infoBorder: #007acc;
+--vscode-inputValidation-warningBackground: #352a05;
+--vscode-inputValidation-warningBorder: #b89500;
+--vscode-inputValidation-errorBackground: #5a1d1d;
+--vscode-inputValidation-errorBorder: #be1100;
+--vscode-dropdown-background: #3c3c3c;
+--vscode-dropdown-foreground: #f0f0f0;
+--vscode-dropdown-border: #3c3c3c;
+--vscode-button-foreground: #ffffff;
+--vscode-button-separator: rgba(255, 255, 255, 0.4);
+--vscode-button-background: #0e639c;
+--vscode-button-hoverBackground: #1177bb;
+--vscode-button-secondaryForeground: #ffffff;
+--vscode-button-secondaryBackground: #3a3d41;
+--vscode-button-secondaryHoverBackground: #45494e;
+--vscode-badge-background: #4d4d4d;
+--vscode-badge-foreground: #ffffff;
+--vscode-scrollbar-shadow: #000000;
+--vscode-scrollbarSlider-background: rgba(121, 121, 121, 0.4);
+--vscode-scrollbarSlider-hoverBackground: rgba(100, 100, 100, 0.7);
+--vscode-scrollbarSlider-activeBackground: rgba(191, 191, 191, 0.4);
+--vscode-progressBar-background: #0e70c0;
+--vscode-editorError-foreground: #f14c4c;
+--vscode-editorWarning-foreground: #cca700;
+--vscode-editorInfo-foreground: #3794ff;
+--vscode-editorHint-foreground: rgba(238, 238, 238, 0.7);
+--vscode-sash-hoverBorder: #007fd4;
+--vscode-editor-background: #1e1e1e;
+--vscode-editor-foreground: #d4d4d4;
+--vscode-editorStickyScroll-background: #1e1e1e;
+--vscode-editorStickyScrollHover-background: #2a2d2e;
+--vscode-editorWidget-background: #252526;
+--vscode-editorWidget-foreground: #cccccc;
+--vscode-editorWidget-border: #454545;
+--vscode-quickInput-background: #252526;
+--vscode-quickInput-foreground: #cccccc;
+--vscode-quickInputTitle-background: rgba(255, 255, 255, 0.1);
+--vscode-pickerGroup-foreground: #3794ff;
+--vscode-pickerGroup-border: #3f3f46;
+--vscode-keybindingLabel-background: rgba(128, 128, 128, 0.17);
+--vscode-keybindingLabel-foreground: #cccccc;
+--vscode-keybindingLabel-border: rgba(51, 51, 51, 0.6);
+--vscode-keybindingLabel-bottomBorder: rgba(68, 68, 68, 0.6);
+--vscode-editor-selectionBackground: #264f78;
+--vscode-editor-inactiveSelectionBackground: #3a3d41;
+--vscode-editor-selectionHighlightBackground: rgba(173, 214, 255, 0.15);
+--vscode-editor-findMatchBackground: #515c6a;
+--vscode-editor-findMatchHighlightBackground: rgba(234, 92, 0, 0.33);
+--vscode-editor-findRangeHighlightBackground: rgba(58, 61, 65, 0.4);
+--vscode-searchEditor-findMatchBackground: rgba(234, 92, 0, 0.22);
+--vscode-search-resultsInfoForeground: rgba(204, 204, 204, 0.65);
+--vscode-editor-hoverHighlightBackground: rgba(38, 79, 120, 0.25);
+--vscode-editorHoverWidget-background: #252526;
+--vscode-editorHoverWidget-foreground: #cccccc;
+--vscode-editorHoverWidget-border: #454545;
+--vscode-editorHoverWidget-statusBarBackground: #2c2c2d;
+--vscode-editorLink-activeForeground: #4e94ce;
+--vscode-editorInlayHint-foreground: #969696;
+--vscode-editorInlayHint-background: rgba(77, 77, 77, 0.1);
+--vscode-editorInlayHint-typeForeground: #969696;
+--vscode-editorInlayHint-typeBackground: rgba(77, 77, 77, 0.1);
+--vscode-editorInlayHint-parameterForeground: #969696;
+--vscode-editorInlayHint-parameterBackground: rgba(77, 77, 77, 0.1);
+--vscode-editorLightBulb-foreground: #ffcc00;
+--vscode-editorLightBulbAutoFix-foreground: #75beff;
+--vscode-editorLightBulbAi-foreground: #767676;
+--vscode-diffEditor-insertedTextBackground: rgba(156, 204, 44, 0.2);
+--vscode-diffEditor-removedTextBackground: rgba(255, 0, 0, 0.2);
+--vscode-diffEditor-insertedLineBackground: rgba(155, 185, 85, 0.2);
+--vscode-diffEditor-removedLineBackground: rgba(255, 0, 0, 0.2);
+--vscode-diffEditor-diagonalFill: rgba(204, 204, 204, 0.2);
+--vscode-diffEditor-unchangedRegionForeground: #cccccc;
+--vscode-diffEditor-unchangedCodeBackground: rgba(116, 116, 116, 0.16);
+--vscode-list-focusOutline: #007fd4;
+--vscode-list-activeSelectionBackground: #04395e;
+--vscode-list-activeSelectionForeground: #ffffff;
+--vscode-list-inactiveSelectionBackground: #37373d;
+--vscode-list-hoverBackground: #2a2d2e;
+--vscode-list-dropBackground: #062f4a;
+--vscode-list-highlightForeground: #2aaaff;
+--vscode-list-focusHighlightForeground: #2aaaff;
+--vscode-list-invalidItemForeground: #b89500;
+--vscode-list-errorForeground: #f88070;
+--vscode-list-warningForeground: #cca700;
+--vscode-listFilterWidget-background: #252526;
+--vscode-listFilterWidget-outline: rgba(0, 0, 0, 0);
+--vscode-listFilterWidget-noMatchesOutline: #be1100;
+--vscode-listFilterWidget-shadow: rgba(0, 0, 0, 0.36);
+--vscode-list-filterMatchBackground: rgba(234, 92, 0, 0.33);
+--vscode-tree-indentGuidesStroke: #585858;
+--vscode-tree-inactiveIndentGuidesStroke: rgba(88, 88, 88, 0.4);
+--vscode-tree-tableColumnsBorder: rgba(204, 204, 204, 0.13);
+--vscode-tree-tableOddRowsBackground: rgba(204, 204, 204, 0.04);
+--vscode-list-deemphasizedForeground: #8c8c8c;
+--vscode-checkbox-background: #3c3c3c;
+--vscode-checkbox-selectBackground: #252526;
+--vscode-checkbox-foreground: #f0f0f0;
+--vscode-checkbox-border: #3c3c3c;
+--vscode-checkbox-selectBorder: #c5c5c5;
+--vscode-quickInputList-focusForeground: #ffffff;
+--vscode-quickInputList-focusBackground: #04395e;
+--vscode-menu-foreground: #f0f0f0;
+--vscode-menu-background: #3c3c3c;
+--vscode-menu-selectionForeground: #ffffff;
+--vscode-menu-selectionBackground: #04395e;
+--vscode-menu-separatorBackground: #606060;
+--vscode-toolbar-hoverBackground: rgba(90, 93, 94, 0.31);
+--vscode-toolbar-activeBackground: rgba(99, 102, 103, 0.31);
+--vscode-editor-snippetTabstopHighlightBackground: rgba(124, 124, 124, 0.3);
+--vscode-editor-snippetFinalTabstopHighlightBorder: #525252;
+--vscode-breadcrumb-foreground: rgba(204, 204, 204, 0.8);
+--vscode-breadcrumb-background: #1e1e1e;
+--vscode-breadcrumb-focusForeground: #e0e0e0;
+--vscode-breadcrumb-activeSelectionForeground: #e0e0e0;
+--vscode-breadcrumbPicker-background: #252526;
+--vscode-merge-currentHeaderBackground: rgba(64, 200, 174, 0.5);
+--vscode-merge-currentContentBackground: rgba(64, 200, 174, 0.2);
+--vscode-merge-incomingHeaderBackground: rgba(64, 166, 255, 0.5);
+--vscode-merge-incomingContentBackground: rgba(64, 166, 255, 0.2);
+--vscode-merge-commonHeaderBackground: rgba(96, 96, 96, 0.4);
+--vscode-merge-commonContentBackground: rgba(96, 96, 96, 0.16);
+--vscode-editorOverviewRuler-currentContentForeground: rgba(64, 200, 174, 0.5);
+--vscode-editorOverviewRuler-incomingContentForeground: rgba(64, 166, 255, 0.5);
+--vscode-editorOverviewRuler-commonContentForeground: rgba(96, 96, 96, 0.4);
+--vscode-editorOverviewRuler-findMatchForeground: rgba(209, 134, 22, 0.49);
+--vscode-editorOverviewRuler-selectionHighlightForeground: rgba(160, 160, 160, 0.8);
+--vscode-minimap-findMatchHighlight: #d18616;
+--vscode-minimap-selectionOccurrenceHighlight: #676767;
+--vscode-minimap-selectionHighlight: #264f78;
+--vscode-minimap-infoHighlight: #3794ff;
+--vscode-minimap-warningHighlight: #cca700;
+--vscode-minimap-errorHighlight: rgba(255, 18, 18, 0.7);
+--vscode-minimap-foregroundOpacity: #000000;
+--vscode-minimapSlider-background: rgba(121, 121, 121, 0.2);
+--vscode-minimapSlider-hoverBackground: rgba(100, 100, 100, 0.35);
+--vscode-minimapSlider-activeBackground: rgba(191, 191, 191, 0.2);
+--vscode-problemsErrorIcon-foreground: #f14c4c;
+--vscode-problemsWarningIcon-foreground: #cca700;
+--vscode-problemsInfoIcon-foreground: #3794ff;
+--vscode-charts-foreground: #cccccc;
+--vscode-charts-lines: rgba(204, 204, 204, 0.5);
+--vscode-charts-red: #f14c4c;
+--vscode-charts-blue: #3794ff;
+--vscode-charts-yellow: #cca700;
+--vscode-charts-orange: #d18616;
+--vscode-charts-green: #89d185;
+--vscode-charts-purple: #b180d7;
+--vscode-diffEditor-move-border: rgba(139, 139, 139, 0.61);
+--vscode-diffEditor-moveActive-border: #ffa500;
+--vscode-diffEditor-unchangedRegionShadow: #000000;
+--vscode-multiDiffEditor-headerBackground: #808080;
+--vscode-editor-lineHighlightBorder: #282828;
+--vscode-editor-rangeHighlightBackground: rgba(255, 255, 255, 0.04);
+--vscode-editor-symbolHighlightBackground: rgba(234, 92, 0, 0.33);
+--vscode-editorCursor-foreground: #aeafad;
+--vscode-editorWhitespace-foreground: rgba(227, 228, 226, 0.16);
+--vscode-editorLineNumber-foreground: #858585;
+--vscode-editorIndentGuide-background: rgba(227, 228, 226, 0.16);
+--vscode-editorIndentGuide-activeBackground: rgba(227, 228, 226, 0.16);
+--vscode-editorIndentGuide-background1: #404040;
+--vscode-editorIndentGuide-background2: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-background3: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-background4: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-background5: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-background6: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-activeBackground1: #707070;
+--vscode-editorIndentGuide-activeBackground2: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-activeBackground3: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-activeBackground4: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-activeBackground5: rgba(0, 0, 0, 0);
+--vscode-editorIndentGuide-activeBackground6: rgba(0, 0, 0, 0);
+--vscode-editorActiveLineNumber-foreground: #c6c6c6;
+--vscode-editorLineNumber-activeForeground: #c6c6c6;
+--vscode-editorRuler-foreground: #5a5a5a;
+--vscode-editorCodeLens-foreground: #999999;
+--vscode-editorBracketMatch-background: rgba(0, 100, 0, 0.1);
+--vscode-editorBracketMatch-border: #888888;
+--vscode-editorOverviewRuler-border: rgba(127, 127, 127, 0.3);
+--vscode-editorGutter-background: #1e1e1e;
+--vscode-editorUnnecessaryCode-opacity: rgba(0, 0, 0, 0.67);
+--vscode-editorGhostText-foreground: rgba(255, 255, 255, 0.34);
+--vscode-editorOverviewRuler-rangeHighlightForeground: rgba(0, 122, 204, 0.6);
+--vscode-editorOverviewRuler-errorForeground: rgba(255, 18, 18, 0.7);
+--vscode-editorOverviewRuler-warningForeground: #cca700;
+--vscode-editorOverviewRuler-infoForeground: #3794ff;
+--vscode-editorBracketHighlight-foreground1: #ffd700;
+--vscode-editorBracketHighlight-foreground2: #da70d6;
+--vscode-editorBracketHighlight-foreground3: #179fff;
+--vscode-editorBracketHighlight-foreground4: rgba(0, 0, 0, 0);
+--vscode-editorBracketHighlight-foreground5: rgba(0, 0, 0, 0);
+--vscode-editorBracketHighlight-foreground6: rgba(0, 0, 0, 0);
+--vscode-editorBracketHighlight-unexpectedBracket-foreground: rgba(255, 18, 18, 0.8);
+--vscode-editorBracketPairGuide-background1: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-background2: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-background3: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-background4: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-background5: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-background6: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-activeBackground1: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-activeBackground2: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-activeBackground3: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-activeBackground4: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-activeBackground5: rgba(0, 0, 0, 0);
+--vscode-editorBracketPairGuide-activeBackground6: rgba(0, 0, 0, 0);
+--vscode-editorUnicodeHighlight-border: #bd9b03;
+--vscode-editorUnicodeHighlight-background: rgba(189, 155, 3, 0.15);
+--vscode-editor-foldBackground: rgba(38, 79, 120, 0.3);
+--vscode-editorGutter-foldingControlForeground: #c5c5c5;
+--vscode-editorOverviewRuler-bracketMatchForeground: #a0a0a0;
+--vscode-editor-linkedEditingBackground: rgba(255, 0, 0, 0.3);
+--vscode-editorHoverWidget-highlightForeground: #2aaaff;
+--vscode-symbolIcon-arrayForeground: #cccccc;
+--vscode-symbolIcon-booleanForeground: #cccccc;
+--vscode-symbolIcon-classForeground: #ee9d28;
+--vscode-symbolIcon-colorForeground: #cccccc;
+--vscode-symbolIcon-constantForeground: #cccccc;
+--vscode-symbolIcon-constructorForeground: #b180d7;
+--vscode-symbolIcon-enumeratorForeground: #ee9d28;
+--vscode-symbolIcon-enumeratorMemberForeground: #75beff;
+--vscode-symbolIcon-eventForeground: #ee9d28;
+--vscode-symbolIcon-fieldForeground: #75beff;
+--vscode-symbolIcon-fileForeground: #cccccc;
+--vscode-symbolIcon-folderForeground: #cccccc;
+--vscode-symbolIcon-functionForeground: #b180d7;
+--vscode-symbolIcon-interfaceForeground: #75beff;
+--vscode-symbolIcon-keyForeground: #cccccc;
+--vscode-symbolIcon-keywordForeground: #cccccc;
+--vscode-symbolIcon-methodForeground: #b180d7;
+--vscode-symbolIcon-moduleForeground: #cccccc;
+--vscode-symbolIcon-namespaceForeground: #cccccc;
+--vscode-symbolIcon-nullForeground: #cccccc;
+--vscode-symbolIcon-numberForeground: #cccccc;
+--vscode-symbolIcon-objectForeground: #cccccc;
+--vscode-symbolIcon-operatorForeground: #cccccc;
+--vscode-symbolIcon-packageForeground: #cccccc;
+--vscode-symbolIcon-propertyForeground: #cccccc;
+--vscode-symbolIcon-referenceForeground: #cccccc;
+--vscode-symbolIcon-snippetForeground: #cccccc;
+--vscode-symbolIcon-stringForeground: #cccccc;
+--vscode-symbolIcon-structForeground: #cccccc;
+--vscode-symbolIcon-textForeground: #cccccc;
+--vscode-symbolIcon-typeParameterForeground: #cccccc;
+--vscode-symbolIcon-unitForeground: #cccccc;
+--vscode-symbolIcon-variableForeground: #75beff;
+--vscode-editor-wordHighlightBackground: rgba(87, 87, 87, 0.72);
+--vscode-editor-wordHighlightStrongBackground: rgba(0, 73, 114, 0.72);
+--vscode-editor-wordHighlightTextBackground: rgba(87, 87, 87, 0.72);
+--vscode-editorOverviewRuler-wordHighlightForeground: rgba(160, 160, 160, 0.8);
+--vscode-editorOverviewRuler-wordHighlightStrongForeground: rgba(192, 160, 192, 0.8);
+--vscode-editorOverviewRuler-wordHighlightTextForeground: rgba(160, 160, 160, 0.8);
+--vscode-actionBar-toggledBackground: rgba(0, 127, 212, 0.4);
+--vscode-editorSuggestWidget-background: #252526;
+--vscode-editorSuggestWidget-border: #454545;
+--vscode-editorSuggestWidget-foreground: #d4d4d4;
+--vscode-editorSuggestWidget-selectedForeground: #ffffff;
+--vscode-editorSuggestWidget-selectedBackground: #04395e;
+--vscode-editorSuggestWidget-highlightForeground: #2aaaff;
+--vscode-editorSuggestWidget-focusHighlightForeground: #2aaaff;
+--vscode-editorSuggestWidgetStatus-foreground: rgba(212, 212, 212, 0.5);
+--vscode-peekViewTitle-background: #252526;
+--vscode-peekViewTitleLabel-foreground: #ffffff;
+--vscode-peekViewTitleDescription-foreground: rgba(204, 204, 204, 0.7);
+--vscode-peekView-border: #3794ff;
+--vscode-peekViewResult-background: #252526;
+--vscode-peekViewResult-lineForeground: #bbbbbb;
+--vscode-peekViewResult-fileForeground: #ffffff;
+--vscode-peekViewResult-selectionBackground: rgba(51, 153, 255, 0.2);
+--vscode-peekViewResult-selectionForeground: #ffffff;
+--vscode-peekViewEditor-background: #001f33;
+--vscode-peekViewEditorGutter-background: #001f33;
+--vscode-peekViewEditorStickyScroll-background: #001f33;
+--vscode-peekViewResult-matchHighlightBackground: rgba(234, 92, 0, 0.3);
+--vscode-peekViewEditor-matchHighlightBackground: rgba(255, 143, 0, 0.6);
+--vscode-editorMarkerNavigationError-background: #f14c4c;
+--vscode-editorMarkerNavigationError-headerBackground: rgba(241, 76, 76, 0.1);
+--vscode-editorMarkerNavigationWarning-background: #cca700;
+--vscode-editorMarkerNavigationWarning-headerBackground: rgba(204, 167, 0, 0.1);
+--vscode-editorMarkerNavigationInfo-background: #3794ff;
+--vscode-editorMarkerNavigationInfo-headerBackground: rgba(55, 148, 255, 0.1);
+--vscode-editorMarkerNavigation-background: #1e1e1e; }
+
+.mtk1 { color: #cccccc; }
+.mtk2 { color: #1f1f1f; }
+.mtk3 { color: #cc6666; }
+.mtk4 { color: #ecacff; }
+.mtk5 { color: #9cdcfe; }
+.mtk6 { color: #ce9178; }
+.mtk7 { color: #d4d4d4; }
+.mtk8 { color: #b5cea8; }
+.mtk9 { color: #ffd700; }
+.mtk10 { color: #608b4e; }
+.mtk11 { color: #569cd6; }
+.mtk12 { color: #dcdcdc; }
+.mtk13 { color: #808080; }
+.mtk14 { color: #f44747; }
+.mtk15 { color: #c586c0; }
+.mtk16 { color: #a79873; }
+.mtk17 { color: #dd6a6f; }
+.mtk18 { color: #5bb498; }
+.mtk19 { color: #909090; }
+.mtk20 { color: #778899; }
+.mtk21 { color: #ff00ff; }
+.mtk22 { color: #b46695; }
+.mtk23 { color: #fbcab6; }
+.mtk24 { color: #ccffff; }
+.mtk25 { color: #ff0000; }
+.mtk26 { color: #4f76ac; }
+.mtk27 { color: #9c56d6; }
+.mtk28 { color: #3dc9b0; }
+.mtk29 { color: #74b0df; }
+.mtk30 { color: #4864aa; }
+.mtki { font-style: italic; }
+.mtkb { font-weight: bold; }
+.mtku { text-decoration: underline; text-underline-position: under; }
+.mtks { text-decoration: line-through; }
+.mtks.mtku { text-decoration: underline line-through; text-underline-position: under; }</style><script async="async" type="text/javascript" src="heaven_files/xml.js"></script></head>
+	<body class="enable-motion">
+    <style>
+      body {
+        background-color: #222;
+        color: #ccc;
+      }
+    </style>
+    
+    
+    <div style="display: flex;">
+		<div id="container" style="width: 900px; height: 700px; border: 1px solid grey; --vscode-editorCodeLens-lineHeight: 16px; --vscode-editorCodeLens-fontSize: 12px; --vscode-editorCodeLens-fontFeatureSettings: &quot;liga&quot; off, &quot;calt&quot; off;" data-keybinding-context="1" data-mode-id="jdaml"><div class="monaco-editor no-user-select  showUnused showDeprecated vs-dark" role="code" style="width: 900px; height: 700px;" data-uri="inmemory://model/1"><div data-mprt="3" class="overflow-guard" style="width: 900px; height: 700px;"><div class="margin" style="position: absolute; transform: translate3d(0px, 0px, 0px); contain: strict; top: 0px; height: 1631px; width: 68px;" role="presentation" aria-hidden="true"><div class="glyph-margin" style="left: 0px; width: 0px; height: 1631px;"></div><div class="margin-view-zones" style="position: absolute;" role="presentation" aria-hidden="true"></div><div class="margin-view-overlays" style="position: absolute; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; width: 68px; height: 1631px;" role="presentation" aria-hidden="true"><div style="position:absolute;top:399px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">22</div></div><div style="position:absolute;top:418px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">23</div></div><div style="position:absolute;top:437px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">24</div></div><div style="position:absolute;top:456px;width:100%;height:19px;"><div class="cldr codicon codicon-folding-expanded" style="left:42px;width:26px;"></div><div class="line-numbers lh-odd" style="left:0px;width:42px;">25</div></div><div style="position:absolute;top:475px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">26</div></div><div style="position:absolute;top:494px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">27</div></div><div style="position:absolute;top:513px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">28</div></div><div style="position:absolute;top:532px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">29</div></div><div style="position:absolute;top:551px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">30</div></div><div style="position:absolute;top:570px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">31</div></div><div style="position:absolute;top:589px;width:100%;height:19px;"><div class="cldr codicon codicon-folding-expanded" style="left:42px;width:26px;"></div><div class="line-numbers lh-odd" style="left:0px;width:42px;">32</div></div><div style="position:absolute;top:608px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">33</div></div><div style="position:absolute;top:627px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">34</div></div><div style="position:absolute;top:646px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">35</div></div><div style="position:absolute;top:665px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">36</div></div><div style="position:absolute;top:684px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">37</div></div><div style="position:absolute;top:342px;width:100%;height:19px;"><div class="cldr codicon codicon-folding-expanded" style="left:42px;width:26px;"></div><div class="line-numbers lh-odd" style="left:0px;width:42px;">19</div></div><div style="position:absolute;top:361px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">20</div></div><div style="position:absolute;top:380px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">21</div></div><div style="position:absolute;top:285px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">16</div></div><div style="position:absolute;top:304px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">17</div></div><div style="position:absolute;top:323px;width:100%;height:19px;"><div class="cldr codicon codicon-folding-expanded" style="left:42px;width:26px;"></div><div class="line-numbers lh-odd" style="left:0px;width:42px;">18</div></div><div style="position:absolute;top:247px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">14</div></div><div style="position:absolute;top:266px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">15</div></div><div style="position:absolute;top:190px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">11</div></div><div style="position:absolute;top:209px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">12</div></div><div style="position:absolute;top:228px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">13</div></div><div style="position:absolute;top:133px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">8</div></div><div style="position:absolute;top:152px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">9</div></div><div style="position:absolute;top:171px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">10</div></div><div style="position:absolute;top:95px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">6</div></div><div style="position:absolute;top:114px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">7</div></div><div style="position:absolute;top:38px;width:100%;height:19px;"><div class="cldr codicon codicon-folding-expanded" style="left:42px;width:26px;"></div><div class="line-numbers lh-odd" style="left:0px;width:42px;">3</div></div><div style="position:absolute;top:57px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">4</div></div><div style="position:absolute;top:76px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">5</div></div><div style="position:absolute;top:0px;width:100%;height:19px;"><div class="current-line current-line-margin-both" style="width:68px; height:19px;"></div><div class="line-numbers lh-odd active-line-number" style="left:0px;width:42px;">1</div></div><div style="position:absolute;top:19px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">2</div></div></div><div class="glyph-margin-widgets" style="position: absolute; top: 0px;"></div></div><div class="monaco-scrollable-element editor-scrollable vs-dark" role="presentation" style="position: absolute; overflow: hidden; left: 68px; width: 832px; height: 700px;" data-mprt="5"><div class="lines-content monaco-editor-background" style="position: absolute; overflow: hidden; width: 1000000px; height: 1000000px; transform: translate3d(0px, 0px, 0px); contain: strict; top: 0px; left: 0px;"><div class="view-overlays" style="position: absolute; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; height: 0px; width: 738px;" role="presentation" aria-hidden="true"><div style="position:absolute;top:399px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:418px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:437px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:456px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:475px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:494px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:513px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:532px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:551px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:570px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:589px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:608px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:627px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:646px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:665px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:684px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:342px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:361px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:380px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:285px;width:100%;height:19px;"></div><div style="position:absolute;top:304px;width:100%;height:19px;"></div><div style="position:absolute;top:323px;width:100%;height:19px;"></div><div style="position:absolute;top:247px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:266px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:190px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:209px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:228px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:133px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:152px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:171px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:95px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:114px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:38px;width:100%;height:19px;"></div><div style="position:absolute;top:57px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:76px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:0px;width:100%;height:19px;"><div class="current-line" style="width:738px; height:19px;"></div></div><div style="position:absolute;top:19px;width:100%;height:19px;"></div></div><div role="presentation" aria-hidden="true" class="view-rulers"></div><div class="view-zones" style="position: absolute;" role="presentation" aria-hidden="true"></div><div class="view-lines monaco-mouse-cursor-text" style="position: absolute; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; width: 738px; height: 1631px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:399px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">80:80</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:418px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">443:443</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:437px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:456px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk13">.</span><span class="mtk5">serve</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:475px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">/robots.txt</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:494px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">/favicon.ico</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:513px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">*.html</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:532px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">*.png</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:551px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">!.git</span><span class="mtk13 bracket-highlighting-2">]</span><span class="mtk6">&nbsp;&nbsp;Do&nbsp;not&nbsp;expose&nbsp;our&nbsp;Git&nbsp;repository&nbsp;to&nbsp;the&nbsp;entire&nbsp;w</span><span class="mtk6">orld.</span></span></div><div style="top:570px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-1">]</span></span></div><div style="top:589px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk13">.</span><span class="mtk5">geoblock_regions</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:608px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;legal&nbsp;team&nbsp;has&nbsp;not&nbsp;approved&nbsp;distribution&nbsp;i</span><span class="mtk6">n&nbsp;the&nbsp;Nordics&nbsp;yet.</span></span></div><div style="top:627px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">dk</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:646px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">fi</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:665px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">is</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:684px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">no</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:342px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;</span><span class="mtk13">.</span><span class="mtk5">port_mapping</span><span class="mtk13 bracket-highlighting-1">[</span></span></div><div style="top:361px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;Expose&nbsp;only&nbsp;ssh&nbsp;and&nbsp;http&nbsp;to&nbsp;the&nbsp;public&nbsp;interne</span><span class="mtk6">t.</span></span></div><div style="top:380px;height:19px;" class="view-line"><span><span class="mtk6">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk13 bracket-highlighting-2">[</span><span class="mtk1">22:22</span><span class="mtk13 bracket-highlighting-2">]</span></span></div><div style="top:285px;height:19px;" class="view-line"><span><span class="mtk10">]</span></span></div><div style="top:304px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:323px;height:19px;" class="view-line"><span><span class="mtk13">.</span><span class="mtk5">server_config</span><span class="mtk13 bracket-highlighting-0">[</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;[0]&nbsp;as&nbsp;described&nbsp;by&nbsp;Ruud&nbsp;van&nbsp;Asseldonk&nbsp;in&nbsp;this&nbsp;a</span><span class="mtk10">rticle:&nbsp;</span></span></div><div style="top:266px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;</span><span class="mtk10 detected-link">https://ruudvanasseldonk.com/2023/01/11/the-yaml-d</span><span class="mtk10 detected-link">ocument-from-hell</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;No&nbsp;anchors,&nbsp;aliases,&nbsp;or&nbsp;tags.&nbsp;No&nbsp;accidental&nbsp;non-</span><span class="mtk10">string&nbsp;keys,&nbsp;</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;no&nbsp;accidental&nbsp;numbers.</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;it&nbsp;will&nbsp;be&nbsp;interpreted&nbsp;as&nbsp;a&nbsp;string.</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;So&nbsp;no&nbsp;Norway&nbsp;problem,&nbsp;no&nbsp;sexagesimal&nbsp;or&nbsp;other&nbsp;we</span><span class="mtk10">ird&nbsp;number&nbsp;literals.&nbsp;</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;JDAML&nbsp;to&nbsp;eliminates&nbsp;the&nbsp;risk&nbsp;of&nbsp;accidental&nbsp;inter</span><span class="mtk10">pretation.&nbsp;</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;Unless&nbsp;a&nbsp;leaf&nbsp;value&nbsp;is&nbsp;explicitly&nbsp;tagged,&nbsp;</span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk10">';[</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk10">&nbsp;&nbsp;Here&nbsp;is&nbsp;the&nbsp;YAML&nbsp;document&nbsp;from&nbsp;hell&nbsp;[0]&nbsp;encoded&nbsp;</span><span class="mtk10">in&nbsp;#JDAML.</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span></span></span></div><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk13">.:</span><span class="mtk4">format</span><span class="mtk13 bracket-highlighting-0">[</span><span class="mtk6">json</span><span class="mtk13 bracket-highlighting-0">]</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span></span></span></div></div><div data-mprt="1" class="contentWidgets" style="position: absolute; top: 0px;"></div><div role="presentation" aria-hidden="true" class="cursors-layer cursor-line-style cursor-solid"><div class="cursor monaco-mouse-cursor-text " style="height: 19px; top: 0px; left: 0px; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; display: block; visibility: hidden; padding-left: 0px; width: 2px;"></div></div></div><div role="presentation" aria-hidden="true" class="invisible scrollbar horizontal" style="position: absolute; width: 724px; height: 12px; left: 0px; bottom: 0px;"><div class="slider" style="position: absolute; top: 0px; left: 0px; height: 12px; transform: translate3d(0px, 0px, 0px); contain: strict; width: 724px;"></div></div><canvas class="decorationsOverviewRuler" style="position: absolute; transform: translate3d(0px, 0px, 0px); contain: strict; top: 0px; right: 0px; width: 14px; height: 700px; display: block;" aria-hidden="true" width="14" height="700"></canvas><div role="presentation" aria-hidden="true" class="invisible scrollbar vertical fade" style="position: absolute; width: 14px; height: 700px; right: 0px; top: 0px;"><div class="slider" style="position: absolute; top: 0px; left: 0px; width: 14px; transform: translate3d(0px, 0px, 0px); contain: strict; height: 300px;"></div></div></div><div role="presentation" aria-hidden="true" style="width: 886px;" class=""></div><textarea data-mprt="6" class="inputarea monaco-mouse-cursor-text" wrap="off" style="tab-size: 33.5938px; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; top: 0px; left: 68px; width: 0px; height: 0px;" autocorrect="off" autocapitalize="none" autocomplete="off" spellcheck="false" aria-label="Editor content;Press Alt+F1 for Accessibility Options." aria-required="false" tabindex="0" role="textbox" aria-roledescription="editor" aria-multiline="true" aria-autocomplete="both">.:format[json]
+
+';[
+  Here is the YAML document from hell [0] encoded in #JDAML.
+
+  JDAML to eliminates the risk of accidental interpretation. 
+  Unless a leaf value is explicitly tagged, 
+  it will be interpreted as a string.
+
+  So no Norway problem, no sexagesimal or other weird number literals. 
+</textarea><div style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px;" class="monaco-editor-background textAreaCover line-numbers"></div><div data-mprt="4" class="overlayWidgets" style="width: 900px;"></div><div data-mprt="8" class="minimap slider-mouseover" style="position: absolute; left: 792px; width: 94px; height: 700px;" role="presentation" aria-hidden="true"><div class="minimap-shadow-hidden" style="height: 700px;"></div><canvas style="position: absolute; left: 0px; width: 94px; height: 700px;" width="94" height="700"></canvas><canvas style="position: absolute; left: 0px; width: 94px; height: 700px;" class="minimap-decorations-layer" width="94" height="700"></canvas><div style="position: absolute; transform: translate3d(0px, 0px, 0px); contain: strict; width: 94px; display: block; height: 73px; top: 0px;" class="minimap-slider"><div style="position: absolute; left: 0px; width: 94px; top: 0px; height: 73px;" class="minimap-slider-horizontal"></div></div></div><div role="presentation" aria-hidden="true" class="blockDecorations-container"></div></div><div data-mprt="2" class="overflowingContentWidgets"><div style="position: absolute; height: 27px; width: 150px; z-index: 50; display: none; visibility: hidden; max-width: 1920px;" widgetid="editor.contrib.resizableContentHoverWidget"><div class="monaco-sash vertical" style="left: 148px;"></div><div class="monaco-sash vertical" style="left: -2px;"></div><div class="monaco-sash orthogonal-edge-north horizontal" style="top: -2px;"><div class="orthogonal-drag-handle start"></div><div class="orthogonal-drag-handle end"></div></div><div class="monaco-sash orthogonal-edge-south horizontal" style="top: 25px;"><div class="orthogonal-drag-handle start"></div><div class="orthogonal-drag-handle end"></div></div><div class="monaco-hover hidden" tabindex="0" role="tooltip"><div class="monaco-scrollable-element " role="presentation" style="position: relative; overflow: hidden;"><div class="monaco-hover-content" style="overflow: hidden;"></div><div role="presentation" aria-hidden="true" class="invisible scrollbar horizontal" style="position: absolute;"><div class="slider" style="position: absolute; top: 0px; left: 0px; height: 10px; transform: translate3d(0px, 0px, 0px); contain: strict;"></div></div><div role="presentation" aria-hidden="true" class="invisible scrollbar vertical" style="position: absolute;"><div class="slider" style="position: absolute; top: 0px; left: 0px; width: 10px; transform: translate3d(0px, 0px, 0px); contain: strict;"></div></div><div class="shadow"></div><div class="shadow"></div><div class="shadow"></div></div></div></div></div></div></div>
+		<div id="output" style="width: 900px; height: 700px; border: 1px solid grey; background-color: rgb(31, 31, 31); color: rgb(244, 71, 71); margin: 0px; --vscode-editorCodeLens-lineHeight: 16px; --vscode-editorCodeLens-fontSize: 12px; --vscode-editorCodeLens-fontFeatureSettings: &quot;liga&quot; off, &quot;calt&quot; off;" data-keybinding-context="2" data-mode-id="xml"><div class="monaco-editor no-user-select  showUnused showDeprecated vs-dark" role="code" style="width: 900px; height: 700px;" data-uri="inmemory://model/2"><div data-mprt="3" class="overflow-guard" style="width: 900px; height: 700px;"><div class="margin" style="position: absolute; transform: translate3d(0px, 0px, 0px); contain: strict; top: 0px; height: 947px; width: 68px;" role="presentation" aria-hidden="true"><div class="glyph-margin" style="left: 0px; width: 0px; height: 947px;"></div><div class="margin-view-zones" style="position: absolute;" role="presentation" aria-hidden="true"></div><div class="margin-view-overlays" style="position: absolute; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; width: 68px; height: 947px;" role="presentation" aria-hidden="true"><div style="position:absolute;top:0px;width:100%;height:19px;"><div class="current-line current-line-margin-both" style="width:68px; height:19px;"></div><div class="line-numbers lh-odd active-line-number" style="left:0px;width:42px;">1</div></div><div style="position:absolute;top:19px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">2</div></div><div style="position:absolute;top:38px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">3</div></div><div style="position:absolute;top:57px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">4</div></div><div style="position:absolute;top:76px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">5</div></div><div style="position:absolute;top:95px;width:100%;height:19px;"><div class="cldr codicon codicon-folding-expanded" style="left:42px;width:26px;"></div><div class="line-numbers lh-odd" style="left:0px;width:42px;">6</div></div><div style="position:absolute;top:114px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">7</div></div><div style="position:absolute;top:133px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">8</div></div><div style="position:absolute;top:152px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">9</div></div><div style="position:absolute;top:171px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">10</div></div><div style="position:absolute;top:190px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">11</div></div><div style="position:absolute;top:209px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">12</div></div><div style="position:absolute;top:228px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">13</div></div><div style="position:absolute;top:247px;width:100%;height:19px;"><div class="line-numbers lh-odd" style="left:0px;width:42px;">14</div></div></div><div class="glyph-margin-widgets" style="position: absolute; top: 0px;"></div></div><div class="monaco-scrollable-element editor-scrollable vs-dark" role="presentation" style="position: absolute; overflow: hidden; left: 68px; width: 832px; height: 700px;" data-mprt="5"><div class="lines-content monaco-editor-background" style="position: absolute; overflow: hidden; width: 1000000px; height: 1000000px; transform: translate3d(0px, 0px, 0px); contain: strict; top: 0px; left: 0px;"><div class="view-overlays" style="position: absolute; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; height: 0px; width: 946px;" role="presentation" aria-hidden="true"><div style="position:absolute;top:0px;width:100%;height:19px;"><div class="current-line" style="width:946px; height:19px;"></div></div><div style="position:absolute;top:19px;width:100%;height:19px;"></div><div style="position:absolute;top:38px;width:100%;height:19px;"></div><div style="position:absolute;top:57px;width:100%;height:19px;"></div><div style="position:absolute;top:76px;width:100%;height:19px;"></div><div style="position:absolute;top:95px;width:100%;height:19px;"></div><div style="position:absolute;top:114px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:133px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:152px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:171px;width:100%;height:19px;"><div class="core-guide core-guide-indent lvl-0 vertical" style="left:0px;height:19px;width:8.3984375px"></div></div><div style="position:absolute;top:190px;width:100%;height:19px;"></div><div style="position:absolute;top:209px;width:100%;height:19px;"></div><div style="position:absolute;top:228px;width:100%;height:19px;"></div><div style="position:absolute;top:247px;width:100%;height:19px;"></div></div><div role="presentation" aria-hidden="true" class="view-rulers"></div><div class="view-zones" style="position: absolute;" role="presentation" aria-hidden="true"></div><div class="view-lines monaco-mouse-cursor-text" style="position: absolute; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; width: 946px; height: 947px;" role="presentation" aria-hidden="true" data-mprt="7"><div style="top:0px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">xml</span><span class="mtk1">&nbsp;</span><span class="mtk5">_jdaml</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk1">&nbsp;</span><span class="mtk5">first-name</span><span class="mtk1">=</span><span class="mtk6">"John"</span><span class="mtk1">&nbsp;</span><span class="mtk5">last-name</span><span class="mtk1">=</span><span class="mtk6">"Smith"</span><span class="mtk13">&gt;</span></span></div><div style="top:19px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">is-alive</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;&lt;</span><span class="mtk11">true/</span><span class="mtk13">&gt;&lt;/</span><span class="mtk11">is-alive</span><span class="mtk13">&gt;</span></span></div><div style="top:38px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">age</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;&lt;</span><span class="mtk11">u8</span><span class="mtk13">&gt;</span><span class="mtk1">27</span><span class="mtk13">&lt;/</span><span class="mtk11">u8</span><span class="mtk13">&gt;&lt;/</span><span class="mtk11">age</span><span class="mtk13">&gt;</span></span></div><div style="top:57px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">address</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk1">&nbsp;</span><span class="mtk5">street-address</span><span class="mtk1">=</span><span class="mtk6">"21&nbsp;2nd&nbsp;Street"</span><span class="mtk1">&nbsp;</span><span class="mtk5">city</span><span class="mtk1">=</span><span class="mtk6">"New&nbsp;York"</span><span class="mtk1">&nbsp;</span><span class="mtk5">state</span><span class="mtk1">=</span><span class="mtk6">"NY"</span><span class="mtk1">&nbsp;</span><span class="mtk5">postal-code</span><span class="mtk1">=</span><span class="mtk6">"10021-3100"</span><span class="mtk13">&gt;</span></span></div><div style="top:76px;height:19px;" class="view-line"><span><span class="mtk13">&lt;/</span><span class="mtk11">address</span><span class="mtk13">&gt;</span></span></div><div style="top:95px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">phone-numbers</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;</span></span></div><div style="top:114px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_node</span><span class="mtk1">&nbsp;</span><span class="mtk5">type</span><span class="mtk1">=</span><span class="mtk6">"home"</span><span class="mtk1">&nbsp;</span><span class="mtk5">number</span><span class="mtk1">=</span><span class="mtk6">"212&nbsp;555-1234"</span><span class="mtk13">&gt;</span></span></div><div style="top:133px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">_node</span><span class="mtk13">&gt;</span></span></div><div style="top:152px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;</span><span class="mtk11">_node</span><span class="mtk1">&nbsp;</span><span class="mtk5">type</span><span class="mtk1">=</span><span class="mtk6">"office"</span><span class="mtk1">&nbsp;</span><span class="mtk5">number</span><span class="mtk1">=</span><span class="mtk6">"646&nbsp;555-4567"</span><span class="mtk13">&gt;</span></span></div><div style="top:171px;height:19px;" class="view-line"><span><span class="mtk1">&nbsp;&nbsp;</span><span class="mtk13">&lt;/</span><span class="mtk11">_node</span><span class="mtk13">&gt;</span></span></div><div style="top:190px;height:19px;" class="view-line"><span><span class="mtk13">&lt;/</span><span class="mtk11">phone-numbers</span><span class="mtk13">&gt;</span></span></div><div style="top:209px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">children</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;&lt;</span><span class="mtk11">seq/</span><span class="mtk13">&gt;&lt;/</span><span class="mtk11">children</span><span class="mtk13">&gt;</span></span></div><div style="top:228px;height:19px;" class="view-line"><span><span class="mtk13">&lt;</span><span class="mtk11">spouse</span><span class="mtk1">&nbsp;</span><span class="mtk5">_isattr</span><span class="mtk1">=</span><span class="mtk6">"true"</span><span class="mtk13">&gt;&lt;</span><span class="mtk11">nil/</span><span class="mtk13">&gt;&lt;/</span><span class="mtk11">spouse</span><span class="mtk13">&gt;</span></span></div><div style="top:247px;height:19px;" class="view-line"><span><span class="mtk13">&lt;/</span><span class="mtk11">xml</span><span class="mtk13">&gt;</span></span></div></div><div data-mprt="1" class="contentWidgets" style="position: absolute; top: 0px;"></div><div role="presentation" aria-hidden="true" class="cursors-layer cursor-line-style cursor-solid"><div class="cursor monaco-mouse-cursor-text " style="height: 19px; top: 0px; left: 0px; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; display: block; visibility: hidden; padding-left: 0px; width: 2px;"></div></div></div><div role="presentation" aria-hidden="true" class="invisible scrollbar horizontal fade" style="position: absolute; width: 724px; height: 12px; left: 0px; bottom: 0px;"><div class="slider" style="position: absolute; top: 0px; left: 0px; height: 12px; transform: translate3d(0px, 0px, 0px); contain: strict; width: 564px;"></div></div><canvas class="decorationsOverviewRuler" style="position: absolute; transform: translate3d(0px, 0px, 0px); contain: strict; top: 0px; right: 0px; width: 14px; height: 700px;" aria-hidden="true" width="14" height="700"></canvas><div role="presentation" aria-hidden="true" class="invisible scrollbar vertical fade" style="position: absolute; width: 14px; height: 700px; right: 0px; top: 0px;"><div class="slider" style="position: absolute; top: 0px; left: 0px; width: 14px; transform: translate3d(0px, 0px, 0px); contain: strict; height: 517px;"></div></div></div><div role="presentation" aria-hidden="true" style="width: 886px;"></div><textarea data-mprt="6" class="inputarea monaco-mouse-cursor-text" wrap="off" style="tab-size: 16.7969px; font-family: &quot;Droid Sans Mono&quot;, &quot;monospace&quot;, monospace; font-weight: normal; font-size: 14px; font-feature-settings: &quot;liga&quot; 0, &quot;calt&quot; 0; font-variation-settings: normal; line-height: 19px; letter-spacing: 0px; top: 0px; left: 68px; width: 0px; height: 0px;" autocorrect="off" autocapitalize="none" autocomplete="off" spellcheck="false" aria-label="Editor content;Press Alt+F1 for Accessibility Options." aria-required="false" tabindex="0" role="textbox" aria-roledescription="editor" aria-multiline="true" aria-autocomplete="both"></textarea><div style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px;" class="monaco-editor-background textAreaCover line-numbers"></div><div data-mprt="4" class="overlayWidgets" style="width: 900px;"></div><div data-mprt="8" class="minimap slider-mouseover" style="position: absolute; left: 792px; width: 94px; height: 700px;" role="presentation" aria-hidden="true"><div class="minimap-shadow-visible" style="height: 700px;"></div><canvas style="position: absolute; left: 0px; width: 94px; height: 700px;" width="94" height="700"></canvas><canvas style="position: absolute; left: 0px; width: 94px; height: 700px;" class="minimap-decorations-layer" width="94" height="700"></canvas><div style="position: absolute; transform: translate3d(0px, 0px, 0px); contain: strict; width: 94px; display: block; top: 0px; height: 73px;" class="minimap-slider"><div style="position: absolute; left: 0px; width: 94px; top: 0px; height: 73px;" class="minimap-slider-horizontal"></div></div></div><div role="presentation" aria-hidden="true" class="blockDecorations-container"></div></div><div data-mprt="2" class="overflowingContentWidgets"><div style="position: absolute; height: 27px; width: 150px; z-index: 50; display: none; visibility: hidden; max-width: 1920px;" widgetid="editor.contrib.resizableContentHoverWidget"><div class="monaco-sash vertical" style="left: 148px;"></div><div class="monaco-sash vertical" style="left: -2px;"></div><div class="monaco-sash orthogonal-edge-north horizontal" style="top: -2px;"><div class="orthogonal-drag-handle start"></div><div class="orthogonal-drag-handle end"></div></div><div class="monaco-sash orthogonal-edge-south horizontal" style="top: 25px;"><div class="orthogonal-drag-handle start"></div><div class="orthogonal-drag-handle end"></div></div><div class="monaco-hover hidden" tabindex="0" role="tooltip"><div class="monaco-scrollable-element " role="presentation" style="position: relative; overflow: hidden;"><div class="monaco-hover-content" style="overflow: hidden;"></div><div role="presentation" aria-hidden="true" class="invisible scrollbar horizontal" style="position: absolute;"><div class="slider" style="position: absolute; top: 0px; left: 0px; height: 10px; transform: translate3d(0px, 0px, 0px); contain: strict;"></div></div><div role="presentation" aria-hidden="true" class="invisible scrollbar vertical" style="position: absolute;"><div class="slider" style="position: absolute; top: 0px; left: 0px; width: 10px; transform: translate3d(0px, 0px, 0px); contain: strict;"></div></div><div class="shadow"></div><div class="shadow"></div><div class="shadow"></div></div></div></div></div></div></div>
+    </div>
+
+		<script src="heaven_files/loader.js"></script>
+		<script type="module">
+      import {parseJdaml3} from './jdamlall.js'
+      import {jsonstrToJdaml} from './jsontojdaml.js'
+      import {xmlstrToJdaml, htmlstrToJdaml} from './xmltojdaml.js'
+      import {language, configuration, tokensProvider, theme} from './jdaml-monaco.js'
+
+      // todo: remove/comment out
+      // import {} from './xmltojdaml.test.js'
+
+			require.config({ paths: { vs: './node_modules/monaco-editor/min/vs' } });
+
+			require(['vs/editor/editor.main'], function () {
+				monaco.languages.register(language);
+        monaco.languages.setLanguageConfiguration('jdaml', configuration)
+				monaco.languages.setMonarchTokensProvider('jdaml', tokensProvider);
+
+				// Define a new theme that constains only rules that match this language
+				monaco.editor.defineTheme('jdamlTheme', theme);
+
+        const files = [
+          'examples/website.jdaml',
+          'examples/explainer.jdaml',
+          'examples/hodgepodge.jdaml',
+          'examples/heaven.jdaml',
+          'examples/johnsmith.jdaml',
+          'examples/johnsmith2.jdaml',
+          'examples/johnsmith3.jdaml',
+          'examples/config.jdaml',
+          'examples/html.jdaml',
+          'examples/markdownlike.jdaml',
+          'examples/markdown.jdaml',
+          'examples/markdown2.jdaml',
+          'examples/readme.jdaml',
+          'examples/doctest.jdaml',
+          'examples/jevko.org/json.jdaml',
+          'examples/jevko.org/xml.jdaml',
+          'examples/jevko.org/config.jdaml',
+          'examples/jevko.org/html.jdaml',
+        ]
+
+        const fetchfiles = async () => {
+          const responses = await Promise.all(files.map(name => fetch(name)))
+          const texts = await Promise.all(responses.map((res) => res.text()))
+
+          let i = 0
+          for (const text of texts) {
+            const name = files[i]
+            const option = document.createElement('option')
+            option.setAttribute('data-name', name)
+            option.value = text
+            option.text = name
+            fileselect.append(option)
+            i += 1
+          }
+          editor.setValue(texts[0])
+        }
+
+        const fileselect = document.getElementById('fileselect')
+        // todo: perhaps convert() onchange
+        fileselect.onchange = () => {
+          editor.setValue(fileselect.value)
+        }
+        // document.body.prepend(fileselect)
+
+        fetchfiles().then(() => processHash())
+
+
+        let editor
+        // fetch('testfile').then((res) => {
+        //   return res.text()
+        // }).then((text) => {
+          // const lines = text.split('\n')
+          editor = monaco.editor.create(document.getElementById('container'), {
+            theme: 'jdamlTheme',
+            value: '',
+            language: 'jdaml',
+            "bracketPairColorization.enabled": true,
+          });
+        // })
+
+        const fromselect = document.getElementById('from-format')
+        fromselect.onchange = () => {
+          // todo: if (outed === undefined) -- create one
+          editor.setValue('')
+          outed.setValue('')
+          monaco.editor.setModelLanguage(outed.getModel(), fromselect.value)
+        }
+
+        document.getElementById('to-jdaml').onclick = () => {
+          // todo: if (outed === undefined) -- do nothing
+          const format = fromselect.value
+          console.log('form::::', format)
+          const text = outed.getValue()
+          if (format === 'json') {
+            editor.setValue(jsonstrToJdaml(text))
+          }
+          else if (format === 'xml') {
+            editor.setValue(xmlstrToJdaml(text))
+          }
+          else if (format === 'html') {
+            editor.setValue(htmlstrToJdaml(text))
+          }
+        }
+
+        const outputdiv = document.getElementById('output')
+
+        let outed
+
+        let htmltorender
+        const convert = () => {
+          const value = editor.getValue()
+          if (outed !== undefined) {
+            outed.dispose()
+            outed = undefined
+          }
+          outputdiv.textContent = ''
+          try {
+            const {format, data} = parseJdaml3(value)
+            let stringified
+            let monacolang
+            if (format === 'json') {
+              monacolang = 'json'
+              fromselect.value = 'json'
+              stringified = JSON.stringify(data, null, 2)
+            }
+            else if (format === 'html') {
+              monacolang = 'html'
+              fromselect.value = 'html'
+              stringified = data.outerHTML
+              htmltorender = data
+            }
+            else if (format === 'xml') {
+              monacolang = 'xml'
+              fromselect.value = 'xml'
+              const serializer = new XMLSerializer();
+              const xmlStr = serializer.serializeToString(data);
+              console.log('XML', xmlStr)
+              stringified = xmlStr
+            }
+            else {
+              throw Error(`Unknown format: ${format}!`)
+            }
+            console.log(stringified)
+            outed = monaco.editor.create(document.getElementById('output'), {
+              theme: 'jdamlTheme',
+              value: stringified,
+              language: monacolang,
+              "bracketPairColorization.enabled": true,
+            });
+            // outed.setValue(stringified)
+          } catch (e) {
+            outputdiv.textContent = `ERROR: ${e.message}`
+            throw e
+          }
+        }
+        document.getElementById('magic').onclick = convert
+        document.getElementById('render').onclick = () => {
+          convert()
+          if (htmltorender !== undefined) {
+            outputdiv.textContent = ''
+            try {
+              htmltorender.style = `color: #cccccc; height: 700px; overflow: auto; display: block;`
+              outputdiv.append(htmltorender)
+              htmltorender = undefined
+            } catch (e) {
+              outputdiv.textContent = `ERROR: ${e.message}`
+              throw e
+            }
+          }
+        }
+
+        const processHash = () => {
+          const hash = location.hash
+
+          if (hash.length > 0) {
+            const hstr = hash.slice(1)
+
+            if (hstr === 'json') {
+              fileselect.value = document.querySelector('[data-name="examples/jevko.org/json.jdaml"]').value
+              fileselect.dispatchEvent(new Event('change'))
+              convert()
+            }
+            else if (hstr === 'xml') {
+              // todo: do this properly
+              // todo::future?: autoindent/prettyprint attributes in the output
+              fileselect.value = document.querySelector('[data-name="examples/jevko.org/xml.jdaml"]').value
+              fileselect.dispatchEvent(new Event('change'))
+              convert()
+            }
+            else if (hstr === 'config') {
+              fileselect.value = document.querySelector('[data-name="examples/jevko.org/config.jdaml"]').value
+              fileselect.dispatchEvent(new Event('change'))
+              convert()
+            }
+            else if (hstr === 'html') {
+              // todo: full example
+              fileselect.value = document.querySelector('[data-name="examples/jevko.org/html.jdaml"]').value
+              fileselect.dispatchEvent(new Event('change'))
+              convert()
+            }
+          }
+        }
+			});
+		</script>
+	
+<div class="context-view" style="display: none;" aria-hidden="true"></div><div class="monaco-aria-container"><div class="monaco-alert" role="alert" aria-atomic="true"></div><div class="monaco-alert" role="alert" aria-atomic="true"></div><div class="monaco-status" aria-live="polite" aria-atomic="true"></div><div class="monaco-status" aria-live="polite" aria-atomic="true"></div></div></body></html>
