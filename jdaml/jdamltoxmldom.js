@@ -5,7 +5,7 @@ export const jdamltoxmldom = (str) => {
   return dumbconvert(resolveentities(parseNodes(seedFromString(str))))
 }
 
-const anonName = '_node'
+const anonName = '_jdaml'
 
 // todo: stripping space from before attrs should be configurable
 // maybe in creative mode they should only be stripped if attr is not complex 
@@ -113,6 +113,10 @@ const setAttribute = (parent, name, value, prevtext) => {
     else if (e instanceof Error && e.message === 'catch me if you can') {
       if (prevtext.length > 0) parent.append(prevtext.pop())
       // name is ok, but value is bad
+      // note: this assumes rules for attrs are the same as for elems in XML which may not be true
+      // todo: verify/fix -- same for HTML
+      //       (may have had a weird error happen here once because of that)
+      //       anyway write some tests for this
       const attrel = parent.ownerDocument.createElement(name)
       attrel.setAttribute('_isattr', 'true')
   

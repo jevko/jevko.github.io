@@ -1,0 +1,16 @@
+\footer[.id[bottom].class[black-bg]
+    \div[.class[footer]
+        \div[.class[left].style[margin-bottom: 1.25rem;]© 2024 xtao.org]
+         
+        \div[.class[right links]
+            \div[
+                \a[.href[#top]`'[#top]'`]
+            ]
+            \div[
+                \a[.href[/attribution.html].title[`'Click here to go to the [attribution] subpage'`]`'[attribution]'`]
+                \a[.href[/privacy.html]`'[privacy]'`]
+                \a[.href[/contact.html]`'[contact]'`]
+            ]
+        ]
+    ]
+]

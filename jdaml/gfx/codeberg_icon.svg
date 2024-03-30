@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="5mm" height="5mm" version="1.1" viewBox="0 0 5 5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title>Codeberg logo</title>
+ <defs>
+  <linearGradient id="a" x1="42519" x2="42575" y1="-7078.8" y2="-6966.9" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fff" stop-opacity="0" offset="0"/>
+   <stop stop-color="#fff" stop-opacity=".3" offset=".49517"/>
+   <stop stop-color="#fff" stop-opacity=".3" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="matrix(.065514 0 0 .065514 -1.8455 -1.0819)">
+  <path transform="matrix(.37058 0 0 .37058 -15690 2662.1)" d="m42519-7078.8a0.76087 0.56792 0 0 0-0.738 0.6739l33.586 125.89a87.182 87.182 0 0 0 39.381-33.764l-71.565-92.52a0.76087 0.56792 0 0 0-0.664-0.2793z" fill="url(#a)" stop-color="#000000" style="font-variation-settings:normal;paint-order:stroke markers fill"/>
+  <path transform="matrix(1.4006 0 0 1.4006 -15690 2662.1)" d="m11249-1883.7c-12.74 0-23.067 10.328-23.067 23.067 0 4.3335 1.22 8.5795 3.522 12.251l19.232-24.864c0.138-0.1796 0.486-0.1796 0.624 0l19.233 24.865c2.302-3.6721 3.523-7.9185 3.523-12.252 0-12.74-10.327-23.067-23.067-23.067z" fill="#fff" stop-color="#000000" stroke-width="17.006" style="paint-order:markers fill stroke"/>
+ </g>
+</svg>

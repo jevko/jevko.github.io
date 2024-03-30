@@ -2,8 +2,8 @@
 
 .first-name[John]
 .last-name[Smith]
-.is-alive['true[]]
-.age['u8[27]]
+.is-alive[\true[]]
+.age[\u8[27]]
 .address[
   .street-address[21 2nd Street]
   .city[New York]
@@ -20,5 +20,5 @@
     .number[646 555-4567]
   ]
 ]
-.children['seq[]]
-.spouse['nil[]]
+.children[\seq[]]
+.spouse[\nil[]]

@@ -1,0 +1,4 @@
+\link[.rel[icon].type[image/png].href[/gfx/tao-logo.png]]
+\link[.rel[stylesheet].href[/style.css]]
+\meta[.name[og-image].property[og:image].content[/gfx/tao-logo.png]]
+\meta[.name[twitter:image].content[/gfx/tao-logo.png]]

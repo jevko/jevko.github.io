@@ -1,0 +1,411 @@
+.:format[znadoc]
+
+.$meta[
+  .title[Znadoc]
+  .author[Darius J Chuck]
+  .date[2024-01-08]
+
+  .before[./examples/before.jdaml]
+  .after[./examples/after.jdaml]
+  .head[./examples/head.jdaml]
+
+  .codename[Znadoc]
+]
+
+[. fruits
+  [1. apple]
+  [2. banana]
+]
+[. vegetables 
+  [. carrot]
+  [. broccoli]
+]
+
+\@-[
+  const log = (...subs) => (node) => {
+    console.log("DEBUG", node, subs)
+    return node
+  }
+  const insert = (s) => node => {
+    node.subs.push(s)
+    return node
+  }
+  const color = (c) => \@concat[].style[color: [=c];].title[color: [=c];]
+]
+
+\@log[.a[b]\c[d]]
+\@color[red]
+\@color[green]
+This document was created with [=$meta.codename] to demonstrate some of what it can do.
+
+These examples are mostly translated from the paper 
+[*A Core Calculus for Documents: Or, Lambda: The Ultimate Document] 
+by Will Crichton and Shriram Krishnamurthi, January 2024. 
+[<https://arxiv.org/abs/2310.04368>]
+
+I've chosen only the most substantial/interesting ones.
+
+# 2 DOCUMENT LANGUAGES: THE BAD PARTS
+
+Here we show how to implement the problematic examples from the paper, 
+without the problems.
+
+## 2.1 PHP and the Global Mutable Buffer
+
+\-[
+  function mkelems(list) {
+    return list.map(x => \li[=x])
+  }
+  function mklist(list) {
+    return \ul[=mkelems(list)].data-n[=list.length]
+  }
+]
+
+[=mklist(['Hello', 'world'])]
+
+## 2.2 React and the Unresponsive Component
+
+[::]
+  .id[app]
+  .style[
+    border: 1px solid gray; 
+    padding: 1rem; 
+    display: block;
+  ]
+
+As opposed to all other examples here that run at document "build time", 
+this one runs at document "run time" via the ['script] tag.
+
+Instead of JSX, we use JDAML to represent the elements.
+
+Even though there is no React or any other framework behind this -- 
+just pure DOM manipulation, it works as expected and there is encapsulation 
+of state inside the components.
+
+Reactivity is achieved by listening to and dispatching custom browser events.
+
+To keep things simple, the entire App is recreated on every state change, 
+but we could have just as well surgically and imperatively recreated 
+just the parts that needed change -- there is no framework in our way 
+to prevent us from doing so.
+
+\@[].type[module]
+\script[
+  const update = (self, el) => {
+    self.el.replaceWith(el)
+    self.el = el
+  }
+  const Test = (subs) => {
+    console.log(subs)
+    return \div[hi]
+  }
+  const App = (subs) => {
+    const state = {show: false}
+    const self = {state}
+    const create = () => {
+      const element = \div[
+        \;[putting button above the rest for better UX]
+        \button[
+          [=state.show? 'Hide': 'Show'] Appendix
+        ].onclick[=() => {
+          self.el.dispatchEvent(new CustomEvent('update',
+            {detail: {show: !state.show}}
+          ))
+        }]
+        \Toc[]
+        \Test[=self]
+        \h1[Introduction]
+        [=state.show? \h1[Appendix]: null]
+      ]
+      element.addEventListener('update', e => {
+        Object.assign(state, e.detail)
+        update(self, create())
+      })
+      return element
+    }
+    return self.el = create()
+  }
+  const Toc = (subs) => {
+    const self = {}
+    const create = () => \ul[=
+      Array.from(document.querySelectorAll('#app h1')).map(node => 
+        \li[=node.textContent]
+      )
+    ]
+    \;[schedule update to capture any h1s that might have 
+       been dynamically added since self was first installed in the DOM]
+    setTimeout(() => update(self, create()), 0)
+    return self.el = create()
+  }
+  document.getElementById('app').append(\App[])
+]
+
+## 2.3 Scribble and the Improper Loop
+
+\-[
+  const pairs = [['A', 'B'], ['C', 'D']]
+]
+
+\ul[=
+  pairs.flatMap(p => [\li[=p[0]], \li[=p[1]]])
+]
+
+# 3 THE DOCUMENT CALCULUS
+
+Last example from Table 1.:
+
+\-[const world = "World"]
+
+[. Hello [**[=world]]]
+
+## 3.1 The String Calculus
+
+### 3.1.4 String Template Programs
+
+\-[const l = [1, 2, 3]]
+
+Examples of addition include:
+
+[=l.map(n => 
+  \[. [=n] + 1 = [=n + 1]]
+)]
+
+## 3.2 The Article Calculus
+
+### 3.2.1 Article Literals
+
+Hello [/world]!
+
+\-def[[/world].href[https://jevko.org]]
+
+### 3.2.2 Article Programs
+
+\p[Hello \strong[world]]
+
+### 3.2.3 Article Template Literals
+
+### 3.2.4 Article Template Programs
+
+\-[
+  const items = ['Milk', 'Eggs', 'Cheese']
+]
+
+\article[[
+  Today I am going shopping for:
+
+  [=items.map(item => \[.
+    [=item]
+  ])]
+]]
+
+The same thing without using shorthands:
+
+\article[
+  \p[Today I am going shopping for:]
+
+  \ul[=
+    items.map(item => \li[\p[=item]])
+  ]
+]
+
+## Source code
+
+\@[].style[white-space: break-spaces; font-size: 1rem;]
+[```'''jsjdaml
+.:format[znadoc]
+
+.$meta[
+  .title[Combining Znatchke and JavaScript]
+  .author[Darius J Chuck]
+  .date[2024-01-08]
+  .before[./examples/before.jdaml]
+  .after[./examples/after.jdaml]
+  .head[./examples/head.jdaml]
+]
+
+This document demonstrates combining JavaScript and Znatchke.
+
+These examples are mostly translated from the paper 
+[*A Core Calculus for Documents: Or, Lambda: The Ultimate Document] 
+by Will Crichton and Shriram Krishnamurthi, January 2024. 
+[<https://arxiv.org/abs/2310.04368>]
+
+I've chosen only the most substantial/interesting ones.
+
+# 2 DOCUMENT LANGUAGES: THE BAD PARTS
+
+Here we show how to implement the problematic examples from the paper, 
+without the problems.
+
+## 2.1 PHP and the Global Mutable Buffer
+
+\-[
+  function mkelems(list) {
+    return list.map(x => \li[=x])
+  }
+  function mklist(list) {
+    return \ul[.data-n[=list.length] [=mkelems(list)] ]
+  }
+]
+
+[=mklist(['Hello', 'world'])]
+
+## 2.2 React and the Unresponsive Component
+
+[ .id[app]
+  .style[
+    border: 1px solid gray; 
+    padding: 1rem; 
+    display: inline-block;
+  ]
+]
+
+As opposed to all other examples here that run at document "build time", 
+this one runs at document "run time" via the ['script] tag.
+
+Instead of JSX, we use JDAML to represent the elements.
+
+Even though there is no React or any other framework behind this -- 
+just pure DOM manipulation, it works as expected and there is encapsulation 
+of state inside the components.
+
+Reactivity is achieved by listening to and dispatching custom browser events.
+
+To keep things simple, the entire App is recreated on every state change, 
+but we could have just as well surgically and imperatively recreated 
+just the parts that needed change -- there is no framework in our way 
+to prevent us from doing so.
+
+\script[.type[module]
+  const App = (subs) => {
+    const state = {show: false}
+    const create = () => {
+      const element = \div[
+        \;[putting button above the rest for better UX]
+        \button[
+          [=state.show? 'Hide': 'Show'] Appendix
+          .onclick[=() => {
+            state.self.dispatchEvent(new CustomEvent('update',
+              {detail: {show: !state.show}}
+            ))
+          }]
+        ]
+        \Toc[]
+        \h1[Introduction]
+        [=state.show? \h1[Appendix]: null]
+      ]
+      element.addEventListener('update', e => {
+        Object.assign(state, e.detail)
+        update()
+      })
+      return element
+    }
+    const update = () => {
+      const newself = create()
+      state.self.replaceWith(newself)
+      state.self = newself
+    }
+    return state.self = create()
+  }
+  const Toc = (subs) => {
+    const state = {}
+    const create = () => \ul[=
+      Array.from(document.querySelectorAll('#app h1')).map(node => 
+        \li[=node.textContent]
+      )
+    ]
+    const update = () => {
+      const newself = create()
+      state.self.replaceWith(newself)
+      state.self = newself
+    }
+    \;[schedule update to capture any h1s that might have 
+       been dynamically added since self was first installed in the DOM]
+    setTimeout(update, 0)
+    return state.self = create()
+  }
+  document.getElementById('app').append(\App[])
+]
+
+## 2.3 Scribble and the Improper Loop
+
+\-[
+  const pairs = [['A', 'B'], ['C', 'D']]
+]
+
+\ul[=
+  pairs.flatMap(p => [\li[=p[0]], \li[=p[1]]])
+]
+
+# 3 THE DOCUMENT CALCULUS
+
+Last example from Table 1.:
+
+\-[const world = "World"]
+
+\;[,
+  [Hello [**[=world]]]
+]
+
+[. Hello [**[=world]]]
+
+## 3.1 The String Calculus
+
+### 3.1.4 String Template Programs
+
+\-[const l = [1, 2, 3]]
+
+Examples of addition include:
+
+\;[,
+  [=l.map(n => 
+    \p[[=n] + 1 = [=n + 1]]
+  )]
+]
+
+[=l.map(n => 
+  [. [=n] + 1 = [=n + 1]]
+)]
+
+## 3.2 The Article Calculus
+
+### 3.2.1 Article Literals
+
+Hello [/world]!
+
+\-links[
+  [/world.href[https://jevko.org]]
+]
+
+### 3.2.2 Article Programs
+
+\p[Hello \strong[world]]
+
+### 3.2.3 Article Template Literals
+
+### 3.2.4 Article Template Programs
+
+\-[
+  const items = ['Milk', 'Eggs', 'Cheese']
+]
+
+\article[[...
+  Today I am going shopping for:
+
+  \;[,
+    [=items.map(item => \p[=item])]
+  ]
+
+  [=items.map(item => [. \p[=item]])]
+]]
+
+The same thing without using shorthands:
+
+\article[
+  \p[Today I am going shopping for:]
+
+  \ul[=
+    items.map(item => \li[\p[=item]])
+  ]
+]
+'```]

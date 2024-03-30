@@ -92,6 +92,9 @@ const extractSubstag = (subs, i, resolveTag) => {
   return {substag, substree, subsi: i}
 }
 
+// todo: also extract attr delimiter
+export const elementDelimiter = "\\"
+
 const extractTag = (text) => {
   let i = text.length - 1
   for (; i >= 0; --i) {
@@ -99,7 +102,7 @@ const extractTag = (text) => {
     if ('\r\n\t '.includes(c)) {
       return [text, '']
     }
-    else if (c === '.' || c === "'") {
+    else if (c === '.' || c === elementDelimiter) {
       const tag = text.slice(i)
       // note: treating .[] as a text dot followed by an anon element
       // todo: decide if that is final; may also error in this case and require .'[]
@@ -453,7 +456,7 @@ const extractTagForHighlight = (text) => {
       moveback(prev)
       return {text, tag: {from: til, thru: prev, til, source}}
     }
-    else if (c === '.' || c === "'") {
+    else if (c === '.' || c === elementDelimiter) {
       // todo: perhaps return also thru
       const loc = location(state)
       const prev = location(state)

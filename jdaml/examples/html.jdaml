@@ -1,28 +1,28 @@
 .:format[html]
 
-';[
+\;[
   todo: explain what this is
 ]
 
-'div[
-  'p[Hello world!]
-  'abbr[
+\div[
+  \p[Hello world!]
+  \abbr[
     .id[anId]
     .class[jargon]
     .style[color: purple;]
     .title[Hypertext Markup Language]
   HTML]
-  'a[.href[https://www.wikipedia.org/]
+  \a[.href[https://www.wikipedia.org/]
     A link to Wikipedia!
   ]
-  'p[
+  \p[
     Oh well, 
-    'span[.lang[fr]c'est la vie],
+    \span[.lang[fr]c'est la vie],
     as they say in France.
   ]
 ]
 
-'=html[`'
+\=html[`'
   <a href="#">let's see now</a>
   <br />
   <div

@@ -6,7 +6,7 @@
 
 \canvas[.id[display]]
 
-[.class[document]
+[::.class[document]
   [.class[flexi]
     [/[!avatar.src[gfx/avatar.png].class[avatar]]
       .title[Click here to play the Game of Life]
@@ -19,46 +19,38 @@
       .href[https://djedr.github.io/index.html]]
   ]
 
-  [
-    Hello, I'm Darius. Welcome to my website. Here you can 
-    learn things relevant for doing business with me, hiring me, 
-    or connecting professionally.
-  ]
+  Hello, I'm Darius. Welcome to my website. Here you can 
+  learn things relevant for doing business with me, hiring me, 
+  or connecting professionally.
 
-  [.class[flexi]
+  [::.class[flexi]
     [/[!jevko logo.src[gfx/jevko.png].class[avatar]]
       .href[https://jevko.org/]
       .class[rightmargin]]
     
-    [
-      I created [/Jevko.href[https://jevko.org/]], 
-      a minimal general-purpose syntax.
-    ]
+    I created [/Jevko.href[https://jevko.org/]], 
+    a minimal general-purpose syntax.
   ]
 
-  [.class[flexi]
+  [::.class[flexi]
     [/[!tao logo.src[gfx/tao-logo.png].class[avatar]]
       .href[https://xtao.org]
       .class[rightmargin]]
 
-    [
-      Jevko is part of [/TAO.href[https://xtao.org]], 
-      my project to cultivate simplicity in software.
-    ]
+    Jevko is part of [/TAO.href[https://xtao.org]], 
+    my project to cultivate simplicity in software.
   ]
 
-  [
-    You may be interested in my:
-  ]
+  You may be interested in my:
+
   [,
     [/resume   .href[https://djedr.github.io/resume.html]]
     [/projects .href[https://djedr.github.io/projects.html]]
     [/writing  .href[https://xtao.org/blog.html]]
   ]
 
-  [
-    Or my social media profiles:
-  ]
+  Or my social media profiles:
+
   [,
     \;[note: we don't have to use the /syntax sugar for links (or anything really)]
     \a[LinkedIn    .href[https://www.linkedin.com/in/dariusz-jędrzejczak-b65134103]]
@@ -69,9 +61,7 @@
     \a[Reddit      .href[https://www.reddit.com/user/djedr/]]
   ]
 
-  [
-    Thank you for visiting.
-  ]
+  Thank you for visiting.
 ]
 
 \script[.src[scripts/gol.js]]

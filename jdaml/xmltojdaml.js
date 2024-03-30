@@ -1,3 +1,4 @@
+import { elementDelimiter } from "./jdaml.js"
 import { serializeJdaml } from "./serializejdaml.js"
 
 // ??todo: maybe handle comment nodes and other types of nodes
@@ -59,11 +60,16 @@ const htmlToJdamlAst = (doc) => {
           subs.push({tag: ``, subs: htmlToJdamlAst(node)})
         }
         else {
-          subs.push({tag: `'${name}`, subs: htmlToJdamlAst(node)})
+          subs.push({tag: elementDelimiter + name, subs: htmlToJdamlAst(node)})
         }
       }
     }
-    else throw Error('oops')
+    else if (t === Node.COMMENT_NODE) {
+      continue
+    }
+    else {
+      throw Error(`Unrecognized HTML node type: ${t}`)
+    }
   }
   
   return subs
@@ -97,11 +103,16 @@ const xmlToJdamlAst = (doc) => {
           subs.push({tag: ``, subs: xmlToJdamlAst(node)})
         }
         else {
-          subs.push({tag: `'${name}`, subs: xmlToJdamlAst(node)})
+          subs.push({tag: elementDelimiter + name, subs: xmlToJdamlAst(node)})
         }
       }
     }
-    else throw Error('oops')
+    else if (t === Node.COMMENT_NODE) {
+      continue
+    }
+    else {
+      throw Error(`Unrecognized XML node type: ${t}`)
+    }
   }
   
   return subs

@@ -141,6 +141,7 @@ export const theme = {
     { token: 'invalid', foreground: '#f44747' },
     { token: 'delimiter', foreground: '#808080' },
     { token: 'delimiter.normal', foreground: '#808080' },
+    { token: 'delimiter.bold', foreground: '#808080', fontStyle: 'bold' },
     { token: 'comment', foreground: '#608b4e' },
     { token: 'string.comment', foreground: '#608b4e' },
     { token: 'delimiter.comment', foreground: '#608b4e' },
@@ -160,7 +161,8 @@ export const theme = {
     // todo: rename to something like string.escape.attributename
     //       will have to change @attrn.attribute to @attrn.attributename
     { token: 'string.escape.attribute', foreground: '#ccffff' },
-    { token: 'tag', foreground: '#569cd6' },
+    { token: 'tag', foreground: '#72f926' },
+    // { token: 'tag', foreground: '#4ec9b0' },
     { token: 'tag.special.name', foreground: '#9c56d6' },
     // todo: rename to something like string.tagname or string.elementname
     //       will have to change @tagn.tag to @tagn.tagname / @tagn.elementname
@@ -170,13 +172,22 @@ export const theme = {
     //       will have to change @tagn.tag to @tagn.tagname / @tagn.elementname
     //       maybe also rename @tagn to @elementname or @elemn
     { token: 'string.escape.tag', foreground: '#ccffff' },
-    { token: 'string.', foreground: '#cccccc' },
+    { token: 'string..', foreground: '#cccccc' },
     // todo: after renaming attributename, rename to something like string.attribute
     //       or string.attributevalue
     //       will have to change @jevko.attrib to @jevko.attribute / @jevko.attributevalue
     { token: 'string.attrib', foreground: '#ce9178' },
 
+    // colors for znatchke sigils:
+    { token: 'heading', foreground: '#569cd6', fontStyle: 'bold' },
+    { token: 'string.bold', foreground: '#569cd6', fontStyle: 'bold' },
+    { token: 'string.italic', foreground: '#cccccc', fontStyle: 'italic' },
+    { token: 'string.underline', foreground: '#cccccc', fontStyle: 'underline' },
+    { token: 'string.link', foreground: '#cccc00' },
+
+    // colors for non-JDAML elements
     { token: 'keyword.json', foreground: '#569cd6' },
+    { token: 'identifier', foreground: '#ddddaa' },
     // { token: 'delimiter', foreground: '#ffd700' },
     // { token: 'attribute', foreground: '#9cdcfe' },
   ]

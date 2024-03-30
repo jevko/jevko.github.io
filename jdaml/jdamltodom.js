@@ -5,7 +5,8 @@ export const jdamltodom = (str) => {
   return dumbconvert(resolveentities(parseNodes(seedFromString(str))))
 }
 
-const anonName = '_node'
+// note: HTML tags can't start with _
+const anonName = 'jdaml'
 
 // todo: could support adjustable root in HTML and XML via .:root[custom]
 
@@ -13,8 +14,6 @@ const anonName = '_node'
 
 const createDocument = () => {
   const doc = new DOMParser().parseFromString("<html _jdaml=\"true\"></html>", "text/html").documentElement
-  // doc.head.remove()
-  // doc.body.remove()
   doc.replaceChildren()
   return doc
 }
@@ -22,7 +21,7 @@ const createDocument = () => {
 // todo: stripping space from before attrs should be configurable
 // maybe in creative mode they should only be stripped if attr is not complex
 export const dumbconvert = (subs, parent = createDocument()) => {
-  const prevtext = []
+  let prevtext = []
   for (const sub of subs) {
     if (typeof sub === 'string') {
       prevtext.push(sub)
@@ -35,13 +34,19 @@ export const dumbconvert = (subs, parent = createDocument()) => {
       if (t2.startsWith('_')) t2 = '_' + t2
       // if (parent.hasAttribute(t2)) throw Error('dupe')
       if (hasAttribute(parent, t2)) {
+        console.error(getAttribute(parent, t2), sub)
         throw Error(`Duplicate attribute [${t2}]!`)
       }
       // parent.setAttribute(t2, dumbtostr(subs))
-      setAttribute(parent, t2, subs, prevtext)
+      // todo: fix the prevtext.pop() bug in the toxml converter too
+      setAttribute(parent, t2, subs, prevtext.join(''))
+      prevtext = []
     }
     else {
-      if (prevtext.length > 0) parent.append(prevtext.pop())
+      if (prevtext.length > 0) {
+        parent.append(prevtext.join(''))
+        prevtext = []
+      }
       let name = tag.slice(1)
       // todo: anonymous nodes
       if (name === '') name = anonName
@@ -60,18 +65,18 @@ export const dumbconvert = (subs, parent = createDocument()) => {
       }
     }
   }
-  if (prevtext.length > 0) parent.append(prevtext.pop())
+  if (prevtext.length > 0) {
+    parent.append(prevtext.join(''))
+    prevtext = []
+  }
   return parent
 }
 const trytostr = (subs) => {
-  if (subs.length === 0) return ''
-  if (subs.length > 1) throw Error('catch me if you can')
-  const sub = subs[0]
-  if (typeof sub !== 'string') throw Error('catch me if you can')
-  return sub
+  if (subs.some(s => typeof s !== 'string')) throw Error('catch me if you can')
+  return subs.join('')
 }
 // todo: unhack parent.ownerDocument
-const createElement = (name, parent) => {
+export const createElement = (name, parent) => {
   try {
     // if (name === 'head') return parent.ownerDocument.head
     // if (name === 'body') return parent.ownerDocument.body
@@ -96,22 +101,33 @@ const hasAttribute = (parent, name) => {
   }
   return false
 }
+// for debugging purposes
+const getAttribute = (parent, name) => {
+  if (parent.hasAttribute(name)) return parent.getAttribute(name)
+  for (const c of parent.children) {
+    if (c.hasAttribute('_isattr') && c.getAttribute('_name') === name) {
+      return c
+    }
+  }
+  return undefined
+}
 
 // todo: should be possible to configure always using element-like attributes
 // todo: should be possible to configure not setting _isattr="true"
 // todo: an alternative JDAML output format with both of these configured
-const setAttribute = (parent, name, value, prevtext) => {
+const setAttribute = (parent, name, value, prevtextstr) => {
   try {
+    if (prevtextstr.length > 0) {
+      // filter out blank text nodes that precede JDAML attributes
+      console.log('>', name, `[${prevtextstr.trim()}]`)
+      if (prevtextstr.trim() !== '') parent.append(prevtextstr)
+    }
+
     const maybestr = trytostr(value)
     parent.setAttribute(name, maybestr)
-    if (prevtext.length > 0) {
-      const text = prevtext.pop()
-      console.log('>', name, `[${text.trim()}]`)
-      if (text.trim() !== '') parent.append(text)
-    }
   } catch (e) {
     if (e instanceof DOMException && e.name === 'InvalidCharacterError') { 
-      if (prevtext.length > 0) parent.append(prevtext.pop())
+      if (prevtextstr.length > 0) parent.append(prevtextstr)
       // name is bad
       const attrel = parent.ownerDocument.createElement(anonName)
       attrel.setAttribute('_name', name)
@@ -124,7 +140,7 @@ const setAttribute = (parent, name, value, prevtext) => {
       parent.append(dumbconvert(value, attrel))
     }
     else if (e instanceof Error && e.message === 'catch me if you can') {
-      if (prevtext.length > 0) parent.append(prevtext.pop())
+      if (prevtextstr.length > 0) parent.append(prevtextstr)
       // name is ok, but value is bad
       const attrel = parent.ownerDocument.createElement(name)
       attrel.setAttribute('_isattr', 'true')
@@ -136,3 +152,15 @@ const setAttribute = (parent, name, value, prevtext) => {
     }
   }
 }
+
+export const decodeHtmlEntity = (() => {
+  var tarea = document.createElement("textarea");
+  // todo: perhaps error if entity doesn't conform to the regexp:
+  // /[#A-Za-z0-9]+/
+  // or:
+  // /#x[a-fA-F0-9]+|#[0-9]+|[a-zA-Z0-9]+/
+  return (entity) => {
+    tarea.innerHTML = '&' + entity + ';';
+    return tarea.value;
+  }
+})()

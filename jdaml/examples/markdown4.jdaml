@@ -1,0 +1,48 @@
+.:format[znatchke]
+
+# Heading
+
+## Sub-heading
+
+Paragraphs are separated 
+by a blank line.
+
+A backslash in square brackets[\]
+produces a line break.
+
+Text attributes [*italic], [**bold], ['monospace].
+
+Horizontal rule:
+
+***
+
+Bullet lists nested within numbered list:
+
+[. fruits
+  [1. apple]
+  [2. banana]
+]
+[. vegetables 
+  [. carrot]
+  [. broccoli]
+]
+
+A [/link].href[http://example.com].
+
+[!Image].src[Icon-pictures.png].title[icon]
+
+[> 
+Znatchke uses > for blockquoting.
+
+Paragraphs within blockquotes work the same as at top level.
+]
+
+[>
+  Indentation in blockquotes is ok.
+
+  But it is not treated specially and considered part of the text.
+
+  Which is pretty much harmless. HTML will ignore it.
+]
+
+All \abbr[HTML].title[Hypertext Markup Language] tags are supported.

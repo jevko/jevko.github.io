@@ -1,0 +1,113 @@
+.:format[znadoc]
+
+\;[
+  todo: explain what this is
+]
+
+\canvas[].id[display]
+
+\-[
+  const document = subs => \[::[=subs]].class[document]
+]
+
+\@-[
+  const flexi = () => \@[.class[flexi]]\@tag[div]
+]
+
+\document[
+  \@flexi[][::
+    [/[!avatar].src[gfx/avatar.png].class[avatar]]
+      .title[Click here to play the Game of Life]
+      .href[https://djedr.github.io/gol.html]
+      .class[rightmargin]
+    
+    [/[# Darius J Chuck]]
+      .title[Click here to go to the home page]
+      .href[https://djedr.github.io/index.html]
+  ]
+
+  Hello, I'm Darius. Welcome to my website. Here you can 
+  learn things relevant for doing business with me, hiring me, 
+  or connecting professionally.
+
+  \@flexi[][::
+    [/[!jevko logo].src[gfx/jevko.png].class[avatar]]
+      .href[https://jevko.org/]
+      .class[rightmargin]
+    
+    I created [/Jevko].href[https://jevko.org/], 
+    a minimal general-purpose syntax.
+  ]
+
+  \@flexi[][::
+    [/[!tao logo].src[gfx/tao-logo.png].class[avatar]]
+      .href[https://xtao.org]
+      .class[rightmargin]
+
+    Jevko is part of [/TAO].href[https://xtao.org], 
+    my project to cultivate simplicity in software.
+  ]
+
+  You may be interested in my:
+
+  [. [/resume]   .href[https://djedr.github.io/resume.html]]
+  [. [/projects] .href[https://djedr.github.io/projects.html]]
+  [. [/writing]  .href[https://xtao.org/blog.html]]
+
+  Or my social media profiles:
+
+  \;[note: we don't have to use the /syntax sugar for links (or anything really)]
+  [. \a[LinkedIn]    .href[https://www.linkedin.com/in/dariusz-jędrzejczak-b65134103]]
+  [. \a[GitHub]      .href[https://github.com/djedr]]
+  [. \a[Codeberg]    .href[https://codeberg.org/djedr]]
+  [. \a[Mastodon]    .href[https://mastodon.social/@djedr].rel[me]]
+  [. \a[Hacker News] .href[https://news.ycombinator.com/user?id=djedr]]
+  [. \a[Reddit]      .href[https://www.reddit.com/user/djedr/]]
+
+  Thank you for visiting.
+]
+
+\script[].src[scripts/gol.js]
+
+\style[`'
+  html {
+    background-color: #111;
+    color: #eee;
+  }
+  a {
+    text-decoration: none;
+    color: yellow;
+  }
+  .document {
+    position: relative;
+    display: block;
+    max-width: 44em;
+    padding: 0 1em;
+    margin: auto;
+    margin-top: 1em;
+    position: relative;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 17pt;
+  }
+  .avatar {
+    width: 64px;
+  }
+  .flexi {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+  .rightmargin {
+    margin-right: 1em;
+  }
+  canvas {
+    opacity: 0.05;
+    /*z-index: -1;*/
+    transform-origin: top left;
+    transform: scale(8, 8);
+    position: fixed;
+    top: 0;
+    pointer-events: none;
+    image-rendering: pixelated;
+  }
+'`]

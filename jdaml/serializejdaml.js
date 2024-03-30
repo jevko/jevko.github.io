@@ -19,10 +19,10 @@ export const serializeJdaml = (subs) => {
   return ret + smartEscape(prevtext.join(''))
 }
 
-// escapes JDAML tags -- if a tag has " \r\n\t'." we use /[<tag>]/
+// escapes JDAML tags -- if a tag has " \r\n\t\\." we use /[<tag>]/
 // todo: elaborate; perhaps disallow/escape other chars as well
 const escapetag = (tag) => {
   const tag1 = tag.slice(1)
-  if (tag1.matchAll(/[\r\n\t '.]/g).next().done) return escape(tag)
+  if (tag1.matchAll(/[\r\n\t \\.]/g).next().done) return escape(tag)
   return tag[0] + '/[' + smartEscape(tag1) + ']/'
 }

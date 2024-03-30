@@ -1,3 +1,4 @@
+import { elementDelimiter } from "./jdaml.js"
 import { serializeJdaml } from "./serializejdaml.js"
 
 export const jsonstrToJdaml = (jsonstr) => {
@@ -8,14 +9,14 @@ export const jsonstrToJdaml = (jsonstr) => {
 }
 
 const jsonToJdamlAst = (json) => {
-  if (json === null) return [{tag: "'nil", subs: []}]
-  if (json === true) return [{tag: "'true", subs: []}]
-  if (json === false) return [{tag: "'false", subs: []}]
+  if (json === null) return [{tag: elementDelimiter + "nil", subs: []}]
+  if (json === true) return [{tag: elementDelimiter + "true", subs: []}]
+  if (json === false) return [{tag: elementDelimiter + "false", subs: []}]
   if (typeof json === 'string') return [json]
-  if (typeof json === 'number') return [{tag: "'num", subs: [json.toString()]}]
+  if (typeof json === 'number') return [{tag: elementDelimiter + "num", subs: [json.toString()]}]
   if (Array.isArray(json)) {
-    if (json.length === 0) return [{tag: "'seq", subs: []}]
-    if (json.length === 1) return [{tag: "'seq", subs: jsonToJdamlAst(json[0])}]
+    if (json.length === 0) return [{tag: elementDelimiter + "seq", subs: []}]
+    if (json.length === 1) return [{tag: elementDelimiter + "seq", subs: jsonToJdamlAst(json[0])}]
     return json.map(v => ({tag: ``, subs: jsonToJdamlAst(v)}))
   }
   if (typeof json !== 'object') throw Error('oops: very wrong')
@@ -29,7 +30,7 @@ const indentAst0 = (ast, indent = '') => {
     const node = ast[0]
     if (typeof node === 'string') return ast
     const {tag, subs} = node
-    if (tag.startsWith("'")) return ast
+    if (tag.startsWith(elementDelimiter)) return ast
   }
 
   const nsubs = []
@@ -55,7 +56,7 @@ const indentAst = (ast, indent = '', previndent = '') => {
     const node = ast[0]
     if (typeof node === 'string') return ast
     const {tag, subs} = node
-    if (tag.startsWith("'")) return ast
+    if (tag.startsWith(elementDelimiter)) return ast
   }
 
   const nsubs = ['\n']

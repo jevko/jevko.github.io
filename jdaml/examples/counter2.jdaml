@@ -1,0 +1,21 @@
+.:format[znadoc]
+
+\style[
+  html {
+    color: #ccc;
+  }
+]
+
+\div[.id[app]]
+
+\script[
+  document.getElementById('app').append(
+    \div[.id[main].cnt[=0]
+      \h3[Number of clicks: \span[.id[view][0]]]
+      \button[Click me]
+        .onclick[=() => {
+          view.textContent = ++main.cnt
+        }]
+    ]
+  )
+]

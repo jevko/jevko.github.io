@@ -9,6 +9,28 @@
         background-color: #222;
         color: #ccc;
       }
+      a {
+        color: #cc0;
+      }
+      select {
+        color: #ccc;
+        background-color: #1f1f1f;
+        font-size: large;
+      }
+      button {
+        color: #1f1f1f;
+        background-color: #63d322;
+        font-size: large;
+        border: none;
+        border-radius: 0.15rem;
+      }
+      button:hover {
+        filter: brightness(0.9);
+        cursor: pointer;
+      }
+      button:active {
+        filter: brightness(1.1);
+      }
     </style>
     <div style="display: flex; align-items: center;">
       <img alt="JDAML logo" src="logo.svg" width="160" style="margin-right: 1rem;" />
@@ -18,6 +40,7 @@
       <select id="fileselect"></select>
       <button id="magic">Convert :format</button>
       <button id="render">Convert and render output if HTML</button>
+      <button id="save">save to localstorage</button>
 
       <div style="flex-grow: 1;">&nbsp;</div>
 
@@ -34,8 +57,13 @@
       </select></label>
     </div>
     <div style="display: flex;">
-		<div id="container" style="width: 900px; height: 700px; border: 1px solid grey"></div>
-		<div id="output" style="width: 900px; height: 700px; border: 1px solid grey; background-color: #1f1f1f; color: #f44747; margin: 0;"></div>
+      <div id="container" style="width: 900px; height: 700px; border: 1px solid grey"></div>
+      <div id="config-editor-container" style="width: 900px; height: 700px; border: 1px solid grey; visibility: hidden; position: absolute;"></div>
+      <div id="output" style="width: 900px; height: 700px; border: 1px solid grey; background-color: #1f1f1f; color: #f44747; margin: 0;"></div>
+    </div>
+
+    <div style="margin-top: 1rem;">
+      <button id="config">Configure</button>
     </div>
 
 		<script src="./node_modules/monaco-editor/min/vs/loader.js"></script>
@@ -44,6 +72,7 @@
       import {jsonstrToJdaml} from './jsontojdaml.js'
       import {xmlstrToJdaml, htmlstrToJdaml} from './xmltojdaml.js'
       import {language, configuration, tokensProvider, theme} from './jdaml-monaco.js'
+      import {language2, conf2, languagereg} from './jdaml+javascript-monaco.js'
 
       // todo: remove/comment out
       // import {} from './xmltojdaml.test.js'
@@ -55,22 +84,34 @@
         monaco.languages.setLanguageConfiguration('jdaml', configuration)
 				monaco.languages.setMonarchTokensProvider('jdaml', tokensProvider);
 
+        // jdaml + js
+        monaco.languages.register(languagereg)
+        monaco.languages.setLanguageConfiguration('jsjdaml', conf2)
+				monaco.languages.setMonarchTokensProvider('jsjdaml', language2);
+
 				// Define a new theme that constains only rules that match this language
 				monaco.editor.defineTheme('jdamlTheme', theme);
 
         const files = [
+          'examples/counter2.jdaml',
+          'examples/counter.jdaml',
+          'examples/znadoc2.jdaml',
+          'examples/znadoc.jdaml',
+          'examples/znjs3.jdaml',
+          'examples/jsonhilo4.jdaml',
+          'examples/jsonhilo3.jdaml',
           'examples/website.jdaml',
+          'examples/website2.jdaml',
+          'examples/website3.jdaml',
           'examples/explainer.jdaml',
-          'examples/hodgepodge.jdaml',
           'examples/heaven.jdaml',
           'examples/johnsmith.jdaml',
           'examples/johnsmith2.jdaml',
           'examples/johnsmith3.jdaml',
           'examples/config.jdaml',
           'examples/html.jdaml',
-          'examples/markdownlike.jdaml',
-          'examples/markdown.jdaml',
-          'examples/markdown2.jdaml',
+          'examples/markdown3.jdaml',
+          'examples/markdown4.jdaml',
           'examples/readme.jdaml',
           'examples/doctest.jdaml',
           'examples/jevko.org/json.jdaml',
@@ -106,18 +147,36 @@
         fetchfiles().then(() => processHash())
 
 
-        let editor
-        // fetch('testfile').then((res) => {
-        //   return res.text()
-        // }).then((text) => {
-          // const lines = text.split('\n')
-          editor = monaco.editor.create(document.getElementById('container'), {
-            theme: 'jdamlTheme',
-            value: '',
-            language: 'jdaml',
-            "bracketPairColorization.enabled": true,
-          });
-        // })
+        let editor = monaco.editor.create(document.getElementById('container'), {
+          theme: 'jdamlTheme',
+          value: '',
+          language: 'jsjdaml',
+          "bracketPairColorization.enabled": true,
+          "wordWrap": "on",
+          tabSize: 2,
+        });
+
+        const configeditor = monaco.editor.create(document.getElementById('config-editor-container'), {
+          theme: 'jdamlTheme',
+          value: `.server[http://127.0.0.1:8008]`,
+          language: 'jsjdaml',
+          "bracketPairColorization.enabled": true,
+          "wordWrap": "on",
+          tabSize: 2,
+        });
+
+        let configvisible = false
+        document.getElementById('config').onclick = () => {
+          if (configvisible) {
+            document.getElementById('container').style.visibility = 'visible'
+            document.getElementById('config-editor-container').style.visibility = 'hidden'
+          }
+          else {
+            document.getElementById('container').style.visibility = 'hidden'
+            document.getElementById('config-editor-container').style.visibility = 'visible'
+          }
+          configvisible = !configvisible
+        }
 
         const fromselect = document.getElementById('from-format')
         fromselect.onchange = () => {
@@ -148,7 +207,7 @@
         let outed
 
         let htmltorender
-        const convert = () => {
+        const convert = async () => {
           const value = editor.getValue()
           if (outed !== undefined) {
             outed.dispose()
@@ -156,7 +215,7 @@
           }
           outputdiv.textContent = ''
           try {
-            const {format, data} = parseJdaml3(value)
+            const {format, data} = await parseJdaml3(value)
             let stringified
             let monacolang
             if (format === 'json') {
@@ -167,8 +226,53 @@
             else if (format === 'html') {
               monacolang = 'html'
               fromselect.value = 'html'
-              stringified = data.outerHTML
-              htmltorender = data
+
+              // syntax highgligting
+              const pres = data.querySelectorAll('pre.lang')
+              if (pres.length > 0) {
+                for (const pre of pres) {
+                  const lang = pre.className.replaceAll('lang', '').trim()
+                  const e = await simpleColorize(pre.textContent, lang)
+                  e.setAttribute('style', e.getAttribute('style') + ';' + pre.getAttribute('style'))
+                  // replace the &nbsp;s that monaco generates instead of spaces back with spaces
+                  // so that nice soft wraps can be added with CSS
+                  replaceNbspsMut(e)
+
+                  // generate line numbers
+                  // todo: make this optional
+                  const spans = e.querySelectorAll(':scope > span')
+                  const minwidth = (spans.length + '').length
+                  const nrstyle = `min-width: ${minwidth}ch; text-align: right; opacity: 0.5`
+                  const lines = []
+                  for (let i = 0; i < spans.length; ++i) {
+                    const line = document.createElement('span')
+                    line.style = `display: flex; gap: 1.5rem`
+                    const nr = document.createElement('span')
+                    nr.style = nrstyle
+                    nr.textContent = `${i + 1}` // line-numbering is 1-based
+                    const span = spans[i]
+                    line.append(nr, span)
+                    lines.push(line)
+                  }
+                  e.replaceChildren(...lines)
+                  pre.replaceWith(e)
+                }
+                let head = data.querySelector('head')
+                if (head === null) {
+                  throw Error('gotta figure it out')
+                }
+                // bit hacky, but monaco doesn't make this easy
+                const colors = document.head.querySelector('.monaco-colors').cloneNode(true)
+                colors.textContent = colors.textContent.split('\n')
+                  .filter(line => line.startsWith('.mtk')).join('\n')
+                head.append(colors)
+              }
+
+              const frame = document.createElement("iframe")
+              stringified = `<!DOCTYPE html>\n` + data.outerHTML
+              frame.setAttribute("srcdoc", stringified)
+
+              htmltorender = frame
             }
             else if (format === 'xml') {
               monacolang = 'xml'
@@ -187,6 +291,8 @@
               value: stringified,
               language: monacolang,
               "bracketPairColorization.enabled": true,
+              "wordWrap": "on",
+              tabSize: 2,
             });
             // outed.setValue(stringified)
           } catch (e) {
@@ -194,20 +300,21 @@
             throw e
           }
         }
-        document.getElementById('magic').onclick = convert
+        document.getElementById('magic').onclick = () => { convert() }
         document.getElementById('render').onclick = () => {
-          convert()
-          if (htmltorender !== undefined) {
-            outputdiv.textContent = ''
-            try {
-              htmltorender.style = `color: #cccccc; height: 700px; overflow: auto; display: block;`
-              outputdiv.append(htmltorender)
-              htmltorender = undefined
-            } catch (e) {
-              outputdiv.textContent = `ERROR: ${e.message}`
-              throw e
+          convert().then(() => {
+            if (htmltorender !== undefined) {
+              outputdiv.textContent = ''
+              try {
+                htmltorender.style = `color: #cccccc; height: 700px; width: 100%; overflow: auto; display: block;`
+                outputdiv.append(htmltorender)
+                htmltorender = undefined
+              } catch (e) {
+                outputdiv.textContent = `ERROR: ${e.message}`
+                throw e
+              }
             }
-          }
+          })
         }
 
         const processHash = () => {
@@ -241,6 +348,66 @@
             }
           }
         }
+
+        document.getElementById('save').onclick = () => {
+          localStorage.setItem(Date.now(), editor.getValue())
+        }
+
+        const simpleColorize = async (text, lang) => {
+          return monaco.editor.colorize(text, lang).then(c => {
+            return bracketcolorize(c, lang)
+          })
+        }
+
+        const bracketcolorize = (htmlstr, lang, cls = '.mtk13') => {
+          const el = document.createElement('pre')
+          el.className = lang
+          // el.style.display = 'inline-block';
+          el.style.backgroundColor = '#1f1f1f';
+          el.style.color = '#cccccc';
+          // el.style.padding = '1rem';
+          // el.style.margin = '0.5rem';
+          el.style.overflow = 'auto';
+          el.innerHTML = htmlstr
+          const interesting = el.querySelectorAll(cls)
+          let depth = 0
+          const colorcount = 3
+          const colors = ['#ffd700', '#da70d6', '#179fff']
+          for (const it of interesting) {
+            const txt = it.textContent
+            let ret = ''
+            for (const c of txt) {
+              if (c === '[' || c === '(' || c === '{') {
+                // ret += `<span class="bracket-highlighting-${depth % 3}">${c}</span>`
+                ret += `<span style="color: ${colors[depth % 3]}" class="bracket-highlighting-${depth % 3}">${c}</span>`
+                depth += 1
+              }
+              else if (c === ']' || c === ')' || c === '}') {
+                depth -= 1
+                // ret += `<span class="bracket-highlighting-${depth % 3}">${c}</span>`
+                ret += `<span style="color: ${colors[depth % 3]}" class="bracket-highlighting-${depth % 3}">${c}</span>`
+              }
+              else {
+                ret += c
+              }
+            }
+            it.innerHTML = ret
+          }
+          return el
+        }
+        
+        const replaceNbspsMut = (e) => {
+          for (const c of e.childNodes) {
+            if (c.nodeType === Node.TEXT_NODE) {
+              c.textContent = c.textContent.replaceAll('\u00A0', ' ')
+            }
+            else {
+              replaceNbspsMut(c)
+            }
+          }
+        }
+
+
 			});
 		</script>
 	</body>

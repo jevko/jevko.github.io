@@ -3,7 +3,7 @@
 todo: explain
 
 
-'doctest[
+\doctest[
   we expect this JavaScript code:
 
   .code[`'[1, 2, 3].join('+')'`]
@@ -12,7 +12,7 @@ todo: explain
 
   .expect[1+2+3]
 ]
-'doctest[
+\doctest[
   we expect this output:
   
   .expect[1+2+4]
@@ -21,13 +21,13 @@ todo: explain
 
   .code[`'[1, 2, 4].join('+')'`]
 
-  ';[`'
+  \;[`'
     notice that it doesn't matter whether 
     we put .expect[] or .code[] first
     within a 'doctest[] element
   '`]
 ]
-'doctest[
+\doctest[
   we expect this JavaScript code:
 
   .code[`'[1, 2, 4].join('[]')'`]
@@ -39,7 +39,7 @@ todo: explain
 
 and here's a failing test:
 
-'doctest[
+\doctest[
   now we're gonna expect the wrong thing:
 
   .expect[wrong thing]

@@ -1,11 +1,18 @@
 import { applyAttrs, extractData, extractDataCreative, extractDataCreative2, parseNodes, seedFromString } from "./jdaml.js"
 import { resolveentities } from "./jdamlentities.js"
-import { resolveZnatchke } from "./jdamlznatchke.js"
-import { dumbconvert } from "./jdamltodom.js"
+import { resolveZnatchke, znatchkesecondpass } from "./jdamlznatchke.js"
+import { decodeHtmlEntity, dumbconvert } from "./jdamltodom.js"
 import { dumbconvert as xmldumbconvert } from "./jdamltoxmldom.js"
+import { jdamltojs } from "./jdamltojs.js"
+import { compiledecorators } from "./jdamldecorators.js"
+import { transferattrs } from "./jdamlattrs.js"
+import { transformequals } from "./transformequals.js"
 
 // todo: conversion in the opposite direction
-export const parseJdaml3 = (str) => {
+export const parseJdaml3 = async (str) => {
+  // todo: either spec that we don't support all HTML entities in fancy tag names
+  // or parseNodes differently for HTML/XML/Znatchke, i.e.
+  // with something like (subs) => resolveentities(subs, decodeHtmlEntity)
   const nodes = parseNodes(seedFromString(str), resolveentities)
 
   const {attrs, subs} = extractTopAttrs(nodes)
@@ -27,18 +34,45 @@ export const parseJdaml3 = (str) => {
     return {format: 'json', data: extractDataCreative2(applyAttrs(resolveentities(subs)))}
   }
   else if (format === 'html') {
-    return {format, data: dumbconvert(resolveentities(subs))}
+    return {format, data: dumbconvert(resolveentities(subs, decodeHtmlEntity))}
   }
   else if (format === 'xml') {
     // todo: dedicated xml converter
-    return {format, data: xmldumbconvert(resolveentities(subs))}
+    return {format, data: xmldumbconvert(resolveentities(subs, decodeHtmlEntity))}
   }
   else if (format === 'znatchke') {
-    // note: we need to resolve entities after znatchke, because znatchke may generate entities with its [&syntax]
-    // todo: perhaps also resolve znatchke in /[fancy]/ tag names?
-    //       would need something like:
-    //       const nodes = parseNodes(seedFromString(str), s => resolveentities(resolveznatchke(s)))
-    return {format: 'html', data: dumbconvert(resolveentities(resolveZnatchke(subs)))}
+    // note: hacky
+    const secondpassdata = []
+    const prepped = transferattrs(resolveentities(subs, decodeHtmlEntity))
+    const resolved = resolveZnatchke(
+      prepped, 
+      secondpassdata,
+    )
+    if (secondpassdata.length > 0) await znatchkesecondpass(resolved, secondpassdata)
+    return {format: 'html', data: dumbconvert(resolved)}
+  }
+  else if (format === 'jshtml') {
+    // todo: transfer attrs
+    return {format: 'html', data: dumbconvert(eval?.(jdamltojs(
+      // entities are resolved before jdamltojs
+      resolveentities(subs, decodeHtmlEntity)
+    )))}
+  }
+  else if (format === 'znadoc') {
+    const secondpassdata = []
+    const prepped = transferattrs(transformequals(resolveentities(subs, decodeHtmlEntity)))
+    console.log(prepped)
+    const resolved = resolveZnatchke(
+      // entities are resolved before jdamltojs
+      eval?.(jdamltojs(
+        prepped
+      )), 
+      secondpassdata,
+    )
+    if (secondpassdata.length > 0) await znatchkesecondpass(resolved, secondpassdata)
+    // todo: also compiledecorators in jshtml
+    const data = dumbconvert(compiledecorators(resolved))
+    return {format: 'html', data}
   }
 
   console.log(format === 'znatchke', format, 'znatchke')

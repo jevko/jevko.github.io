@@ -1,6 +1,6 @@
 .:format[json]
 
-';[
+\;[
   Here is the YAML document from hell [0] encoded in #JDAML.
 
   JDAML to eliminates the risk of accidental interpretation. 

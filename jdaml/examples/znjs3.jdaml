@@ -1,0 +1,209 @@
+.:format[znadoc]
+
+\style[
+  html {
+    background-color: #1f1f1f;
+    color: #ccc;
+  }
+  a {
+    color: #cc0;
+  }
+]
+
+This document demonstrates combining JavaScript and Znatchke.
+
+These examples are mostly translated from the paper 
+[*A Core Calculus for Documents: Or, Lambda: The Ultimate Document] 
+by Will Crichton and Shriram Krishnamurthi, January 2024. 
+[<https://arxiv.org/abs/2310.04368>]
+
+I've chosen only the most substantial/interesting ones.
+
+[# 2 DOCUMENT LANGUAGES: THE BAD PARTS]
+
+Here we show how to implement the problematic examples from the paper, without the problems.
+
+[## 2.1 PHP and the Global Mutable Buffer]
+
+\-[
+  function mkelems(list) {
+    return list.map(x =>
+      \li[\=[x]]
+    )
+  }
+  function mklist(list) {
+    return \ul[.data-n[\=[list.length]] \=[mkelems(list)] ]
+  }
+]
+
+\=[mklist(['Hello', 'world'])]
+
+[## 2.2 React and the Unresponsive Component]
+
+Note: this example includes all ['h1] elements in this document along with the example ['h1]s, because why not?
+
+As opposed to all other examples here that run at document "build time", this one runs at document "run time" via the ['script] tag.
+
+Instead of JSX, we use JDAML to represent the elements.
+
+It's all a bit imperative, as there is no React or any other framework behind it -- just DOM manipulation. 
+
+Still, it works as expected and there is encapsulation of state inside the components.
+
+Reactivity is achieved simply by sending custom browser events between the elements.
+
+\div[.id[App]]
+
+\script[.type[module]
+  const App = (subs) => {
+    const state = {show: false}
+    const main = \hidden[]
+    const toc = \Toc[]
+    const h1i = \h1[Introduction]
+    let h1a
+    const but = \button[
+      Show Appendix
+      .onclick[\=[() => {
+        const detail = {show: !state.show}
+        self.forEach(e => {
+          e.dispatchEvent(new CustomEvent('update', {detail}))
+        })
+      }]]
+    ]
+    \;[Note: but.onclick is a DOM Property rather than an HTML Attribute
+             so we set it like this rather than as \button[.onclick[...]]
+    but.onclick = () => {
+      const detail = {show: !state.show}
+      self.forEach(e => {
+        e.dispatchEvent(new CustomEvent('update', {detail}))
+      })
+    }]
+
+    const self = [
+      main,
+      toc,
+      h1i,
+      but,
+    ]
+
+    // note: main represents self as the listener
+    main.addEventListener('update', e => {
+      const {show} = e.detail
+      state.show = show
+
+      if (show) {
+        h1a = \h1[Appendix]
+        h1i.after(h1a)
+        but.textContent = 'Hide Appendix'
+      }
+      else {
+        h1a.remove()
+        but.textContent = 'Show Appendix'
+      }
+    })
+
+    return self
+  }
+  const Toc = (subs) => {
+    const state = {hdrs: []}
+    const self = \ul[]
+
+    const update = () => {
+      state.hdrs = []
+      for (const h1 of document.querySelectorAll('h1')) {
+        state.hdrs.push(h1.textContent)
+      }
+      self.replaceChildren(...state.hdrs.map(text => \li[\=[text]]))
+    }
+
+    self.addEventListener('update', e => {
+      update()
+    })
+
+    \;[wait for everything to be first installed in the DOM, 
+       to capture \h1[Introduction]]
+    setTimeout(() => update(), 0)
+    return self
+  }
+  document.getElementById('App').replaceWith(...\App[])
+]
+
+[## 2.3 Scribble and the Improper Loop]
+
+\-[
+  const pairs = [['A', 'B'], ['C', 'D']]
+]
+
+\ul[
+  \=[
+    pairs.flatMap(p => [\li[\=[p[0]]], \li[\=[p[1]]]])
+  ]
+]
+
+[# 3 THE DOCUMENT CALCULUS]
+
+Last example from Table 1.:
+
+\-[const world = "World"]
+
+[,
+  [Hello [**\=[world]]]
+]
+
+[## 3.1 The String Calculus]
+
+[### 3.1.4 String Template Programs]
+
+\-[const l = [1, 2, 3]]
+
+Examples of addition include:
+
+[,
+  \=[l.map(n => 
+    \p[\=[n] + 1 = \=[n + 1]]
+  )]
+]
+
+[## 3.2 The Article Calculus]
+
+[### 3.2.1 Article Literals]
+
+Hello [/world]!
+
+\-links[
+  [/world.href[https://jevko.org]]
+]
+
+[### 3.2.2 Article Programs]
+
+\p[Hello \strong[world]]
+
+[### 3.2.3 Article Template Literals]
+
+[### 3.2.4 Article Template Programs]
+
+\-[
+  const items = ['Milk', 'Eggs', 'Cheese']
+]
+
+\article[\==[
+  Today I am going shopping for:
+
+  [,
+    \=[items.map(item => 
+      \p[\=[item]]
+    )]
+  ]
+]]
+
+The same thing without using shorthands:
+
+\article[
+  \p[Today I am going shopping for:]
+
+  \ul[
+    \=[items.map(item => 
+      \li[\p[\=[item]]] 
+    )]
+  ]
+]

@@ -1,6 +1,6 @@
 .:format[html]
 
-JDAML (Jevko DAta Markup Language) is a lot like XML, except a little less verbose 
+JDAML (Jevko Data And Markup Language) is a lot like XML, except a little less verbose 
 and a little more flexible.
 
 Like XML, JDAML is pretty great for text markup, 
@@ -10,8 +10,8 @@ Like in XML/HTML we have text nodes,
 like the one you are reading now.
 
 In between these text nodes we can mix element nodes,
-like this one: 'tag[
-  an element node is delimited by an apostrophe '
+like this one: \tag[
+  an element node is delimited by a backslash: \
   immediately followed by a tag name
   immediately followed by an opening square bracket
 
@@ -19,7 +19,7 @@ like this one: 'tag[
   is part of the node's contents.
 
   we can have anything in here -- text nodes like the one so far
-  or 'nested-elements[like this one]
+  or \nested-elements[like this one]
 
   and yes, attributes
   attributes in JDAML are more flexible than in XML
@@ -33,14 +33,14 @@ like this one: 'tag[
   for example: .this-is-an-attribute[it can contain text, like in XML]
 
   an attribute is delimited with a dot .
-  instead of an apostrophe -- that's what distinguishes it 
+  instead of a backslash -- that's what distinguishes it 
   from an element
 
   now, besides text, an attribute can contain 
   nested elements and attributes,
   for example .this-attribute[
-    contains some text as well as 'a-child-element[
-      which has some 'children[] .of[it's own]
+    contains some text as well as \a-child-element[
+      which has some \children[] .of[it's own]
     ] and a .nested-attribute[...]
   ]
 
@@ -51,29 +51,29 @@ like this one: 'tag[
   (note: could also be made an error)
   and the following node is an element with an empty tag
 
-  such an element can also be written with an apostrophe
-  for example: '[this is an element with an empty name]
+  such an element can also be written with a backslash
+  for example: \[this is an element with an empty name]
 
   this sort of an element can be called anonymous
   and it can be imagined sort of like <>this</>, if that was legal XML
 
-  usually we'd write an anonymous element without the apostrophe in front
+  usually we'd write an anonymous element without the backslash in front
 
-  however the form with the apostrophe is useful, if we want to
-  have something like this: .accidental-valid-attribute-name'[]
-  or: 'accidental-tag'[]
+  however the form with the backslash is useful, if we want to
+  have something like this: .accidental-valid-attribute-name\[]
+  or: \accidental-tag\[]
 
-  in other words, we can use the apostrophe to separate an anonymous element
+  in other words, we can use the backslash to separate an anonymous element
   from an adjacent text node that happens to look like a tag or attribute name
 
-  if we want to have an apostrophe immediately before an anonymous element,
-  we'd write: ''[...]
+  if we want to have backslash immediately before an anonymous element,
+  we'd write: \\[...]
 
-  to have an apostrophe before a named element,
-  we'd write: ''named-element[]
+  to have a backslash before a named element,
+  we'd write: \\named-element[]
 
-  an apostrophe before an attribute: '.attibute[]
-  a dot before a .'named-element[]
+  a backslash before an attribute: \.attibute[]
+  a dot before a .\named-element[]
   a dot before ..another-attribute[]
 ]
 
@@ -87,7 +87,7 @@ naturally be interpreted as strings
 by the way, [you can escape brackets in text nodes like this: `[`]]
 you can also escape the escaper character by repeating it: ``
 
-'h1[better CDATA]
+\h1[better CDATA]
 
 [```'you can also put fenced text inside a node 
      to not worry about escaping
@@ -97,13 +97,13 @@ you can also escape the escaper character by repeating it: ``
      instead of newlines
 '```]
 
-'CAVEAT[`'
+\CAVEAT[`'
   a fence must be made of an ODD number of ` characters
   (1, 3, 5, 7, ...)
   otherwise it would interfere with the `[ `] `` escape mechanism
 '`]
 
-'NOTE[`````'
+\NOTE[`````'
   ALL characters in between fences are part of the text,
   including the initial and final newlines (if any)
 '`````]
@@ -123,7 +123,7 @@ you can also escape the escaper character by repeating it: ``
          without ], /tag/ counts as just a part of the text
 /tag/]
 
-'NOTE[```'
+\NOTE[```'
   also there must be a ] after a fence
   without ], '``` is just a part of the text
 '```]
@@ -132,7 +132,7 @@ you can also escape the escaper character by repeating it: ``
   <![CDATA[<sender>John Smith</sender>]]>
 '`]
 
-'h1[data interchange]
+\h1[data interchange]
 
 notice that you can put attributes also on the top-level
 
@@ -147,32 +147,32 @@ for data interchange or configuration it may be quite natural
 to treat stray text nodes like the current one as comments,
 similarly to how Python uses stray strings for documentation
 
-';[
+\;[
   however you can also comment using this syntax 
   which allows to ignore/comment out entire subtrees
   simply by prefixing an identifier with ;
   [here you can nest things as you please]
 ]
-';[```'
+\;[```'
   you can even combine fenced or tagged text with comments
   to paste anything in there without worrying about escaping
   or balancing
 '```]
 
-'h1[sequences of zero or one elements]
+\h1[sequences of zero or one elements]
 
-'seq[]
-'seq[str]
-'seq['nil[]]
+\seq[]
+\seq[str]
+\seq[\nil[]]
 
-'h1[sequences of two or more elements]
+\h1[sequences of two or more elements]
 
 [
   [one]
   [two]
 ]
 
-'h1[arbitrary names for elements and attributes]
+\h1[arbitrary names for elements and attributes]
 
 normally attribute and tag names are restricted:
 a name is only recognized as such if it is not separated from its delimiters
@@ -182,17 +182,17 @@ by whitespace (\r\n\t or ' '), i.e. neither:
 
 nor
 
-  'something []
+  \something []
 
 are recognized as names; the valid forms are:
 
-  .something[] and 'something[]
+  .something[] and \something[]
 
 even if a name is not separated from its delimiters by whitespace, it still
 may only contain certain characters to be recognized as a valid name, e.g.
 
-';[
-  .jaźń[]  or 'żółć[]
+\;[
+  .jaźń[]  or \żółć[]
 ]
 
 are recognized as names, but not as valid ones
@@ -204,25 +204,25 @@ creating elements and attributes with arbitrary names
 
 it works as follows:
 
-'/[element with spaces in name]/[with some value]
+\/[element with spaces in name]/[with some value]
 
 ./[]/[attribute with an empty name]
 
-'/[']/[element with only an apostrophe as its name]
+\/[\]/[element with only a backslash as its name]
 
-./[ something]/[]    '/[something ]/[]
+./[ something]/[]    \/[something ]/[]
 
-./[jaźń]/[]    '/[żółć]/[]
+./[jaźń]/[]    \/[żółć]/[]
 
 we can also leverage `[ `] `` escapes, [`'fenced text'`], or [`//tagged text//]
 
-'/[element with ``backticks`` and `[brackets`] in name]/[]
-'/[`'element with `backticks` and [brackets] in name'`]/[]
-'/[`/tag/element with `backticks` and [brackets] in name/tag/]/[]
+\/[element with ``backticks`` and `[brackets`] in name]/[]
+\/[`'element with `backticks` and [brackets] in name'`]/[]
+\/[`/tag/element with `backticks` and [brackets] in name/tag/]/[]
 
 TODO:
 
-'h1[no accidental interpretation]
-'h1[explicitly tagging values for interchange]
-'h1[configuration]
-'h1[other]
+\h1[no accidental interpretation]
+\h1[explicitly tagging values for interchange]
+\h1[configuration]
+\h1[other]

@@ -1,0 +1,29 @@
+.:format[znadoc]
+
+\style[
+  html {
+    color: #ccc;
+  }
+]
+
+\div[.id[app]]
+
+\script[
+  const App = () => {
+    const state = {cnt: 0}
+    const create = () => {
+      return \div[
+        \h3[Number of clicks: \span[=state.cnt]]
+        \button[Click me]
+          .onclick[=() => {
+            state.cnt += 1
+            self.el.querySelector('span').textContent = state.cnt
+          }]
+      ]
+    }
+    const self = {}
+
+    return self.el = create()
+  }
+  document.getElementById('app').append(\App[])
+]
